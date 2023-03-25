@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="description" content="">
+      <meta name="author" content="Mosaddek">
+      <meta name="keyword" content="FlatLab, Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+      <link rel="shortcut icon" href="img/favicon.html">
+
+      <title><?=$page_title; ?> | INDOFILA SYNTHETICS</title>
+
+      <!-- Bootstrap core CSS -->
+      <?php
+      foreach ($css as $path) {
+      ?>
+      <link href="<?=base_url().'themes/default/'.$path; ?>" rel="stylesheet">
+      <?php
+      }
+      ?>
+    
+    
+   </head>
+
+   <body>
+
+      <section id="container" class="">
+         <!--header start-->
+         <?php $this->load->view('html/v_header.php'); ?>
+         <!--header end-->
+         <!--sidebar start-->
+         <?php $this->load->view('html/v_sidebar.php'); ?>
+         <!--sidebar end-->
+         <!--main content start-->
+         <section id="main-content">
+            <section class="wrapper">
+               <!-- page start-->
+               <div class="row">
+                  <div class="col-lg-12">
+                     <section class="panel">
+                        <header class="panel-heading">
+                           <h3><i class=" icon-truck"></i> Delivery</h3>
+                        </header>
+                     </section>
+                  </div>
+               </div>
+               <div class="row">
+                  <div class="col-lg-12">
+                  <?php
+                  if($this->session->flashdata('warning'))
+                  {
+                  ?>
+                  <section class="panel">
+                     <header class="panel-heading">
+                        <div class="alert alert-warning fade in">
+                           <button data-dismiss="alert" class="close close-sm" type="button">
+                              <i class="icon-remove"></i>
+                           </button>
+                           <strong>Warning!</strong> <?=$this->session->flashdata('warning'); ?>
+                        </div>
+                     </header>
+                  </section>
+                  <?php
+                  }                                            if($this->session->flashdata('error'))
+                  {
+                  ?>
+                  <section class="panel">
+                     <header class="panel-heading">
+                        <div class="alert alert-block alert-danger fade in">
+                           <button data-dismiss="alert" class="close close-sm" type="button">
+                           <i class="icon-remove"></i>
+                           </button>
+                           <strong>Oops sorry!</strong> <?=$this->session->flashdata('error'); ?>
+                        </div>
+                     </header>
+                  </section>
+                  <?php
+                  }
+                  if($this->session->flashdata('success'))
+                  {
+                  ?>
+                  <section class="panel">
+                     <header class="panel-heading">
+                        <div class="alert alert-success alert-block fade in">
+                           <button data-dismiss="alert" class="close close-sm" type="button">
+                              <i class="icon-remove"></i>
+                           </button>
+                           <h4>
+                           <i class="icon-ok-sign"></i>
+                           Success!
+                           </h4>
+                           <p><?=$this->session->flashdata('success'); ?></p>
+                        </div>
+                     </header>
+                  </section>
+                  <?php
+                  }
+                  ?>
+                  </div>
+               </div>
+               <form class="cmxform form-horizontal tasi-form" role="form" id="commentForm" method="post" action="<?=base_url();?>production/delivery_3_save">
+                  <div class="row">
+                     <div class="col-lg-12">
+                        <section class="panel">                                               <header class="panel-heading">
+                              Delivery
+                              <span class="label label-danger" style="font-size:14px;"><?=$next_delivery; ?></span>
+                           </header>
+                           <div class="panel-body">
+                              <div class="form-group col-lg-3">
+                                 <label for="delivery_date">Date</label>
+                                 <input class="form-control dateplugin" id="delivery_date" value="<?=date('d-m-Y');?>" name="delivery_date" type="text" required>
+                              </div>
+                              <div class="form-group col-lg-3">
+                                 <label for="pre_delivery">Pre Delivery Ref</label>
+                                 <select class="form-control select2" id="pre_delivery" name="pre_delivery">
+                                    <option value="">Select Party Name</option>
+                                    <?php
+                                    foreach ($pre_deliveries as $p_delivery) {
+                                       ?>
+                                       <option value="<?=$p_delivery['p_delivery_id'];?>" <?=($p_delivery['p_delivery_id'] == $this->uri->segment(3))?'selected="selected"':''; ?>><?=$p_delivery['p_delivery_id'];?></option>
+                                       <?php
+                                    }
+                                    ?>
+                                 </select>
+                              </div>                                                </div>
+                        </section>
+                     </div>                                 <?php
+                     if(isset($p_delivery_id))
+                     {
+                        foreach ($delivery_details as $row) {
+                          $p_delivery_boxes = explode(",", $row['p_delivery_boxes']);
+                          $p_delivery_cust = $row['p_delivery_cust'];
+                          $concern_name = $row['concern_name'];
+                          $delivery_date = $row['p_delivery_date'];
+                        }
+                        $ed = explode("-", $delivery_date);
+                        $delivery_date = $ed[2].'-'.$ed[1].'-'.$ed[0];
+                        // $DcItems = $this->m_production->labelDcItems($p_delivery_boxes);
+                        $InvoiceItems = $this->m_production->labelInvoiceItems($p_delivery_boxes);
+                        /*echo "<pre>";
+                        print_r($InvoiceItems);
+                        echo "</pre>";*/
+                        $item_sizes_array = array();
+                        $item_id_array = array();
+                        $item_names_array = array();
+                        $item_boxes_array = array();
+                        $item_uom_array = array();
+                        $item_gr_wt_array = array();
+                        foreach ($InvoiceItems as $item) {
+                          $item_id = $item['item_id'];
+                          $item_size = $item['item_size'];
+                          $item_name = $item['item_name'];
+                          $box_no = $item['box_no'];
+                          $packing_uom = $item['packing_uom'];
+                          $packing_gr_weight = $item['packing_gr_weight'];
+                                            $total_qty=$this->m_production->getItemSizeTot($box_no,$item_size,$p_delivery_id);//partial delivery qty
+                          $item_sizes_array[$box_no][$item_size][] = $total_qty;
+                          $item_names_array[$box_no] = $item_name;
+                          $item_id_array[$box_no] = $item_id;
+                          $item_boxes_array[$box_no][] = $box_no;
+                          $item_gr_wt_array[$box_no] = $packing_gr_weight;
+                          $item_uom_array[$item_size] = $this->m_masters->getmasterIDvalue('bud_uoms', 'uom_id', $packing_uom, 'uom_name');
+                        }
+                     ?>
+                     <input type="hidden" name="delivery_customer" value="<?=$p_delivery_cust; ?>">
+                     <input type="hidden" name="concern_name" value="<?=$concern_name; ?>">
+                     <div class="col-lg-12">
+                        <section class="panel">
+                            <header class="panel-heading">
+                              <h4><?=$this->m_masters->getmasterIDvalue('bud_customers', 'cust_id', $p_delivery_cust, 'cust_name');?></h4>
+                              <h4>Date : <?=$delivery_date;?></h4>
+                                Delivery Items
+                            </header>
+                            <div class="panel-body">
+                               <table class="table table-striped border-top">
+                               <thead>
+                                  <tr>
+                                    <th>#</th>
+                                    <th>Item Code</th>
+                                    <th>Item</th>
+                                    <th style="text-align:right;">Box No</th>
+                                    <th>Size/Qty</th>
+                                    <th style="text-align:right;">Gr.Weight</th>
+                                    <th style="text-align:right;">Total Qty</th>
+                                  </tr>
+                               </thead>
+                               <tbody>
+                                  <?php
+                                  $sno = 1;
+                                  $total_items = 0;
+                                  $total_gr_wt = 0;
+                                  $total_net_qty = 0;
+                                  foreach ($item_sizes_array as $key => $sizes) {
+                                    $total_item_qty = 0;
+                                    $total_gr_wt += $item_gr_wt_array[$key];
+                                    // foreach ($sizes as $size_key => $value) {
+                                    ?>
+                                    <tr>
+                                    <td><?=$sno; ?></td>
+                                    <td><?=$item_id_array[$key]; ?></td>                                                                  <td><?=$item_names_array[$key]; ?></td>
+                                    <td style="text-align:right;"><?=$key; ?></td>
+                                    <td style="text-align:left;">
+                                      <?php
+                                      foreach ($sizes as $size_key => $value) {
+                                        $total_item_qty += array_sum($value);
+                                        echo $size_key.'='.array_sum($value).',';
+                                      }
+                                      $total_net_qty += $total_item_qty;
+                                      ?>
+                                    </td>
+                                    <td style="text-align:right;"><?=$item_gr_wt_array[$key]; ?></td>
+                                    <td style="text-align:right;">
+                                      <?=$total_item_qty; ?>
+                                      <input type="hidden" name="delivery_boxes[]" value="<?=$key; ?>">
+                                    </td>
+                                    </tr>
+                                    <?php
+                                    $sno++;
+                                    $total_items++;
+                                    // }
+                                  }
+                                  ?>
+                                                         </tbody>
+                            </table>
+                          </div>
+                        </section>
+                      </div>
+                     <div class="col-lg-12">
+                        <section class="panel">
+                            <header class="panel-heading">
+                                <button class="btn btn-danger" type="submit">Transfer to delivery</button>
+                                <button class="btn btn-default" type="button">Cancel</button>
+                            </header>
+                        </section>
+                     </div>
+                     <?php
+                    }
+                     ?>
+                  </div>
+               </form>
+
+               <div class="row">
+                  <div class="col-lg-12">
+                      <section class="panel">
+                          <header class="panel-heading">
+                              Pre Deliveries
+                          </header>
+                          <div class="panel-body">
+                              <table class="table table-striped border-top" id="sample_1">
+                              <thead>
+                                <tr>
+                                  <th>#</th>
+                                  <th>Date</th>
+                                  <th>Pre Delivery No</th>
+                                  <th>Customer</th>
+                                  <th>Qty</th>
+                                  <th></th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <?php
+                                $sno = 1;
+                                foreach ($pre_deliveries as $row) {
+                                  $total_net_qty = 0;
+                                  $p_delivery_boxes = explode(",", $row['p_delivery_boxes']);
+                                  $pre_dc_items = $this->m_production->labelInvoiceItems($p_delivery_boxes);
+                                  foreach ($pre_dc_items as $item) {
+                                    $total_qty = $item['total_qty'];
+                                    $total_net_qty += $total_qty;
+                                  }
+                                  ?>
+                                  <tr>
+                                    <td><?=$sno; ?></td>
+                                    <td><?=$row['p_delivery_date']; ?></td>
+                                    <td><?=$row['p_delivery_id']; ?></td>
+                                    <td>
+                                      <?=$this->m_masters->getmasterIDvalue('bud_customers', 'cust_id', $row['p_delivery_cust'], 'cust_name'); ?>
+                                    </td>
+                                    <td><?=$total_net_qty; ?></td>
+                                    <td>
+                                      <a href="<?=base_url(); ?>production/delivery_3/<?=$row['p_delivery_id']; ?>" class="btn btn-primary btn-xs">View</a>                                                                  </td>
+                                  </tr>
+                                  <?php
+                                  $sno++;
+                                }
+                                ?>
+                              </tbody>
+                              </table>
+                          </div>
+                      </section>
+                   </div>
+                </div>
+               <div class="pageloader"></div>                          <!-- page end-->
+            </section>
+         </section>
+         <!--main content end-->
+      </section>
+
+      <!-- js placed at the end of the document so the pages load faster -->
+      <?php
+      foreach ($js as $path) {
+      ?>
+      <script src="<?=base_url().'themes/default/'.$path; ?>"></script>
+      <?php
+      }
+      ?>    
+
+      <!--common script for all pages-->
+      <?php
+      foreach ($js_common as $path) {
+      ?>
+      <script src="<?=base_url().'themes/default/'.$path; ?>"></script>
+      <?php
+      }
+      ?>
+
+      <!--script for this page-->
+      <?php
+      foreach ($js_thispage as $path) {
+      ?>
+      <script src="<?=base_url().'themes/default/'.$path; ?>"></script>
+      <?php
+      }
+      ?>
+
+      <script>
+
+      //owl carousel
+      $(document).ready(function() {
+         $("#owl-demo").owlCarousel({
+         navigation : true,
+         slideSpeed : 300,
+         paginationSpeed : 400,
+         singleItem : true
+         });
+      });
+
+      //custom select box
+      $(function(){
+         $('select.styled').customSelect();
+      });
+
+      $(document).ajaxStart(function() {
+        $('.pageloader').show();
+      });
+      $(document).ajaxStop(function() {
+        $('.pageloader').hide();
+      });
+      $(function(){
+        $("#pre_delivery").change(function () {
+            var pre_delivery = $('#pre_delivery').val();
+            window.location = '<?=base_url()?>production/delivery_3/'+pre_delivery;
+        });
+      });
+      </script>
+   </body>
+</html>

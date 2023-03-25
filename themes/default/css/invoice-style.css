@@ -1,0 +1,100 @@
+#shop_cr_invoice>thead>tr>th, #shop_cr_invoice>tbody>tr>th, #shop_cr_invoice>tfoot>tr>th, #shop_cr_invoice>thead>tr>td, #shop_cr_invoice>tbody>tr>td, #shop_cr_invoice>tfoot>tr>td
+{
+    border: 0px !important;
+}
+#shop_cr_invoice th.invoice-no
+{
+    border-right: 0px;
+    border-bottom: 0px;
+}
+#shop_cr_invoice td
+{
+    font-weight: bold;
+}
+#shop_cr_invoice tr.invoice-address
+{
+    border: 1px solid #403d3d !important;
+}
+#shop_cr_invoice tr.invoice-address th
+{
+    border: 0px !important;
+}
+#shop_cr_invoice tr.invoice-address th:nth-child(1){
+    border-right: 1px solid #403d3d !important;
+}
+#shop_cr_invoice tr.invoice-title
+{
+    border: 1px solid #403d3d !important;
+}
+#shop_cr_invoice tr.invoice-title th
+{
+    border: 0px !important;
+}
+#shop_cr_invoice th.invoice-date
+{
+    border: 1px solid #403d3d !important;
+    border-left: 0px !important;
+    border-bottom: 0px !important;
+}
+#shop_cr_invoice th.invoice-type
+{
+    border: 0px;
+}
+#shop_cr_invoice tr.invoice-head
+{
+    border: 1px solid #403d3d !important;
+}
+#shop_cr_invoice tr.invoice-head th
+{
+    border: 1px solid #403d3d !important;
+    font-size: 14px;
+}
+#shop_cr_invoice tr.information td:nth-child(1){
+    border-left: 1px solid #403d3d !important;
+}
+#shop_cr_invoice tr.information:last-child td{
+    border-bottom: 0px !important;
+}
+#shop_cr_invoice tr.information td{ 
+    border-right: 1px solid #403d3d !important;
+    border-top: 0px !important;
+    border-bottom: 0px !important;
+    font-weight: bold;
+}
+#shop_cr_invoice tfoot tr.total{
+    border-top: 1px solid #403d3d;
+}
+#shop_cr_invoice tr.total .sub-total{
+    border-bottom: 1px solid #ffffff !important;
+}
+#shop_cr_invoice tr.total td{
+    border-bottom: 1px solid #403d3d !important;
+    border-left: 1px solid #403d3d !important;
+    border-right: 1px solid #403d3d !important;
+    border-top: 0px !important;
+}
+#shop_cr_invoice td.last-col{
+    border-left: 1px solid #403d3d !important;
+    border-right: 1px solid #403d3d !important;
+}
+#shop_cr_invoice tr.grand-total td{
+    border-top: 1px solid #403d3d !important;
+}
+#shop_cr_invoice tr.grand-total td:nth-child(1){
+    border-left: 1px solid #403d3d !important;
+}
+#shop_cr_invoice tr.invoice-foot td{
+    border: 1px solid #403d3d !important;
+}
+#shop_cr_invoice td.del-address{
+    border-left: 1px solid #403d3d !important;
+}
+#shop_cr_invoice tr.tax-row{
+    border-top: 1px solid #403d3d !important;
+}
+#shop_cr_invoice tr.other-row td:nth-child(1){
+    border-right: 1px solid #403d3d !important;
+}
+#shop_cr_invoice tr.tax-row td{
+    border-left: 1px solid #403d3d !important;
+}

@@ -1,0 +1,145 @@
+/*table {page-break-after:always}*/
+@page .packing-slip {
+   margin: 3cm;
+   size: A4 landscape;
+}
+
+body
+{
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 8pt;
+	height:297mm;
+    width:210mm;
+}
+thead {display: table-row-group !important;}
+.invoice-table td
+{
+	/*border: 1px solid #000 !important;*/
+}
+.dataTables_filter{display: none;}
+.screen-only
+{
+	display: none;
+}
+#sidebar, .header, .site-footer{
+    display: none ;
+}
+.header , .site-footer{
+    min-height: 0;
+}
+
+#main-content {
+    margin-left: 0;
+    width: 100%;
+    /*margin-top: -50px;*/
+}
+#main-content .wrapper {
+	margin-top: 0px;
+ 	padding: 5px; 
+}
+#main-content .panel-heading {
+	display: none;
+}
+.print-div
+{
+	float: left;
+	text-align: center;
+}
+.print-div.col-lg-3
+{
+	width: 25%;
+}
+.right-align
+{
+	float: right;
+}
+
+.packing-slip td
+{
+	border: 1px solid #000 !important;
+	padding: 2px !important;
+	font-weight: bold;
+}
+/*.packing-slip td.heading-3
+{
+	font-weight: bold;
+	font-size: 14px;
+}*/
+.packing-slip
+{
+	width: 80%;
+	page-break-before: always;
+    page-break-after: always;
+}
+.packing-slip tr { 
+	page-break-inside: avoid;
+}
+.panel-body
+{
+	padding: 5px;
+}
+
+/* Quotation Print */
+#sh_quotation
+{
+	font-family: Verdana, Geneva, sans-serif;
+	font-style: italic;
+}
+#sh_quotation table.invoice-table tr th
+{
+    font-size: 8px;
+    font-weight: normal;
+    padding: 2px;
+}
+#sh_quotation table.invoice-table tr td
+{
+    font-size: 8px;
+    padding: 2px;
+}
+/* Quotation Print end */
+
+/* Voucher */
+table.voucher-table thead > tr > th
+{
+    padding: 5px;
+}
+table.voucher-table tbody > tr > td
+{
+    padding: 5px;
+    font-size: 14px;
+}
+table.voucher-table .concern-name
+{
+    font-size: 18px;
+    text-transform: uppercase;
+}
+table.voucher-table .concern-address
+{
+    font-size: 10px;
+    text-transform: capitalize;
+    font-weight: normal;
+}
+table.voucher-table .voucher-name
+{
+    font-size: 18px;
+    text-transform: uppercase;
+    background: #000 !important;
+    color: #fff !important;
+    padding: 3px 20px;
+}
+table.voucher-table .voucher-amount
+{
+    font-size: 18px;
+    text-transform: uppercase;
+    border:1px solid #000;
+    color: #000;
+    padding: 3px 30px;
+}
+table.voucher-table .voucher-no
+{
+    font-size: 18px;
+    text-transform: uppercase;
+    color: #000;
+    font-weight: bold;
+}
+/* Voucher End */
