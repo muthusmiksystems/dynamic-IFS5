@@ -125,6 +125,11 @@ class Customer_purchase_order extends CI_Controller
 
     function po_from_customers_enquiry_save()
     {
+		$item_id=0;
+        if($this->input->post('item_id')>0)
+        {
+            $item_id= $this->input->post('item_id');
+        }
         if (!empty($_FILES['file']['name'])) {
             $this->load->library('upload');
             $this->load->library('image_lib');
