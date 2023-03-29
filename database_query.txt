@@ -1,0 +1,2 @@
+
+UPDATE `bud_privileges` SET `upriv_modules` = '1' WHERE `bud_privileges`.`upriv_id` = 18;

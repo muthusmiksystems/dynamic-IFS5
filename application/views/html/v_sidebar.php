@@ -898,7 +898,7 @@ if ($this->session->userdata('logged_as') == 'user') {
           </li>
         <?php
         }
-        $is_privileged = $this->m_users->is_privileged('production', 'upriv_controller', $logged_user_id);
+       /* $is_privileged = $this->m_users->is_privileged('production', 'upriv_controller', $logged_user_id);
         $is_manu_active = $this->m_users->is_manu_active('production', 'upriv_controller', $user_viewed);
         if (($is_admin && $is_manu_active) || $is_privileged) {
         ?>
@@ -1059,7 +1059,7 @@ if ($this->session->userdata('logged_as') == 'user') {
             </ul>
           </li>
         <?php
-        }
+        }*/
         $is_privileged = $this->m_users->is_privileged('production', 'upriv_controller', $logged_user_id);
         $is_manu_active = $this->m_users->is_manu_active('production', 'upriv_controller', $user_viewed);
         if (($is_admin && $is_manu_active) || $is_privileged) {
@@ -2049,7 +2049,8 @@ if ($this->session->userdata('logged_as') == 'user') {
         }
         // Start Shop Estimate
         $is_privileged = $this->m_users->is_privileged('shop', 'upriv_controller', $logged_user_id);
-        $is_manu_active = $this->m_users->is_manu_active('shop', 'upriv_controller', $user_viewed);
+        $is_manu_active = $this->m_users->is_manu_active('Branch 1', 'upriv_group', $user_viewed);
+      
         if (($is_admin && $is_manu_active) || $is_privileged) {
         ?>
           <li class="sub-menu <?= (isset($activeTab) && $activeTab == 'shop') ? 'active' : ''; ?>">
@@ -2328,7 +2329,7 @@ if ($this->session->userdata('logged_as') == 'user') {
         }
 
         $is_privileged = $this->m_users->is_privileged('shop', 'upriv_controller', $logged_user_id);
-        $is_manu_active = $this->m_users->is_manu_active('shop', 'upriv_controller', $user_viewed);
+        $is_manu_active = $this->m_users->is_manu_active('Branch Registers', 'upriv_group', $user_viewed);
         if (($is_admin && $is_manu_active) || $is_privileged) {
         ?>
           <li class="sub-menu <?= (isset($activeTab) && $activeTab == 'shop_registers') ? 'active' : ''; ?>">
