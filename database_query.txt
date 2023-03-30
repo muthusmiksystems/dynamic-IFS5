@@ -1,2 +1,9 @@
 
 UPDATE `bud_privileges` SET `upriv_modules` = '1' WHERE `bud_privileges`.`upriv_id` = 18;
+
+UPDATE `bud_privileges` SET `upriv_function` = 'pack_entry' WHERE `bud_privileges`.`upriv_id` = 237;
+
+
+UPDATE `bud_privileges` SET `upriv_function` = 'stocktrans' WHERE `bud_privileges`.`upriv_id` = 238;
+
+UPDATE `bud_privileges` SET `upriv_function` = 'estimate' WHERE `bud_privileges`.`upriv_id` = 708;

@@ -1754,11 +1754,12 @@ if ($this->session->userdata('logged_as') == 'user') {
         <?php
         }
         //end of dynamic dost3.0
-        $is_privileged = $this->m_users->is_privileged('stock', 'upriv_controller', $logged_user_id);
-        $is_manu_active = $this->m_users->is_manu_active('stock', 'upriv_controller', $user_viewed);
+        $is_privileged = $this->m_users->is_privileged('delivery', 'upriv_controller', $logged_user_id);
+        $is_manu_active = $this->m_users->is_manu_active('delivery', 'upriv_controller', $user_viewed);
+
         if (($is_admin && $is_manu_active) || $is_privileged) {
         ?>
-          <li class="sub-menu <?= (isset($activeTab) && $activeTab == 'stock') ? 'active' : ''; ?>">
+          <li class="sub-menu <?= (isset($activeTab) && $activeTab == 'delivery') ? 'active' : ''; ?>">
             <a href="javascript:;" class="">
               <i class=" icon-shopping-cart"></i>
               <span>All Y.Delivery</span>
@@ -2077,11 +2078,12 @@ if ($this->session->userdata('logged_as') == 'user') {
               <?php
               }
 
-              $is_privileged = $this->m_users->is_privileged('packing', 'upriv_function', $logged_user_id);
-              $is_manu_active = $this->m_users->is_manu_active('packing', 'upriv_function', $user_viewed);
+              $is_privileged = $this->m_users->is_privileged('pack_entry', 'upriv_function', $logged_user_id);
+              $is_manu_active = $this->m_users->is_manu_active('pack_entry', 'upriv_function', $user_viewed);
+             
               if (($is_admin && $is_manu_active) || $is_privileged) {
               ?>
-                <li class="<?= ($activeItem == 'packing') ? 'active' : ''; ?>"><a class="" href="<?= base_url() ?>shop/packing">Br.Packing Entry</a></li>
+                <li class="<?= ($activeItem == 'pack_entry') ? 'active' : ''; ?>"><a class="" href="<?= base_url() ?>shop/packing">Br.Packing Entry</a></li>
               <?php
               }
 
