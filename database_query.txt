@@ -7,3 +7,19 @@ UPDATE `bud_privileges` SET `upriv_function` = 'pack_entry' WHERE `bud_privilege
 UPDATE `bud_privileges` SET `upriv_function` = 'stocktrans' WHERE `bud_privileges`.`upriv_id` = 238;
 
 UPDATE `bud_privileges` SET `upriv_function` = 'estimate' WHERE `bud_privileges`.`upriv_id` = 708;
+
+
+alter table bud_items add denier_name varchar(255);
+alter table bud_items add item_description varchar(255);
+
+alter table bud_items add item_second_name varchar(255);
+
+alter table bud_items add item_third_name varchar(255);
+alter table bud_items add user varchar(255);
+alter table bud_items add date DATETIME;
+
+alter table bud_items add item_width FLOAT;
+
+alter table bud_items add item_gpm varchar(255);
+
+alter table bud_items add item_customers varchar(255);

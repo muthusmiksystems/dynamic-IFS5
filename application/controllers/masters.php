@@ -3117,7 +3117,7 @@ class Masters extends CI_Controller
 			}
 
 			$formData = array(
-				'item_category' => $item_category,
+				'item_category' => $item_category==""?0:$item_category,
 				'item_name' => $item_name,
 				'item_group' => $item_group,
 				// 'item_code' => $item_code, 
