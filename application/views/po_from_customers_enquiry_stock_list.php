@@ -193,6 +193,7 @@
                             </table>
                         </section>
                     </div>
+                    <p style="text-align:right;font-size:4px;margin-right:10px">application\views\po_from_customers_enquiry_stock_list.php</p>
                 </div>
                 <!-- page end-->
             </section>

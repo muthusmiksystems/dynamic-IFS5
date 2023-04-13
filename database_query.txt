@@ -52,3 +52,56 @@ alter table bud_yt_poyinw_items add module int null
 alter table bud_yt_poyinw_items add edate DATETIME;
 ALTER TABLE `bud_yt_poyinw_items` ADD inward_quality VARCHAR(255);
 alter table bud_yt_poyinw_items add euser varchar(255);
+
+
+//production plan form not working in customer po module it's returning database error
+
+ALTER TABLE `dost_customers_gpo` CHANGE `gpo_item_id` `gpo_item_id` INT(11) NOT NULL DEFAULT '0';
+ALTER TABLE `dost_customers_gpo` CHANGE `gpo_shade_id` `gpo_shade_id` INT(11) NOT NULL DEFAULT '0';
+
+//chandren lot no and poy lot validation error in gray yarn packing
+
+ALTER TABLE `bud_yt_packing_boxes` CHANGE `lot_no` `lot_no` BIGINT(20) NULL DEFAULT NULL;
+
+ALTER TABLE `bud_yt_packing_boxes` CHANGE `weight_per_cone` `weight_per_cone` VARCHAR(20) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+
+ALTER TABLE `bud_yt_packing_boxes` CHANGE `meter_per_cone` `meter_per_cone` VARCHAR(20) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+
+
+ALTER TABLE `bud_yt_packing_boxes` CHANGE `tare_weight` `tare_weight` VARCHAR(20) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+
+ALTER TABLE `bud_yt_packing_boxes` CHANGE `lot_wastage` `lot_wastage` DECIMAL(10,3) NULL DEFAULT NULL;
+
+ALTER TABLE `bud_yt_packing_boxes` CHANGE `net_weight_cones` `net_weight_cones` VARCHAR(20) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+
+ALTER TABLE `bud_yt_packing_boxes` CHANGE `packed_time` `packed_time` TIME NULL DEFAULT NULL;
+
+ALTER TABLE `bud_yt_packing_boxes` CHANGE `deleted_by` `deleted_by` BIGINT(20) NULL DEFAULT NULL;
+
+ALTER TABLE `bud_yt_packing_boxes` CHANGE `deleted_time` `deleted_time` DATETIME NULL DEFAULT NULL;
+
+
+ALTER TABLE `bud_yt_packing_boxes` CHANGE `inner_boxes` `inner_boxes` TEXT CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+
+
+ALTER TABLE `bud_yt_packing_boxes` CHANGE `lot_month` `lot_month` VARCHAR(6) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+
+ALTER TABLE `bud_yt_packing_boxes` CHANGE `prod_date` `prod_date` DATE NULL DEFAULT NULL;
+
+ALTER TABLE `bud_yt_packing_boxes` CHANGE `yarn_lot_id` `yarn_lot_id` BIGINT(11) NULL DEFAULT NULL;
+
+ALTER TABLE `bud_yt_packing_boxes` CHANGE `yarn_lot_id` `yarn_lot_id` VARCHAR(255) NULL DEFAULT NULL;
+
+
+//dyed yarn packing form throwing database error
+
+ALTER TABLE `bud_yt_packing_boxes` CHANGE `poy_denier` `poy_denier` BIGINT(20) NULL DEFAULT NULL;
+
+ALTER TABLE `bud_yt_packing_boxes` CHANGE `poy_lot_id` `poy_lot_id` INT(11) NULL DEFAULT NULL;
+
+ALTER TABLE `bud_yt_packing_boxes` CHANGE `poy_inward_no` `poy_inward_no` INT(11) NULL DEFAULT NULL;
+
+
+//chandren lot  no and poy lot no validation error in soft yarn packing
+ALTER TABLE `bud_yt_packing_boxes` CHANGE `no_bags` `no_bags` INT(11) NULL DEFAULT NULL;
+

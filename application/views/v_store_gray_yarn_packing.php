@@ -793,7 +793,17 @@
               ?>
 
               <script>
-                data.push(['<?= $sno; ?>', '<?= date('d-m-Y h:i:s', strtotime($row['packed_date'])); ?>', '<?= $row['box_prefix']; ?><?= $row['box_no']; ?>', '<?= $row['denier_tech']; ?>', '<?= ($yarn_lot_no != '') ? 'CL' . $yarn_lot_no : 'N/A';; ?>', '<?= $row['item_name']; ?> / <?= $row['item_id']; ?>', '<?= $row['shade_name']; ?> / <?= $row['shade_id']; ?> / <?= $row['shade_code']; ?> ', '<?= $row['poy_denier_name']; ?>', '<?= $row['poy_lot_name']; ?>', '<?= $row['gross_weight']; ?>', '<?= number_format($row['net_weight'], 3, '.', ''); ?>', '<?= $stock_room_name; ?>', '<?= $row['remarks']; ?>', '<?= $row['packed_by']; ?>', '<a href="<?= base_url('store/print_gray_yarn_pack/' . $row['box_id']); ?>" target="_blank" class="btn btn-xs btn-warning" title="Print"><i class="icon-print"></i></a><a href="<?= base_url(); ?>store/gray_yarn_packing/<?= $row['box_id']; ?>/edit" class="btn btn-xs btn-primary" title="Edit"><i class="icon-pencil"></i></a><a href="<?= base_url(); ?>store/gray_yarn_packing/<?= $row['box_id']; ?>" class="btn btn-xs btn-success" title="Duplicate"><i class="icon-copy"></i></a><a href="#<?= $row['box_id']; ?>" data-toggle="modal" class="btn btn-xs btn-danger" title="Delete"><i class="icon-trash"></i></a><div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="<?= $row['box_id']; ?>" class="modal fade"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button><h4 class="modal-title">Remarks</h4></div><div class="modal-body"><form role="form" method="post" action="<?= base_url(); ?>store/delete_packing_box/<?= $row['box_id']; ?>/gray_yarn_packing"><input type="hidden" name="box_id" value="<?= $row['box_id']; ?>"><input type="hidden" name="function_name" value="gray_yarn_packing"><div class="form-group col-lg-12" style="margin-bottom: 15px;"><textarea class="form-control" name="remarks" required style="width:100%;"></textarea></div><div style="clear:both;"></div><?= $delBtn; ?></form></div></div></div></div>']);
+                
+                data.push(['<?= $sno; ?>', 
+                '<?= date('d-m-Y h:i:s', strtotime($row['packed_date'])); ?>',
+                 '<?= $row['box_prefix']; ?><?= $row['box_no']; ?>',
+                  '<?= $row['denier_tech']; ?>', '<?= ($yarn_lot_no != '') ? 'CL' . $yarn_lot_no : 'N/A';; ?>',
+                   '<?= $row['item_name']; ?> / <?= $row['item_id']; ?>', 
+                   '<?= $row['shade_name']; ?> / <?= $row['shade_id']; ?> / <?= $row['shade_code']; ?> ', 
+                   '<?= $row['poy_denier_name']; ?>', '<?= $row['poy_lot_name']; ?>',
+                    '<?= $row['gross_weight']; ?>', '<?= number_format($row['net_weight'], 3, '.', ''); ?>',
+                     '<?= $stock_room_name; ?>', '<?= $row['remarks']; ?>', '<?= $row['packed_by']; ?>',
+                     '<a href="<?= base_url('store/print_gray_yarn_pack/' . $row['box_id']); ?>" target="_blank" class="btn btn-xs btn-warning" title="Print"><i class="icon-print"></i></a><a href="<?= base_url(); ?>store/gray_yarn_packing/<?= $row['box_id']; ?>/edit" class="btn btn-xs btn-primary" title="Edit"><i class="icon-pencil"></i></a><a href="<?= base_url(); ?>store/gray_yarn_packing/<?= $row['box_id']; ?>" class="btn btn-xs btn-success" title="Duplicate"><i class="icon-copy"></i></a><a href="#<?= $row['box_id']; ?>" data-toggle="modal" class="btn btn-xs btn-danger" title="Delete"><i class="icon-trash"></i></a><div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="<?= $row['box_id']; ?>" class="modal fade"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button><h4 class="modal-title">Remarks</h4></div><div class="modal-body"><form role="form" method="post" action="<?= base_url(); ?>store/delete_packing_box/<?= $row['box_id']; ?>/gray_yarn_packing"><input type="hidden" name="box_id" value="<?= $row['box_id']; ?>"><input type="hidden" name="function_name" value="gray_yarn_packing"><div class="form-group col-lg-12" style="margin-bottom: 15px;"><textarea class="form-control" name="remarks" required style="width:100%;"></textarea></div><div style="clear:both;"></div><?= $delBtn; ?></form></div></div></div></div>']);
               </script>
 
             <?php
@@ -1034,13 +1044,13 @@
             //$("#yarn_lot_id option[data-id='"+result.yarn_lot_id+"']").prop('selected', true);
             var poy_inward_no = $("#poy_inward_no").val();
             var poy_inward_no3 = $("#lbl_3_poy_inward_no").text();
-            if (poy_inward_no3 == poy_inward_no) {
+            //if (poy_inward_no3 == poy_inward_no) {
               $(".setmsgforunmatch").text('');
               $(".matchlimit").show();
-            } else {
-              $(".setmsgforunmatch").text('WARNING TO USER : THIS BOX CAN NOT BE SAVED BECAUSE POY INWARD NUMBER AND CHANDREN LOT NUMBER IS NOT MATCHING. MATCH IT AND SAVE AGAIN');
-              $(".matchlimit").hide();
-            }
+            //} else {
+             // $(".setmsgforunmatch").text('WARNING TO USER : THIS BOX CAN NOT BE SAVED BECAUSE POY INWARD NUMBER AND CHANDREN LOT NUMBER IS NOT MATCHING. MATCH IT AND SAVE AGAIN');
+             // $(".matchlimit").hide();
+            //}
           }
         });
         return false;
@@ -1081,13 +1091,13 @@
       if (res[4] != '') {
 
         var poy_inward_no = $("#poy_inward_no").val();
-        if (res[4] == poy_inward_no) {
+       // if (res[4] == poy_inward_no) {
           $(".setmsgforunmatch").text('');
           $(".matchlimit").show();
-        } else {
-          $(".setmsgforunmatch").text('WARNING TO USER : THIS BOX CAN NOT BE SAVED BECAUSE POY INWARD NUMBER AND CHANDREN LOT NUMBER IS NOT MATCHING. MATCH IT AND SAVE AGAIN');
-          $(".matchlimit").hide();
-        }
+        //} else {
+         // $(".setmsgforunmatch").text('WARNING TO USER : THIS BOX CAN NOT BE SAVED BECAUSE POY INWARD NUMBER AND CHANDREN LOT NUMBER IS NOT MATCHING. MATCH IT AND SAVE AGAIN');
+         // $(".matchlimit").hide();
+       // }
 
         $("#lbl_3_poy_inward_no").text(res[4]);
         var url = "<?= base_url() ?>store/get_poy_inward_qty/" + res[4];

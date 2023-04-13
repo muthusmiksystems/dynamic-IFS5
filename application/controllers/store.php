@@ -417,7 +417,7 @@ class Store extends CI_Controller
 		$poy_inward_prefix = $this->m_masters->getmasterIDvalue(' bud_yt_poy_inward', 'po_no', $poy_inward_no, 'poy_inward_prefix'); //tot pkd qty correction
 		$data = array(
 			'box_prefix' => 'S',
-			'item_id' => $this->input->post('item_id'),
+			'item_id' => $this->input->post('item_id')==''?0:$this->input->post('item_id'),
 			'poy_denier' => $this->input->post('poy_denier'),
 			'poy_inward_no' => $this->input->post('poy_inward_no'),
 			'poy_inward_prefix' => $poy_inward_prefix, //tot pkd qty correction
@@ -437,7 +437,7 @@ class Store extends CI_Controller
 			'no_cones' => $this->input->post('no_of_cones'),
 			'no_of_cones' => $this->input->post('no_of_cones'),
 			'other_weight' => $this->input->post('other_weight'),
-			'lot_wastage' => $this->input->post('lot_wastage'),
+			'lot_wastage' => $this->input->post('lot_wastage')==''?0:$this->input->post('lot_wastage'),
 			'stock_room_id' => $this->input->post('stock_room_id'),
 			'yarn_lot_id' => $this->input->post('yarn_lot_id')
 		);
@@ -606,7 +606,7 @@ class Store extends CI_Controller
 		);
 		$data['js_common'] = array('js/common-scripts.js');
 		$data['js_thispage'] = array('js/form-validation-script.js', 'js/form-component.js', 'js/dynamic-table.js');
-
+		
 		$this->load->view('v_store_gray_yarn_packing', $data);
 	}
 
@@ -620,8 +620,8 @@ class Store extends CI_Controller
 		$data = array(
 			'box_prefix' => 'G',
 			'remarks' => $this->input->post('remark'),
-			'item_id' => $this->input->post('item_id'),
-			'poy_denier' => $this->input->post('poy_denier'),
+			'item_id' => $this->input->post('item_id')==''?0:$this->input->post('item_id'),
+			'poy_denier' => $this->input->post('poy_denier')==''?0:$this->input->post('poy_denier'),
 			'poy_inward_prefix' => $poy_inward_prefix, //tot pkd qty correction
 			'poy_inward_no' => $this->input->post('poy_inward_no'),
 			'yarn_denier' => $this->input->post('yarn_denier'),
@@ -640,10 +640,10 @@ class Store extends CI_Controller
 			'spring_weight' => $this->input->post('spring_weight'),
 			'other_weight' => $this->input->post('other_weight'),
 			'stock_room_id' => $this->input->post('stock_room_id'),
-			'poy_lot_id' => $this->input->post('poy_lot_id'),
+			'poy_lot_id' => $this->input->post('poy_lot_id')==''?0:$this->input->post('poy_lot_id'),
 			'yarn_lot_id' => $this->input->post('yarn_lot_id')
 		);
-
+		
 		if ($this->input->post('cone_weight_2')) {
 			$data['cone_weight_2'] = $this->input->post('cone_weight_2');
 		}

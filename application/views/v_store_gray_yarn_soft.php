@@ -730,7 +730,7 @@
 
     <!--main content end-->
   </section>
-
+  <p style="text-align:right;font-size:4px;margin-right:10px">application\views\v_store_gray_yarn_soft.php</p>         
 
 
   <!-- js placed at the end of the document so the pages load faster -->
@@ -954,13 +954,13 @@
             //  $("#yarn_lot_id").select2("val", result.yarn_lot_id);
             var poy_inward_no = $("#poy_inward_no").val();
             var poy_inward_no3 = $("#lbl_3_poy_inward_no").text();
-            if (poy_inward_no3 == poy_inward_no) {
+            //if (poy_inward_no3 == poy_inward_no) {
               $(".setmsgforunmatch").text('');
               $(".matchlimit").show();
-            } else {
-              $(".setmsgforunmatch").text('WARNING TO USER : THIS BOX CAN NOT BE SAVED BECAUSE POY INWARD NUMBER AND CHANDREN LOT NUMBER IS NOT MATCHING. MATCH IT AND SAVE AGAIN');
-              $(".matchlimit").hide();
-            }
+            //} else {
+             // $(".setmsgforunmatch").text('WARNING TO USER : THIS BOX CAN NOT BE SAVED BECAUSE POY INWARD NUMBER AND CHANDREN LOT NUMBER IS NOT MATCHING. MATCH IT AND SAVE AGAIN');
+             // $(".matchlimit").hide();
+           // }
           }
         });
         return false;
@@ -1016,13 +1016,13 @@
       if (res[4] != '') {
 
         var poy_inward_no = $("#poy_inward_no").val();
-        if (res[4] == poy_inward_no) {
+        //if (res[4] == poy_inward_no) {
           $(".setmsgforunmatch").text('');
           $(".matchlimit").show();
-        } else {
-          $(".setmsgforunmatch").text('WARNING TO USER : THIS BOX CAN NOT BE SAVED BECAUSE POY INWARD NUMBER AND CHANDREN LOT NUMBER IS NOT MATCHING. MATCH IT AND SAVE AGAIN');
-          $(".matchlimit").hide();
-        }
+       // } else {
+         // $(".setmsgforunmatch").text('WARNING TO USER : THIS BOX CAN NOT BE SAVED BECAUSE POY INWARD NUMBER AND CHANDREN LOT NUMBER IS NOT MATCHING. MATCH IT AND SAVE AGAIN');
+         // $(".matchlimit").hide();
+        //}
 
         $("#lbl_3_poy_inward_no").text(res[4]);
         var url = "<?= base_url() ?>store/get_poy_inward_qty/" + res[4];

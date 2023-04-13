@@ -125,7 +125,7 @@ class Customer_purchase_order extends CI_Controller
 
     function po_from_customers_enquiry_save()
     {
-		$item_id=0;
+        $item_id=0;
         if($this->input->post('item_id')>0)
         {
             $item_id= $this->input->post('item_id');
@@ -191,7 +191,7 @@ class Customer_purchase_order extends CI_Controller
             $data = array(
                 'cust_id' => $this->input->post('cust_id'),
                 'module_id' => intval(str_replace('d', '',$this->input->post('module_id'))),
-                'item_id' => $this->input->post('item_id'),
+                'item_id' =>$item_id,
                 'cust_item_name' => $this->input->post('cust_item_name'),
                 'cust_color_name' => $this->input->post('cust_color_name'),
                 'shade_id' => $this->input->post('shade_id'),
@@ -850,7 +850,7 @@ class Customer_purchase_order extends CI_Controller
 
         if ($this->session->userdata('logged_as') == 'user') {
             $data['page_title'] = 'PO Accepted';
-            $data['page_heading'] = 'PO Accepted';
+            $data['page_heading'] = 'PO List Accepted for Dyeing Production';
         } else {
             $data['page_title'] = 'PO Accepted List';
             $data['page_heading'] = 'PO Accepted List';
