@@ -89,32 +89,33 @@ function form_submit()
 }
 
 $('#create_lot').click(function(){
-	// alert("hi");
-	if($("#lot_oil_required").val() == '')
-	{
+	if($("#lot_oil_required").val() == '') {
 		alert("Enter Lot Oil Required");
 	}
-	else if($("#lot_qty").val() == '')
-	{
+	else if($("#lot_qty").val() == '') {
 		alert("Enter Lot Qty");
 	}
-	else
-	{
-	    $.post("<?php echo base_url('purchase_order/po_dyeing_production_form_save');?>",
-	    {
-	        po_no:<?=$R_po_no ?>,
-	        nextlot:$("#nextlot").val(),
-	        lot_prefix : $("#machine").val(),
-	        lot_oil_required : $("#lot_oil_required").val(),
-	        lot_qty : $("#lot_qty").val(),
-	        lot_item_id : $("#lot_item_id").val(),
-	        lot_shade_no : $("#lot_shade_no").val(),
-	        no_springs : $("#no_springs").val()
-	    }, function(data) {
-			// console.log(data);
-			alert("Successfully Updated");
-			get_form(<?php echo $id.",".$R_po_no ?>);
+	else {
+	    $.post("<?php echo base_url('purchase_order/po_dyeing_production_form_save');?>", {
+	        po_no: <?=$R_po_no ?>,
+	        nextlot: $("#nextlot").val(),
+	        lot_prefix: $("#machine").val(),
+	        lot_oil_required: $("#lot_oil_required").val(),
+	        lot_qty: $("#lot_qty").val(),
+	        lot_item_id: $("#lot_item_id").val(),
+	        lot_shade_no: $("#lot_shade_no").val(),
+	        no_springs: $("#no_springs").val()
+	    })
+	    .done(function(data) {
+	        // The API returned success response
+	        alert("Successfully Updated");
+	        get_form(<?php echo $id.",".$R_po_no ?>);
+	    })
+	    .fail(function(jqXHR, textStatus, errorThrown) {
+	        // The API returned an error response
+	        alert("API Error: " + textStatus + " - " + errorThrown);
 	    });		
 	}
-}); 
+});
 </script>
+

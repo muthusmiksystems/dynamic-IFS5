@@ -461,14 +461,17 @@ class Purchase_order extends CI_Controller
 		$lot_item_id = $this->input->post('lot_item_id');
 		$lot_shade_no = $this->input->post('lot_shade_no');
 		$no_springs = $this->input->post('no_springs');
-
+		if($no_springs=='')
+		{
+			$no_springs=0;
+		}
 		$machine_prefix = $this->m_masters->getmasterIDvalue('bud_machines', 'machine_id', $lot_prefix, 'machine_prefix');
 		$lot_no = $machine_prefix . $nextlot;
 		$percentege = ($lot_oil_required * $lot_qty) / 100;
 		$lot_actual_qty = $lot_qty + $percentege;
 
 		$save = array(
-			'lot_id' => '',
+			'lot_id' => '0',
 			'po_no' => $po_no,
 			'lot_prefix' => $lot_prefix,
 			'lot_no' => $lot_no,

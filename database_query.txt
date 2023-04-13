@@ -23,3 +23,32 @@ alter table bud_items add item_width FLOAT;
 alter table bud_items add item_gpm varchar(255);
 
 alter table bud_items add item_customers varchar(255);
+
+
+ALTER TABLE `bud_lots` CHANGE `lot_id` `lot_id` BIGINT(20) NULL AUTO_INCREMENT, CHANGE `category` `category` BIGINT(20) NULL DEFAULT NULL, CHANGE `no_springs` `no_springs` INT(11) NULL DEFAULT NULL, CHANGE `direct_entry` `direct_entry` TINYINT(1) NULL DEFAULT '0' COMMENT '0 - No, 1 - Yes', CHANGE `lot_month` `lot_month` VARCHAR(6) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+
+
+//selection drop down
+INSERT INTO suppliers 
+    (sup_category, sup_group, sup_name, sup_address, sup_city, sup_pincode, sup_phone, sup_fax, sup_email, sup_tinno, sup_cst, sup_ob, sup_agent, sup_status, sup_added_on, sup_contacts, module)
+VALUES 
+    (1, 10, 'tes6t', 'test address', 'cbe', 55236, 455, 5, 'erfw@gmail.com', 524, 'fd', 452, 3, 1, '2023-03-23 19:32:58', 'd##546##t@gmail.com', 1);
+	
+INSERT INTO bud_yt_poydeniers (denier_id, sup_group_id, supplier_id, denier_name, denier_tech, denier_status, module)
+VALUES
+    (55, 10, 48, '500/96/SD / *', '300/ROTTO', 1, 1),
+    (56, 10, 48, '500/96/blk / *', '300/ROTTO', 1, 1),
+    (57, 10, 48, '500/96/poy / *', '300/ROTTO', 1, 1);
+	
+INSERT INTO bud_poy_lots (poy_lot_id, sup_group_id, supplier_id, poy_denier, poy_lot_name, poy_lot_no, poy_reorder, poy_lot_uom, poy_status, module)
+VALUES
+(59, 10, 48, 55, '123456', '123456', 2000, 8, 1, 1),
+(60, 10, 48, 56, '1234567', '1234567', 2000, 8, 1, 1),
+(61, 10, 48, 57, '123456', '123456', 2000, 8, 1, 1);
+
+//poy-inw-form
+alter TABLE bud_yt_poy_inward add inward_no bigint;
+alter table bud_yt_poyinw_items add module int null
+alter table bud_yt_poyinw_items add edate DATETIME;
+ALTER TABLE `bud_yt_poyinw_items` ADD inward_quality VARCHAR(255);
+alter table bud_yt_poyinw_items add euser varchar(255);
