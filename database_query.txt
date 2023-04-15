@@ -105,3 +105,65 @@ ALTER TABLE `bud_yt_packing_boxes` CHANGE `poy_inward_no` `poy_inward_no` INT(11
 //chandren lot  no and poy lot no validation error in soft yarn packing
 ALTER TABLE `bud_yt_packing_boxes` CHANGE `no_bags` `no_bags` INT(11) NULL DEFAULT NULL;
 
+
+//concernn master
+ALTER TABLE `bud_concern_master` CHANGE `concern_tin` `concern_tin` VARCHAR(250) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+
+ALTER TABLE `bud_concern_master` CHANGE `concern_cst` `concern_cst` VARCHAR(250) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+
+//predelivery 
+ALTER TABLE `bud_yt_predelivery` CHANGE `remarks` `remarks` TINYTEXT CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+
+
+ALTER TABLE `dyn_yt_predelivery_items` CHANGE `delivery_id` `delivery_id` INT(11) NULL DEFAULT NULL;
+
+ALTER TABLE `dyn_yt_predelivery_items` CHANGE `invoice_id` `invoice_id` INT(11) NULL DEFAULT NULL;
+
+ALTER TABLE `dyn_yt_predelivery_items` CHANGE `item_rate` `item_rate` FLOAT NULL DEFAULT NULL;
+
+//delivery
+
+
+ALTER TABLE `bud_yt_delivery` CHANGE `remarks` `remarks` TEXT CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+
+ALTER TABLE `bud_yt_predelivery` CHANGE `concern_name` `concern_name` BIGINT(20) NULL DEFAULT NULL;
+
+
+36)sale create invoice
+ALTER TABLE `bud_yt_invoices` CHANGE `invoice_time` `invoice_time` TIME NULL DEFAULT NULL;
+
+
+ALTER TABLE `bud_yt_invoices` CHANGE `invoice_items` `invoice_items` VARCHAR(250) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+
+ALTER TABLE `bud_yt_invoices` CHANGE `item_weights` `item_weights` VARCHAR(250) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+
+ALTER TABLE `bud_yt_invoices` CHANGE `no_of_boxes` `no_of_boxes` VARCHAR(250) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+
+ALTER TABLE `bud_yt_invoices` CHANGE `item_uoms` `item_uoms` VARCHAR(250) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+
+ALTER TABLE `bud_yt_invoices` CHANGE `addtions_units` `addtions_units` VARCHAR(250) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+
+ALTER TABLE `bud_yt_invoices` CHANGE `addtions_desc` `addtions_desc` VARCHAR(250) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+
+ALTER TABLE `bud_yt_invoices` CHANGE `tax_units` `tax_units` VARCHAR(250) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+
+ALTER TABLE `bud_yt_invoices` CHANGE `tax_desc` `tax_desc` VARCHAR(250) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+
+
+
+ALTER TABLE `bud_yt_invoices` CHANGE `deduction_units` `deduction_units` VARCHAR(250) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+
+ALTER TABLE `bud_yt_invoices` CHANGE `deduction_desc` `deduction_desc` VARCHAR(250) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+
+ALTER TABLE `bud_yt_invoices` CHANGE `lr_no` `lr_no` VARCHAR(50) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+
+ALTER TABLE `bud_yt_invoices` CHANGE `transport_name` `transport_name` VARCHAR(250) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+
+ALTER TABLE `bud_yt_invoices` CHANGE `last_edited_id` `last_edited_id` INT(11) NULL DEFAULT NULL;
+
+ALTER TABLE `bud_yt_invoices` CHANGE `last_edtd_by` `last_edtd_by` INT(11) NULL DEFAULT NULL;
+
+ALTER TABLE `bud_yt_invoices` CHANGE `cust_pono` `cust_pono` VARCHAR(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+
+
+

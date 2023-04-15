@@ -21,7 +21,7 @@ class ak extends CI_Model
     }
     function yt_packing_boxes($box_prefix = null, $filter = array(), $all_boxes = false)
     {
-        $this->db->select('bud_yt_packing_boxes.*,bud_items.*,bud_yt_yarndeniers.denier_tech,bud_yt_poydeniers.denier_name as poy_denier_name,bud_shades.*,bud_poy_lots.poy_lot_name');
+        $this->db->select('bud_yt_packing_boxes.*,bud_yt_packing_boxes.remarks as bud_remarks,bud_items.*,bud_yt_yarndeniers.denier_tech,bud_yt_poydeniers.denier_name as poy_denier_name,bud_shades.*,bud_poy_lots.poy_lot_name');
         $this->db->from('bud_yt_packing_boxes');
         $this->db->join('bud_items', 'bud_items.item_id = bud_yt_packing_boxes.item_id', 'left');
         $this->db->join('bud_yt_yarndeniers', 'bud_yt_yarndeniers.denier_id = bud_yt_packing_boxes.yarn_denier', 'left');

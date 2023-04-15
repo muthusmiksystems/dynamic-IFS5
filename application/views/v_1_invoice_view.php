@@ -171,6 +171,7 @@
                $concern_address = $row['concern_address'];
                $concern_tin = $row['concern_tin'];
                $concern_cst = $row['concern_cst'];
+               $concern_gst=$row['concern_gst'];
             }
 
             foreach ($boxes_array as $key => $box_no) {
@@ -290,7 +291,7 @@
                                     <strong>TO:</strong><br />
                                     <strong style="text-transform:uppercase;font-size:14px;"><?= $this->m_masters->getmasterIDvalue('bud_customers', 'cust_id', $customer, 'cust_name'); ?></strong><br />
                                     <?= $this->m_masters->getmasterIDvalue('bud_customers', 'cust_id', $customer, 'cust_address'); ?><br />
-                                    GST : <?= $this->m_masters->getmasterIDvalue('bud_customers', 'cust_gst', $customer, 'cust_gst'); ?>
+                                    GST : <?= $this->m_masters->getmasterIDvalue('bud_customers', 'cust_id', $customer, 'cust_gst'); ?>
                                  </td>
                               </tr>
                               <tr>
