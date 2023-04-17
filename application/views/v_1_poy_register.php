@@ -139,14 +139,22 @@
                            <?= $page_title; ?>
                         </header>
                         <div class="panel-body">
-                           <div class="form-group col-lg-2">
+                           <!-- <div class="form-group col-lg-2">
                               <label for="date">From Date</label>
                               <input class="form-control" type="date" value="<?= $f_date; ?>" id="date" name="f_date">
                            </div>
                            <div class="form-group col-lg-2">
                               <label for="date">To Date</label>
                               <input class="form-control " type="date" value="<?= $t_date; ?>" id="date" name="t_date">
-                           </div>
+                           </div> -->
+                           <div class="form-group col-lg-2">
+                  <label for="date">From Date</label>
+                  <input class="form-control" type="date" value="<?= date('Y-m-d', strtotime('-1 month')); ?>" id="date" name="f_date">
+               </div>
+               <div class="form-group col-lg-2">
+                  <label for="date">To Date</label>
+                  <input class="form-control " type="date" value="<?= date('Y-m-d'); ?>" id="date" name="t_date">
+               </div>
                            <div class="form-group col-lg-2">
                               <label for="sales_to">Supplier Name</label>
                               <select class="select2 form-control customer" id="supplierCode" name="supplier_id">
@@ -282,7 +290,7 @@
                                     <th width="5%">Sno</th>
                                     <th width="10%">Inward Dt.</th>
                                     <th width="10%">POY Inward No </th>
-                                    <th width="10%">Invoice No</th>
+                                    <!-- <th width="10%">Invoice No</th> -->
                                     <th width="15%">Inv. Date</th>
                                     <th width="15%">Supplier name</th>
                                     <th width="15%">POY Denier</th>
@@ -322,7 +330,7 @@
                                        <td><?= $sno; ?></td>
                                        <td><?= date('d-M-y H:i:s', strtotime($row['edate'])); ?></td>
                                        <td><?= $row['po_no']; ?></td>
-                                       <td><?= $row['inward_invoice_no']; ?></td>
+                                       <!-- <td><?= $row['inward_invoice_no']; ?></td> -->
                                        <td><?= date('d-M-y', strtotime($row['inward_date'])); ?></td>
                                        <td><?= $row['sup_name'] . '/' . $row['supplier_id']; ?></td>
                                        <td><?= $row['denier_name']; ?></td>

@@ -3089,12 +3089,12 @@ class Masters extends CI_Controller
 			$item_id = $this->input->post('item_id');
 			$item_category = $this->input->post('item_category');
 			$item_name = $this->input->post('item_name');
-			$item_group = $this->input->post('item_group');
+			$item_group = $this->input->post('item_group')==''?0:$this->input->post('item_group');
 			// $item_code = $this->input->post('item_code');
-			$item_uom = $this->input->post('item_uom');
+			$item_uom = $this->input->post('item_uom')==''?0:$this->input->post('item_uom');
 			$item_tax = $this->input->post('item_tax');
 			$item_rate = $this->input->post('item_rate');
-			$item_reorder_level = $this->input->post('item_reorder_level');
+			$item_reorder_level = $this->input->post('item_reorder_level')==''?0:$this->input->post('item_reorder_level');
 			$item_status = $this->input->post('item_status');
 
 			$hsn_code = $this->input->post('hsn_code');
@@ -3103,7 +3103,7 @@ class Masters extends CI_Controller
 			$item_description = $this->input->post('item_description');
 			$item_second_name = $this->input->post('item_second_name');
 			$item_third_name = $this->input->post('item_third_name');
-			$item_width = $this->input->post('item_width');
+			$item_width = $this->input->post('item_width')==''?0:$this->input->post('item_width');
 			$item_gpm = $this->input->post('item_gpm');
 
 			$item_customers = @implode(",", $this->input->post('item_customers'));
@@ -3115,7 +3115,7 @@ class Masters extends CI_Controller
 				$this->session->set_flashdata('error', 'Item Name already exist, please try with differrent name');
 				redirect(base_url() . "masters/items/" . $item_id . '/duplicate', 'refresh');
 			}
-
+		
 			$formData = array(
 				'item_category' => $item_category==""?0:$item_category,
 				'item_name' => $item_name,

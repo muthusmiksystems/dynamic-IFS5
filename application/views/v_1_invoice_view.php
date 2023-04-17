@@ -173,7 +173,7 @@
                $concern_cst = $row['concern_cst'];
                $concern_gst=$row['concern_gst'];
             }
-
+            $amount_total=0;
             foreach ($boxes_array as $key => $box_no) {
                // $outerboxes = $this->m_delivery->getPreDelItemsDetails($box_no);
                $outerboxes = $this->m_delivery->getPackingBoxDetails($box_no);
@@ -336,7 +336,7 @@
                                           <?php
                                           $hsn = $this->m_masters->getmasterdetails('bud_items', 'item_id', $item_id_arr[$key_1]);
                                           foreach ($hsn as $h) {
-                                             echo substr($h['hsn_code'], 0, 4);
+                                             echo substr($h['hsn_code'], 0, 10);
                                           }
                                           ?>
                                        </td>
@@ -367,7 +367,7 @@
                                        <td><?= number_format($box_qty_array[$key_1] * $rates_arr[$key_1], 2, '.', ''); ?></td>
                                     </tr>
                                  <?php
-
+                                     $amount_total+=number_format($box_qty_array[$key_1] * $rates_arr[$key_1], 2, '.', '');
                                     $sno++;
                                     $total_items++;
                                  }
@@ -413,7 +413,7 @@
                               }
                               ?>
                               <tr>
-                                 <td colspan="5" rowspan="<?= $rowspan + 2; ?>">
+                                 <td colspan="5" rowspan="<?= $rowspan + 3; ?>">
                                     <strong><u>Spl. Instruction</u></strong><br /></strong><br />
                                     <!--Inclusion of Remarks in invoices yt-->
                                     <p>
@@ -423,7 +423,7 @@
                                     <p>
                                        <strong>Goods Sent through <?= $transport_name; ?> as per LRNO:<?= $lr_no; ?></strong> </p>
                                  </td>
-                                 <td colspan="4" rowspan="<?= $rowspan + 2; ?>">
+                                 <td colspan="4" rowspan="<?= $rowspan + 3; ?>">
                                     <p>
                                        <strong>Customer PO No.: <?= @$cust_pono; ?></strong>
                                     </p>
@@ -464,9 +464,11 @@
                                  <td colspan="1" align="right"><strong><?php echo number_format((($sub_total + $add) - $sub), 2, '.', ''); ?></strong></td>
                               </tr>
                               <?php
+                              $total_tax=0;
                               foreach ($tax_amounts as $key => $value) {
                                  if ($value > 0) {
                                     $tax_description = $this->m_masters->getTaxDesc($tax_names[$key], $tax_values[$key]);
+                                    $total_tax+=number_format($value,2,'.','');
                               ?>
                                     <tr>
                                        <td colspan="3"><strong><?= $tax_names[$key]; ?> @ <?= $tax_values[$key]; ?> % </strong><?= ($tax_description != '') ? '(' . $tax_description . ')' : ''; ?></td>
@@ -475,7 +477,13 @@
                               <?php
                                  }
                               }
+                              $org_net_amount=$total_tax+$amount_total;
                               ?>
+                               <tr>
+                                 <!-- <td colspan="4"></td> -->
+                                 <td colspan="3"><strong>+ (or) -</strong></td>
+                                 <td colspan="1" align="right"><strong><?= number_format($net_amount-$org_net_amount, 2, '.', ''); ?></strong></td>
+                              </tr>
                               <tr>
                                  <!-- <td colspan="4"></td> -->
                                  <td colspan="3"><strong>Net Amount</strong></td>

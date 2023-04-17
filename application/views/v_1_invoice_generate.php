@@ -359,7 +359,7 @@
                                           $cust_gst = $this->m_masters->getmasterIDvalue('bud_customers', 'cust_id', $customer, 'cust_gst');
                                           //echo $cust_gst;
                                           $checked = false;
-                                          if (substr($cust_gst, 0, 2) == 33) {
+                                          if (substr($cust_gst, 0, 2) == 33 || substr($cust_gst, 0, 2) == 'AW') {
                                              $checked = true;
                                           }
 

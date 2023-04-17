@@ -568,6 +568,7 @@
       $.ajax({
         type: "POST",
         url: "<?= base_url(); ?>poy/poy_inwd_detail/" + po_no,
+        dataType: "html",
         success: function(e) {
           $("#Detail_table").html(e);
         }

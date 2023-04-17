@@ -246,14 +246,19 @@ $(".ajax-submit").click(function(e) {
 
             load_dc_list();
             get_next_dc_no();
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+           alert("Error: " + textStatus + " - " + errorThrown);
         }
-    });
+  
+    }),
     e.preventDefault();
 });
 
 function load_dc_list() {
     $.ajax({
         url: "<?php echo base_url('shop/stocktrans/transfer_list_data'); ?>",
+        dataType: "html",
         success: function(response)
         {
             jQuery('#transfer_list').html(response);

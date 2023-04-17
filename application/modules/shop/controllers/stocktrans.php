@@ -118,7 +118,7 @@ class Stocktrans extends CI_Controller {
 		}
 		else
 		{
-			$save['id'] = '';
+			$save['id'] = 0;
 			$save['transfer_date'] = date("Y-m-d H:i:s");
 			$save['from_concern_id'] = $this->input->post('from_concern_id');
 			$save['from_stock_room_id'] = $this->input->post('from_stock_room_id');
