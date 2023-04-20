@@ -642,7 +642,7 @@ class POY extends CI_Controller
 			} else {
 				$rowid = $this->input->post('rowid');
 				$item = $this->ak->poy_inwd_item($rowid);
-				$save['rowid'] = '';
+				$save['rowid'] = 0;
 				$save['po_no'] = $item->po_no;
 				$save['user_id'] = $item->user_id;
 				$save['item_id'] = $item->item_id;

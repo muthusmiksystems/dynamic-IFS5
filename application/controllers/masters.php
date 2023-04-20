@@ -1435,6 +1435,7 @@ class Masters extends CI_Controller
 				$this->session->set_flashdata('error', 'Record not found');
 				redirect(base_url('masters/shades'));
 			}
+			
 			$data['shade_id'] = $shade->shade_id;
 			$data['shade_family'] = explode(",", $shade->shade_family);
 			$data['shade_name'] = $shade->shade_name;
@@ -1470,7 +1471,8 @@ class Masters extends CI_Controller
 		if ($this->form_validation->run() == FALSE) {
 			$this->load->view('shade-master-form', $data);
 		} else {
-			$save['shade_id'] = $shade_id;
+			
+			$save['shade_id'] = $shade_id==''?0:$shade_id;
 			$save['shade_family'] = implode(",", $this->input->post('shade_family'));
 			$save['shade_name'] = $this->input->post('shade_name');
 			$save['shade_second_name'] = $this->input->post('shade_second_name');

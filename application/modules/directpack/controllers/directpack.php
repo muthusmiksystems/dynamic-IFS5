@@ -70,7 +70,7 @@ class Directpack extends CI_Controller
 			}
 			$lot_no = $machine_prefix . $next_lot_id;
 
-			$save['lot_id'] = $lot_id;
+			$save['lot_id'] = $lot_id==''?0:$lot_id;
 			$save['lot_prefix'] = $this->input->post('machine_id');
 			$save['lot_no'] = $lot_no;
 			$save['lot_shade_no'] = $this->input->post('shade_id');
@@ -86,8 +86,8 @@ class Directpack extends CI_Controller
 
 			$new_lot_id = $this->Directpack_model->save_lot($save);
 			if ($new_lot_id) {
-				$dlc_packing_items['id'] = '';
-				$dlc_packing_items['lot_id'] = $new_lot_id;
+				$dlc_packing_items['id'] = 0;
+				$dlc_packing_items['lot_id'] = $new_lot_id==''?0:$new_lot_id;
 				$dlc_packing_items['no_springs'] = $this->input->post('no_springs');
 				$dlc_packing_items['no_springs_hold'] = 0;
 				$dlc_packing_items['net_weight'] = $this->input->post('lot_qty');
@@ -199,6 +199,7 @@ class Directpack extends CI_Controller
 	{
 		/*$next = $this->db->query("SHOW TABLE STATUS LIKE 'bud_sh_packing'");
 		$next = $next->row(0);*/
+		
 		$box_no = $this->Directpack_model->getNextBoxNo('DIR');
 		$data['new_box_no'] = $box_no;
 		$data['box_no'] = $box_no;
@@ -219,6 +220,7 @@ class Directpack extends CI_Controller
 		$data['stock_rooms'] = array();
 		// $data['stock_rooms'] = $this->Packing_model->get_stock_rooms();
 		// echo "string";
+		
 		$this->load->view('packing-entry', $data);
 	}
 	public function packing_save()

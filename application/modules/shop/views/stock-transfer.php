@@ -246,9 +246,6 @@ $(".ajax-submit").click(function(e) {
 
             load_dc_list();
             get_next_dc_no();
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-           alert("Error: " + textStatus + " - " + errorThrown);
         }
   
     }),

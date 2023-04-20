@@ -42,7 +42,7 @@ class Predelivery extends CI_Controller
 		$data['activeItem'] = 'predelivery';
 		$data['page_title'] = 'Shop Pre Delivery';
 
-		$data['from_date'] = date("01-11-2016");
+		$data['from_date'] = date("d-m-Y", strtotime("-1 month"));
 		$data['to_date'] = date("d-m-Y");
 
 		// $data['boxes'] = $this->Predelivery_model->get_shop_packings(false, false);
@@ -132,7 +132,7 @@ class Predelivery extends CI_Controller
 				foreach ($selected_boxes as $box_id) {
 					$box = $this->Predelivery_model->get_shop_box($box_id);
 					if ($box) {
-						$cart_item['row_id'] = '';
+						$cart_item['row_id'] = 0;
 						$cart_item['box_id'] = $box->box_id;
 						$cart_item['box_prefix'] = $box->box_prefix;
 						$cart_item['box_no'] = $box->box_no;
@@ -266,6 +266,7 @@ class Predelivery extends CI_Controller
 			$data['predc_items'] = $this->Predelivery_model->get_predc_items($p_delivery_id);
 		}
 		$data['cart_items'] = $this->Predelivery_model->get_cart_temp_items($this->session->userdata('user_id'));
+		
 		$this->load->view('includes/predel-cart-temp-items', $data);
 	}
 

@@ -209,10 +209,10 @@ class Stocktrans extends CI_Controller {
 					{
 						$save_box['no_cones'] = $box->no_of_cones + $box->no_of_cones_2;
 					}
-					$save_box['box_id'] = '';
+					$save_box['box_id'] = 0;
 					$save_box['box_prefix'] = $box->box_prefix;
 					$save_box['box_no'] = $box->box_no;
-					$save_box['item_group_id'] = '';
+					$save_box['item_group_id'] = 0;
 					$save_box['item_id'] = $box->item_id;
 					$save_box['shade_id'] = $box->shade_no;
 					if($box->box_prefix == 'G' || $box->box_prefix == 'S')
@@ -229,8 +229,8 @@ class Stocktrans extends CI_Controller {
 					$save_box['nt_weight'] = $box->net_weight;
 					$save_box['packed_on'] = date("Y-m-d H:i:s");
 					$save_box['prepared_by'] = $this->session->userdata('user_id');
-					$save_box['supplier_id'] = '';
-					$save_box['supplier_dc_no'] = '';
+					$save_box['supplier_id'] = 0;
+					$save_box['supplier_dc_no'] = 0;
 					$save_box['uom_id'] = $box->item_uom;
 					if($this->input->post('to_stock_room_id'))
 					{

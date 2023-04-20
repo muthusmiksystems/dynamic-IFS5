@@ -40,7 +40,7 @@
                     <td>
                         <a href="<?php echo base_url('directpack/print_pack_slip/' . $row->box_id); ?>" target="_blank" class="btn btn-xs btn-primary">Print</a>
                         <?php if ($row->is_deleted == '0' && $row->predelivery_status == '1' && $row->delivery_status == '1') { ?>
-                            <button onclick="showAjaxModal('<?php echo base_url('directpack/confirm_delete/' . $row->box_id); ?>')" class="btn btn-xs btn-danger">Delete</button>
+                            <!-- <button onclick="showAjaxModal('<?php echo base_url('directpack/confirm_delete/' . $row->box_id); ?>')" class="btn btn-xs btn-danger">Delete</button> -->
                         <?php } ?>
                     </td>
                 </tr>

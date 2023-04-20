@@ -164,6 +164,7 @@
     function load_lot_list() {
         $.ajax({
             url: "<?php echo base_url('directpack/lot_list_data'); ?>",
+            dataType:"html",
             success: function(response)
             {
                 jQuery('#lot_list_data').html(response);

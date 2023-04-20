@@ -246,11 +246,11 @@ class Stocktrans_model extends CI_Model
         $this->db->select('from_concern.concern_name as from_concern_name');
         $this->db->select('from_concern.concern_address as from_concern_addr');
         $this->db->select('from_concern.concern_tin as from_concern_tin');
-        $this->db->select('from_concern.concern_cst as from_concern_cst');
+        $this->db->select('from_concern.concern_gst as from_concern_gst');
         $this->db->select('to_concern.concern_name as to_concern_name');
         $this->db->select('to_concern.concern_address as to_concern_addr');
         $this->db->select('to_concern.concern_tin as to_concern_tin');
-        $this->db->select('to_concern.concern_cst as to_concern_cst');
+        $this->db->select('to_concern.concern_gst as to_concern_gst');
         $this->db->select('from_stock_room.stock_room_name as from_stock_room_name');
         $this->db->select('to_stock_room.stock_room_name as to_stock_room_name');
         $this->db->select('from_user.display_name as from_staff_name');

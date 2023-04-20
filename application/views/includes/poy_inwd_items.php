@@ -3,6 +3,7 @@ $sno = 1;
 ?>
 <?php if (count($inward_items) > 0) : ?>
 	<?php foreach ($inward_items as $item) : ?>
+		
 		<tr>
 			<td><?php echo $sno++; ?></td>
 			<td><?php echo @$item['edate']; ?></td>
@@ -16,10 +17,15 @@ $sno = 1;
 			<td><?php echo $item['po_item_rate']; ?></td>
 			<td><?php echo $item['euser']; ?></td>
 			<!--inclusion of poy item rate-->
-			<td>
+			<!-- <td>
 				<?php if ($sno == 2) { ?>
 					<button class="btn btn-xs btn-success" onclick="showAjaxModal('<?php echo base_url('poy/poy_inwd_addqty/' . $item['rowid']); ?>')">Add Qty</button>
 				<?php } ?>
+			</td> -->
+			<td>
+				
+			<button class="btn btn-xs btn-success" onclick="showAjaxModal('<?php echo base_url('poy/poy_inwd_addqty/' . $item['rowid']); ?>')">Add Qty</button>
+				
 			</td>
 		</tr>
 	<?php endforeach; ?>
