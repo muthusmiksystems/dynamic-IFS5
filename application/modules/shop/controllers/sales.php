@@ -438,7 +438,7 @@ class Sales extends CI_Controller
 		if (!empty($p_delivery_id)) {
 			$save['p_delivery_id'] = $p_delivery_id;
 		} else {
-			$save['p_delivery_id'] = '';
+			$save['p_delivery_id'] = 0;
 		}
 		$save['p_concern_id'] = $this->input->post('p_concern_id');
 		$save['p_delivery_date'] = date("Y-m-d H:i:s");
@@ -453,7 +453,7 @@ class Sales extends CI_Controller
 		if ($p_delivery_id) {
 			$predc = $this->Predelivery_model->get_predc($p_delivery_id);
 			if ($predc) {
-				$save_dc['delivery_id'] = '';
+				$save_dc['delivery_id'] = 0;
 				$save_dc['concern_id'] = $predc->p_concern_id;
 				$save_dc['delivery_date'] = date("Y-m-d H:i:s");
 				$save_dc['customer_id'] = $predc->p_customer_id;
@@ -476,7 +476,7 @@ class Sales extends CI_Controller
 					$invoice_no = $this->input->post('cash_inv_no');
 				}
 
-				$cash_inv['invoice_id'] = '';
+				$cash_inv['invoice_id'] = 0;
 				$cash_inv['invoice_no'] = $invoice_no;
 				$cash_inv['concern_id'] = $predc->p_concern_id;
 				$cash_inv['customer_id'] = $predc->p_customer_id;
@@ -601,7 +601,7 @@ class Sales extends CI_Controller
 		if (!empty($p_delivery_id)) {
 			$save['p_delivery_id'] = $p_delivery_id;
 		} else {
-			$save['p_delivery_id'] = '';
+			$save['p_delivery_id'] = 0;
 		}
 		$save['p_concern_id'] = $this->input->post('p_concern_id');
 		$save['p_delivery_date'] = date("Y-m-d H:i:s");
@@ -616,7 +616,7 @@ class Sales extends CI_Controller
 		if ($p_delivery_id) {
 			$predc = $this->Predelivery_model->get_predc($p_delivery_id);
 			if ($predc) {
-				$save_dc['delivery_id'] = '';
+				$save_dc['delivery_id'] = 0;
 				$save_dc['concern_id'] = $predc->p_concern_id;
 				$save_dc['delivery_date'] = date("Y-m-d H:i:s");
 				$save_dc['customer_id'] = $predc->p_customer_id;
@@ -638,7 +638,7 @@ class Sales extends CI_Controller
 					$invoice_no = $this->input->post('credit_inv_no');
 				}
 
-				$credit_inv['invoice_id'] = '';
+				$credit_inv['invoice_id'] = 0;
 				$credit_inv['invoice_no'] = $invoice_no;
 				$credit_inv['concern_id'] = $predc->p_concern_id;
 				$credit_inv['customer_id'] = $predc->p_customer_id;
@@ -1000,7 +1000,7 @@ class Sales extends CI_Controller
 		if (!empty($p_delivery_id)) {
 			$save['p_delivery_id'] = $p_delivery_id;
 		} else {
-			$save['p_delivery_id'] = '';
+			$save['p_delivery_id'] = 0;
 		}
 		$save['p_concern_id'] = $this->input->post('p_concern_id');
 		$save['p_delivery_date'] = date("Y-m-d H:i:s");
@@ -1015,7 +1015,7 @@ class Sales extends CI_Controller
 		if ($p_delivery_id) {
 			$predc = $this->Predelivery_model->get_predc($p_delivery_id);
 			if ($predc) {
-				$save_dc['delivery_id'] = '';
+				$save_dc['delivery_id'] = 0;
 				$save_dc['concern_id'] = $predc->p_concern_id;
 				$save_dc['delivery_date'] = date("Y-m-d H:i:s");
 				$save_dc['customer_id'] = $predc->p_customer_id;
@@ -1037,7 +1037,7 @@ class Sales extends CI_Controller
 					$quotation_no = $this->input->post('old_quotation_no');
 				}
 				// end of ER-07-18#-17
-				$quotation['quotation_id'] = '';
+				$quotation['quotation_id'] = 0;
 				$quotation['quotation_no'] = $quotation_no;
 				$quotation['concern_id'] = $predc->p_concern_id;
 				$quotation['customer_id'] = $predc->p_customer_id;

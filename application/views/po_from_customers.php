@@ -411,6 +411,7 @@
       $.ajax({
         type: "POST",
         url: "<?= base_url(); ?>purchase_order/po_from_customers_table_details/" + id,
+        dataType:"html",
         success: function(e) {
           $("#tab_details").html(e);
         }

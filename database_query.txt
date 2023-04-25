@@ -165,5 +165,145 @@ ALTER TABLE `bud_yt_invoices` CHANGE `last_edtd_by` `last_edtd_by` INT(11) NULL 
 
 ALTER TABLE `bud_yt_invoices` CHANGE `cust_pono` `cust_pono` VARCHAR(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
 
+//thread yarn packing
+ALTER TABLE `bud_yt_packing_boxes` CHANGE `yarn_denier` `yarn_denier` BIGINT(20) NULL DEFAULT NULL;
+
+ALTER TABLE `bud_yt_packing_boxes` CHANGE `cone_weight` `cone_weight` VARCHAR(20) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+
+ALTER TABLE `bud_yt_packing_boxes` CHANGE `no_cones` `no_cones` INT(11) NULL DEFAULT NULL;
+
+ALTER TABLE `bud_yt_packing_boxes` CHANGE `spring_weight` `spring_weight` VARCHAR(20) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+
+//details icon not works in poy inward in poy master module
+alter table `bud_yt_poyinw_items` add inward_invoice_no varchar(255);
+
+alter table `bud_yt_poyinw_items` add poy_lot_no_current varchar(255);
+
+//cuteomer/vendors  master module
+
+alter table `bud_customers` add id bigint;
+ALTER TABLE `bud_customers` CHANGE `cust_tinno` `cust_tinno` VARCHAR(225) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+
+ALTER TABLE `bud_customers` CHANGE `cust_cst` `cust_cst` VARCHAR(225) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+
+ALTER TABLE `bud_customers` CHANGE `cust_pricelist` `cust_pricelist` BIGINT(20) NULL DEFAULT NULL;
+
+//color master cann't add new color
+ALTER TABLE `bud_shades` CHANGE `shade_category` `shade_category` BIGINT(20) NULL DEFAULT NULL;
+
+
+ALTER TABLE `bud_shades` CHANGE `shade_denier` `shade_denier` BIGINT(20) NULL DEFAULT NULL;
+
+ALTER TABLE `bud_shades` CHANGE `shade_poy_lot` `shade_poy_lot` BIGINT(20) NULL DEFAULT NULL;
+
+ALTER TABLE `bud_shades` CHANGE `shade_holding` `shade_holding` VARCHAR(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+
+ALTER TABLE `bud_shades` CHANGE `shade_dyes` `shade_dyes` VARCHAR(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+
+ALTER TABLE `bud_shades` CHANGE `shade_chemicals` `shade_chemicals` VARCHAR(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+
+ALTER TABLE `bud_shades` CHANGE `shade_dyes_uoms` `shade_dyes_uoms` VARCHAR(150) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+
+
+ALTER TABLE `bud_shades` CHANGE `shade_chemical_uoms` `shade_chemical_uoms` VARCHAR(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+
+
+ALTER TABLE `bud_shades` CHANGE `shade_temperatures` `shade_temperatures` VARCHAR(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+
+//stock transfer
+
+ALTER TABLE `bud_sh_stocktransfer` CHANGE `from_stock_room_id` `from_stock_room_id` VARCHAR(255) NOT NULL;
+
+
+//getting dom exception in direct lot entry form and also internal server error in ajax post call
+ALTER TABLE `bud_lots` CHANGE `po_no` `po_no` INT(11) NULL DEFAULT NULL;
+
+
+ALTER TABLE `bud_lots` CHANGE `lot_month` `lot_month` VARCHAR(50) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+
+//master tare weight
+ALTER TABLE `bud_tareweights` CHANGE `tereweight_category` `tereweight_category` BIGINT(20) NULL DEFAULT NULL;
+
+
+//add qty
+alter table `bud_yt_poyinw_items` add inward_invoice_no varchar(255);
+
+alter table `bud_yt_poyinw_items` add poy_lot_no_current varchar(255);
+
+//cuteomer/vendors  master module
+
+alter table `bud_customers` add id bigint;
+ALTER TABLE `bud_customers` CHANGE `cust_tinno` `cust_tinno` VARCHAR(225) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+
+ALTER TABLE `bud_customers` CHANGE `cust_cst` `cust_cst` VARCHAR(225) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+
+ALTER TABLE `bud_customers` CHANGE `cust_pricelist` `cust_pricelist` BIGINT(20) NULL DEFAULT NULL;
+
+//color master cann't add new color
+
+
+ALTER TABLE `bud_shades` CHANGE `shade_category` `shade_category` BIGINT(20) NULL DEFAULT NULL;
+
+
+ALTER TABLE `bud_shades` CHANGE `shade_denier` `shade_denier` BIGINT(20) NULL DEFAULT NULL;
+
+ALTER TABLE `bud_shades` CHANGE `shade_poy_lot` `shade_poy_lot` BIGINT(20) NULL DEFAULT NULL;
+
+ALTER TABLE `bud_shades` CHANGE `shade_holding` `shade_holding` VARCHAR(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+
+ALTER TABLE `bud_shades` CHANGE `shade_dyes` `shade_dyes` VARCHAR(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+
+ALTER TABLE `bud_shades` CHANGE `shade_chemicals` `shade_chemicals` VARCHAR(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+
+ALTER TABLE `bud_shades` CHANGE `shade_dyes_uoms` `shade_dyes_uoms` VARCHAR(150) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+
+
+ALTER TABLE `bud_shades` CHANGE `shade_chemical_uoms` `shade_chemical_uoms` VARCHAR(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+
+
+ALTER TABLE `bud_shades` CHANGE `shade_temperatures` `shade_temperatures` VARCHAR(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+
+//stock transfer
+ALTER TABLE `bud_sh_stocktransfer` CHANGE `from_stock_room_id` `from_stock_room_id` VARCHAR(255) NOT NULL;
+
+
+//getting dom exception in direct lot entry form 
+ALTER TABLE `bud_lots` CHANGE `po_no` `po_no` INT(11) NULL DEFAULT NULL;
+ALTER TABLE `bud_lots` CHANGE `lot_month` `lot_month` VARCHAR(50) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+
+///master tare weight
+ALTER TABLE `bud_tareweights` CHANGE `tereweight_category` `tereweight_category` BIGINT(20) NULL DEFAULT NULL;
+
+//dirct pack entry form
+
+ 
+ALTER TABLE `bud_yt_packing_boxes` CHANGE `box_weight` `box_weight` VARCHAR(20) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+
+ALTER TABLE `bud_yt_packing_boxes` CHANGE `poly_bag_weight` `poly_bag_weight` VARCHAR(20) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+ALTER TABLE `bud_yt_packing_boxes` CHANGE `other_weight` `other_weight` VARCHAR(20) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+
+//pre delivery save buttons
+ALTER TABLE bud_sh_predelivery AUTO_INCREMENT = 2320; 
+
+truncate table bud_sh_delivery_items;
+
+ALTER TABLE `bud_sh_predelivery` CHANGE `p_delivery_boxes` `p_delivery_boxes` TEXT CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+
+ALTER TABLE `bud_sh_delivery` CHANGE `delivery_boxes` `delivery_boxes` TEXT CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+
+ALTER TABLE `bud_sh_credit_invoices` CHANGE `cust_pono` `cust_pono` VARCHAR(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+
+//CUSTOMER PO: dyeing lot entry save button not working.
+ALTER TABLE `dost_customers_po_dyelot` CHANGE `dyl_poeno` `dyl_poeno` INT(11) NULL DEFAULT NULL;
+
+//sampling queue jqury issue
+ALTER TABLE `ak_po_from_customers` CHANGE `c_tel` `c_tel` VARCHAR(150) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL;
+
+alter table dost_customers_po_accept AUTO_INCREMENT=70;    
+alter table dost_customers_po_sample AUTO_INCREMENT=70; 
+
+
+
+
 
 

@@ -325,8 +325,21 @@
                         foreach ($cust_pack_register as $item_id => $outerboxes) {
                            $item = $this->m_reports->get_item_yt($item_id);
 
-                           $item_code = $item['item_id'];
-                           $item_name = $item['item_name'];
+                           // $item_code = $item['item_id'];
+                           // $item_name = $item['item_name'];
+                             
+
+                              if (isset($item['item_id'])) {
+                                 $item_code = $item['item_id'];
+                             } else {
+                              $item_code ='';
+                             }
+
+                             if (isset($item['item_name'])) {
+                              $item_name = $item['item_name'];
+                          } else {
+                           $item_name ='';
+                          }
 
 
 
@@ -335,9 +348,21 @@
 
                            <div class="">
                               <div class="col-md-12" align="center">
-
-                                 <strong> Item Name :</strong> <?php echo $item['item_name']; ?> &nbsp;&nbsp;
+                                 <?php if(isset($item['item_name'])&& isset($item['item_id']))
+                                 {
+                                 ?>
+                                  <strong> Item Name :</strong> <?php echo $item['item_name']; ?> &nbsp;&nbsp;
                                  <strong> Item Code : </strong> <?php echo $item['item_id']; ?> &nbsp;&nbsp;
+                                 <?php
+                                 }
+                                 else{
+                                 ?>
+                                 <strong> Item Name : </strong>  &nbsp;&nbsp;
+                                 <strong> Item Code : </strong>  &nbsp;&nbsp;
+                                 <?php
+                                 }
+                                 ?>
+                                
                                  <strong>From Date : </strong> <?= $f_date; ?> <strong> To Date: </strong> <?= $t_date; ?> &nbsp;&nbsp;
                                  <strong>Print Date :</strong> <?= date("d-m-Y H:i:s"); ?>
 

@@ -222,9 +222,11 @@ class Customer_purchase_order extends CI_Controller
 
     function po_from_customers_enquiry_update($poeno)
     {
+        $module_id=$this->input->post('module_id');
+        $module_id=substr($module_id,1);
         $data = array(
             'cust_id' => $this->input->post('cust_id'),
-            'module_id' => $this->input->post('module_id'),
+            'module_id' =>$module_id,
             'item_id' => $this->input->post('item_id'),
             'cust_item_name' => $this->input->post('cust_item_name'),
             'cust_color_name' => $this->input->post('cust_color_name'),
@@ -341,7 +343,7 @@ class Customer_purchase_order extends CI_Controller
             $data = array(
                 's_poeno' => $poeno,
                 's_status' => $this->input->post('po_sample_no'),
-                //'s_option' => '',
+                's_option' => 0,
                 's_remarks' => '',
                 's_user' => $this->session->userdata('display_name'),
                 's_date' => date("Y-m-d H:i:s")
