@@ -303,6 +303,13 @@ alter table dost_customers_po_accept AUTO_INCREMENT=70;
 alter table dost_customers_po_sample AUTO_INCREMENT=70; 
 
 
+//poy issue in poy master
+ALTER TABLE `bud_yt_poy_issue` CHANGE `accepted_datetime` `accepted_datetime` DATETIME NULL DEFAULT NULL;
+ALTER TABLE `bud_yt_poy_issue` CHANGE `wate_date` `wate_date` DATE NULL DEFAULT NULL;
+
+//need to change  uom to dynamic and maintain gross.wt column to be empty.
+delete  FROM `dost_customers_po_enquiry` where poeno=27;
+
 
 
 
