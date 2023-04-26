@@ -124,7 +124,7 @@ class Stocktrans extends CI_Controller {
 			$save['from_stock_room_id'] = $this->input->post('from_stock_room_id');
 			$save['from_user_id'] = $this->input->post('from_user_id');
 			$save['to_concern_id'] = $this->input->post('to_concern_id');
-			$save['to_stock_room_id'] = $this->input->post('to_stock_room_id');
+			$save['to_stock_room_id'] = $this->input->post('to_stock_room_id')==''?0:$this->input->post('to_stock_room_id');
 			$save['to_user_id'] = implode(",", $this->input->post('to_user_id'));
 			$save['selected_boxes'] = $this->input->post('selected_boxes');
 			if($this->input->post('submit') == 'save')

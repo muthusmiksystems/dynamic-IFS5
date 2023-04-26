@@ -139,7 +139,8 @@
                                                     <td><?php echo $shade_name; ?></td>
                                                     <td><?php echo count($no_lots); ?></td>
                                                     <td><?php echo $no_cones; ?></td>
-                                                    <td><?php echo $gr_weight; ?> <?php echo $uom_name; ?></td>
+                                                    <!-- <td><?php echo $gr_weight; ?> <?php echo $uom_name; ?></td> -->
+                                                    <td></td>
                                                     <td><?php echo $delivery_qty; ?> <?php echo $uom_name; ?></td>
                                                     <td><?php echo $item_rate; ?></td>
                                                     <td align="right"><?php echo $item_amt; ?></td>
@@ -155,7 +156,8 @@
                                         <td></td>
                                         <td><strong>Total</strong></td>
                                         <td><strong><?php echo $tot_no_cones; ?></strong></td>
-                                        <td><strong><?php echo $tot_gr_weight; ?> <?php echo $uom_name; ?></strong></td>
+                                        <!-- <td><strong><?php echo $tot_gr_weight; ?> <?php echo $uom_name; ?></strong></td> -->
+                                        <td></td>
                                         <td><strong><?php echo $tot_nt_weight; ?> <?php echo $uom_name; ?></strong></td>
                                         <td></td>
                                         <td align="right"><strong><?php echo number_format($tot_amount, 2, '.', ''); ?></strong></td>
