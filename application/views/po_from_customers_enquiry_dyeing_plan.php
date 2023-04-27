@@ -309,7 +309,7 @@
                     'style': 'os'
                 },
                 'order': [
-                    [4, "desc"]
+                    [0, "desc"]
                 ]
             });
 

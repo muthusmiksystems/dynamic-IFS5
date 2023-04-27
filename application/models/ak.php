@@ -658,6 +658,7 @@ class ak extends CI_Model
             $this->db->where('po.shade_id', $shade_id);
         }
         $this->db->where('po.status > 0');
+        $this->db->order_by('po.poeno', 'desc');
         $query = $this->db->get();
         
         log_message('info', 'The purpose of some variable is to provide some value.');
@@ -821,6 +822,7 @@ class ak extends CI_Model
         $this->db->where('sam.s_option', 0);
         $this->db->where('sam.s_status', 1);
         $this->db->where('po.status > 0');
+        $this->db->order_by('po.poeno', 'desc');
         $query = $this->db->get();
         return $query->result_array();
     }
@@ -854,6 +856,7 @@ class ak extends CI_Model
         $this->db->where('sam.s_option > 0 AND sam.s_option <> 3');
         $this->db->where('sam.s_status', 1);
         $this->db->where('po.status > 0');
+        $this->db->order_by('po.poeno', 'desc');
         $query = $this->db->get();
         return $query->result_array();
     }

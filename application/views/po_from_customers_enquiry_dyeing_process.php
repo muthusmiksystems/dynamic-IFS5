@@ -418,7 +418,7 @@
                     'processing': 'Loading...'
                 },
                 'order': [
-                    [3, "desc"]
+                    [0, "desc"]
                 ]
             });
 

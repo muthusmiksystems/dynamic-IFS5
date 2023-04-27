@@ -110,7 +110,7 @@ class Customer_purchase_order extends CI_Controller
             $data['page_heading'] = 'PO enquiry receipt from online customer';
         }
 
-        $data['activeTab'] = 'po';
+        $data['activeTab'] = 'customer_purchase_order';
         $data['customers'] = $this->m_masters->getallmaster('bud_customers');
         $data['items'] = $this->m_masters->getallitemmasteractive('bud_items');
         $data['uoms'] = $this->m_masters->getallmaster('bud_uoms');
@@ -726,7 +726,7 @@ class Customer_purchase_order extends CI_Controller
     function po_from_customers_enquiry_list()
     {
         $data = $this->set_assets_paths();
-        $data['activeTab'] = 'po';
+        $data['activeTab'] = 'customer_purchase_order';
 
         $filter_from_date =date("Y-m-d", strtotime("-1 month"));
      
@@ -757,7 +757,7 @@ class Customer_purchase_order extends CI_Controller
         }
 
         if ($this->session->userdata('logged_as') == 'user') {
-            $data['activeItem'] = 'new_po';
+            $data['activeItem'] = 'po_from_customers_enquiry_list';
             $data['page_title'] = 'New PO';
              $data['page_heading'] = 'PO Received From Customer Online';
             $data['table'] = $this->ak->ak_po_list_customers('', $filter_from_date, $filter_to_date, $cust_id, $module_id, $item_id, $shade_id);
@@ -779,7 +779,7 @@ class Customer_purchase_order extends CI_Controller
     function po_accepted_by_stock()
     {
         $data = $this->set_assets_paths();
-        $data['activeTab'] = 'po';
+        $data['activeTab'] = 'customer_purchase_order';
         $data['activeItem'] = 'po_accepted_by_stock';
         $data['page_title'] = 'PO Fm. Stock';
         $data['page_heading'] = 'PO Accepted (Delivery Fm. Ready Stock)';
@@ -822,7 +822,7 @@ class Customer_purchase_order extends CI_Controller
     function po_accepted()
     {
         $data = $this->set_assets_paths();
-        $data['activeTab'] = 'po';
+        $data['activeTab'] = 'customer_purchase_order';
         $data['activeItem'] = 'po_accepted';
 
         $filter_from_date = '';
@@ -870,7 +870,7 @@ class Customer_purchase_order extends CI_Controller
     function po_sampling_queue()
     {
         $data = $this->set_assets_paths();
-        $data['activeTab'] = 'po';
+        $data['activeTab'] = 'customer_purchase_order';
         $data['activeItem'] = 'po_sampling_queue';
         $data['page_title'] = 'PO Sampling Queue';
         $data['page_heading'] = 'PO Sampling Queue';
@@ -913,7 +913,7 @@ class Customer_purchase_order extends CI_Controller
     function po_sample_completed()
     {
         $data = $this->set_assets_paths();
-        $data['activeTab'] = 'po';
+        $data['activeTab'] = 'customer_purchase_order';
         $data['activeItem'] = 'po_sample_completed';
         $data['page_title'] = 'PO Sample Completed';
         $data['page_heading'] = 'PO Sample Completed & Pending for Customer Approval';
@@ -956,7 +956,7 @@ class Customer_purchase_order extends CI_Controller
     function po_sample_approved_by_customer()
     {
         $data = $this->set_assets_paths();
-        $data['activeTab'] = 'po';
+        $data['activeTab'] = 'customer_purchase_order';
         $data['activeItem'] = 'po_sample_approved_by_customer';
         $data['page_title'] = 'PO Sample Approved By Customer';
         $data['page_heading'] = 'PO Sample Approved By Customer, Final Sample Report';
@@ -999,7 +999,7 @@ class Customer_purchase_order extends CI_Controller
     function po_dyeing_queue()
     {
         $data = $this->set_assets_paths();
-        $data['activeTab'] = 'po';
+        $data['activeTab'] = 'customer_purchase_order';
         $data['activeItem'] = 'po_dyeing_queue';
         $data['page_title'] = 'PO Dyeing Queue';
         $data['page_heading'] = 'PO Dyeing Queue';
@@ -1042,7 +1042,7 @@ class Customer_purchase_order extends CI_Controller
     function po_dyeing_plan()
     {
         $data = $this->set_assets_paths();
-        $data['activeTab'] = 'po';
+        $data['activeTab'] = 'customer_purchase_order';
         $data['activeItem'] = 'po_dyeing_plan';
         $data['page_title'] = 'GPO Dyeing Plan';
         $data['page_heading'] = 'GPO Dyeing Plan';
@@ -1130,7 +1130,7 @@ class Customer_purchase_order extends CI_Controller
     function dyeing_lot_approval_queue()
     {
         $data = $this->set_assets_paths();
-        $data['activeTab'] = 'po';
+        $data['activeTab'] = 'customer_purchase_order';
         $data['activeItem'] = 'dyeing_lot_approval_queue';
         $data['page_title'] = 'D Prod. Completed';
         $data['page_heading'] = 'D Production Completed & Lot Approval By Supervisor & Production Head';
@@ -1174,7 +1174,7 @@ class Customer_purchase_order extends CI_Controller
     function cust_lot_approval_queue()
     {
         $data = $this->set_assets_paths();
-        $data['activeTab'] = 'po';
+        $data['activeTab'] = 'customer_purchase_order';
         $data['activeItem'] = 'cust_lot_approval_queue';
         $data['page_title'] = 'Lot Final Approval By Customer';
         $data['page_heading'] = 'Lot Final Approval By Customer';
@@ -1218,7 +1218,7 @@ class Customer_purchase_order extends CI_Controller
     function po_lot_report()
     {
         $data = $this->set_assets_paths();
-        $data['activeTab'] = 'po';
+        $data['activeTab'] = 'customer_purchase_order';
         $data['activeItem'] = 'po_lot_report';
         $data['page_title'] = 'Lot Final Report';
         $data['page_heading'] = 'D Production Lot Final Report';
@@ -1262,7 +1262,7 @@ class Customer_purchase_order extends CI_Controller
     function po_rejected()
     {
         $data = $this->set_assets_paths();
-        $data['activeTab'] = 'po';
+        $data['activeTab'] = 'customer_purchase_order';
         $data['activeItem'] = 'po_rejected';
 
         $filter_from_date = '';
@@ -1344,7 +1344,7 @@ class Customer_purchase_order extends CI_Controller
             $data['table'] = $this->ak->ak_po_list_rejected_customers('', $filter_from_date, $filter_to_date, $cust_id, $module_id, $item_id, $shade_id);
         } else {
             $data['page_title'] = 'PO In Lab Sample';
-            $data['page_heading'] = 'PO Pending (In Lab Sampling)';
+            $data['page_heading'] = 'PO Pending (Sample Completed)';
             $data['table'] = $this->ak->ak_po_list_rejected_customers($this->session->userdata('user_id'), $filter_from_date, $filter_to_date, $cust_id, $module_id, $item_id, $shade_id);
         }
         $data['customers'] = $this->m_masters->getallmaster('bud_customers');

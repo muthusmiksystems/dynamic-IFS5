@@ -81,6 +81,7 @@
                                         <th>PO Qty / UOM</th>
                                         <th>Cust. Remarks</th>
                                         <th>Factory Remarks</th>
+                                        <th>Apr.Cust<br>Remarks</th>
                                         <th>Accepted By</th>
                                         <th>Action</th>
                                     </tr>
@@ -182,6 +183,7 @@
                                             '<?= $uom_name; ?>',
                                             '<?= $row['remarks']; ?>',
                                             '<?= $row['remarkstocust'] . '<br>' . @$po_sample_option_arr[@$row['s_option'] - 1]['option']; ?>',
+                                            '<?= $row['s_final_remarks']; ?>',   
                                             '<?= $row['a_user']; ?>',
                                             '<?= $duplicate_detail; ?>'
                                         ]);
@@ -252,7 +254,7 @@
                     'processing': 'Loading...'
                 },
                 "order": [
-                    [3, "desc"]
+                    [0, "desc"]
                 ]
             });
 

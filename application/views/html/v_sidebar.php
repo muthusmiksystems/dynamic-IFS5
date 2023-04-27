@@ -20,7 +20,57 @@ if ($this->session->userdata('logged_as') == 'user') {
           </a>
         </li>
 
-       
+        <?php
+        $endHtml = '</ul></li>';
+        $privileges = $this->m_users->get_all_privileges_by_module($user_viewed, $logged_user_id, $is_admin);
+        $i = 0;
+        $lp = '';
+        foreach ($privileges as $privilege) {
+          if ($privilege['upriv_status'] == false) {
+            //continue;
+          }
+          if ($privilege['upriv_group'] == '') {
+            continue;
+          }
+          $start = false;
+          $end = false;
+          if ($lp == '' || $privilege['upriv_group'] != $lp) {
+            $lp = $privilege['upriv_group'];
+            $end = true;
+            $start = true;
+          }
+          if ($end == true && $i != 0) {
+            echo $endHtml;
+          }
+          $at = $privilege['upriv_controller'] . $privilege['upriv_function'];
+          $link = $privilege['upriv_controller'] . '/' . $privilege['upriv_function'];
+          if ($start == true) {
+            echo '<li class="sub-menu ' . ((isset($activeTab) && $activeTab == $privilege['upriv_controller']) ? 'active' : '') . '">
+              <a href="javascript:void(0);" class="">
+                <i class="icon-' . $privilege['upriv_group_icon'] . '"></i>
+                <span>' . $privilege['upriv_group'] . '</span>
+                <span class="arrow"></span>
+              </a>
+              <ul class="sub">';
+            $i = 1;
+            $end = false;
+          }
+          //.$privilege['upriv_menu_order']
+          echo '<li class="' . (($activeItem == $privilege['upriv_function']) ? 'active' : '') . '"><a class="" href="' . base_url($link) . '">' . $privilege['upriv_description'] . '</a></li>';
+
+          $i++;
+        }
+        echo $endHtml;
+
+        /*
+        ?>
+
+        <li class="<?= (isset($activeItem) && $activeTab == 'dashboard') ? 'active' : ''; ?>">
+          <a class="" href="<?= base_url(); ?>">
+            <i class="icon-dashboard"></i>
+            <span>Dashboard</span>
+          </a>
+        </li>
 
         <!--Quote-->
         <?php
@@ -898,7 +948,7 @@ if ($this->session->userdata('logged_as') == 'user') {
           </li>
         <?php
         }
-       /* $is_privileged = $this->m_users->is_privileged('production', 'upriv_controller', $logged_user_id);
+        $is_privileged = $this->m_users->is_privileged('production', 'upriv_controller', $logged_user_id);
         $is_manu_active = $this->m_users->is_manu_active('production', 'upriv_controller', $user_viewed);
         if (($is_admin && $is_manu_active) || $is_privileged) {
         ?>
@@ -1059,7 +1109,7 @@ if ($this->session->userdata('logged_as') == 'user') {
             </ul>
           </li>
         <?php
-        }*/
+        }
         $is_privileged = $this->m_users->is_privileged('production', 'upriv_controller', $logged_user_id);
         $is_manu_active = $this->m_users->is_manu_active('production', 'upriv_controller', $user_viewed);
         if (($is_admin && $is_manu_active) || $is_privileged) {
@@ -1577,7 +1627,6 @@ if ($this->session->userdata('logged_as') == 'user') {
         // MIR Reports
         $is_privileged = $this->m_users->is_privileged('Mir_reports', 'upriv_controller', $logged_user_id);
         $is_manu_active = $this->m_users->is_manu_active('Mir_reports', 'upriv_controller', $user_viewed);
-        $is_manu_activeCustomerPo=$is_manu_active;
         if (($is_admin && $is_manu_active) || $is_privileged) {
         ?>
           <li class="sub-menu <?= (isset($activeTab) && $activeTab == 'mir_reports') ? 'active' : ''; ?>">
@@ -1754,12 +1803,11 @@ if ($this->session->userdata('logged_as') == 'user') {
         <?php
         }
         //end of dynamic dost3.0
-        $is_privileged = $this->m_users->is_privileged('delivery', 'upriv_controller', $logged_user_id);
-        $is_manu_active = $this->m_users->is_manu_active('delivery', 'upriv_controller', $user_viewed);
-
+        $is_privileged = $this->m_users->is_privileged('stock', 'upriv_controller', $logged_user_id);
+        $is_manu_active = $this->m_users->is_manu_active('stock', 'upriv_controller', $user_viewed);
         if (($is_admin && $is_manu_active) || $is_privileged) {
         ?>
-          <li class="sub-menu <?= (isset($activeTab) && $activeTab == 'delivery') ? 'active' : ''; ?>">
+          <li class="sub-menu <?= (isset($activeTab) && $activeTab == 'stock') ? 'active' : ''; ?>">
             <a href="javascript:;" class="">
               <i class=" icon-shopping-cart"></i>
               <span>All Y.Delivery</span>
@@ -1807,9 +1855,6 @@ if ($this->session->userdata('logged_as') == 'user') {
             </ul>
           </li>
         <?php } ?>
-        <?php
-        if ($is_admin && $is_manu_activeCustomerPo) {
-        ?>
         <li class="sub-menu <?= (isset($activeTab) && $activeTab == 'po') ? 'active' : ''; ?>">
           <a href="javascript:;" class="">
             <i class=" icon-shopping-cart"></i>
@@ -1836,7 +1881,6 @@ if ($this->session->userdata('logged_as') == 'user') {
           </ul>
         </li>
         <?php
-        }
         $is_privileged = $this->m_users->is_privileged('store', 'upriv_controller', $logged_user_id);
         $is_manu_active = $this->m_users->is_manu_active('store', 'upriv_controller', $user_viewed);
         if (($is_admin && $is_manu_active) || $is_privileged) {
@@ -2050,8 +2094,7 @@ if ($this->session->userdata('logged_as') == 'user') {
         }
         // Start Shop Estimate
         $is_privileged = $this->m_users->is_privileged('shop', 'upriv_controller', $logged_user_id);
-        $is_manu_active = $this->m_users->is_manu_active('Branch 1', 'upriv_group', $user_viewed);
-      
+        $is_manu_active = $this->m_users->is_manu_active('shop', 'upriv_controller', $user_viewed);
         if (($is_admin && $is_manu_active) || $is_privileged) {
         ?>
           <li class="sub-menu <?= (isset($activeTab) && $activeTab == 'shop') ? 'active' : ''; ?>">
@@ -2078,12 +2121,11 @@ if ($this->session->userdata('logged_as') == 'user') {
               <?php
               }
 
-              $is_privileged = $this->m_users->is_privileged('pack_entry', 'upriv_function', $logged_user_id);
-              $is_manu_active = $this->m_users->is_manu_active('pack_entry', 'upriv_function', $user_viewed);
-             
+              $is_privileged = $this->m_users->is_privileged('packing', 'upriv_function', $logged_user_id);
+              $is_manu_active = $this->m_users->is_manu_active('packing', 'upriv_function', $user_viewed);
               if (($is_admin && $is_manu_active) || $is_privileged) {
               ?>
-                <li class="<?= ($activeItem == 'pack_entry') ? 'active' : ''; ?>"><a class="" href="<?= base_url() ?>shop/packing">Br.Packing Entry</a></li>
+                <li class="<?= ($activeItem == 'packing') ? 'active' : ''; ?>"><a class="" href="<?= base_url() ?>shop/packing">Br.Packing Entry</a></li>
               <?php
               }
 
@@ -2331,7 +2373,7 @@ if ($this->session->userdata('logged_as') == 'user') {
         }
 
         $is_privileged = $this->m_users->is_privileged('shop', 'upriv_controller', $logged_user_id);
-        $is_manu_active = $this->m_users->is_manu_active('Branch Registers', 'upriv_group', $user_viewed);
+        $is_manu_active = $this->m_users->is_manu_active('shop', 'upriv_controller', $user_viewed);
         if (($is_admin && $is_manu_active) || $is_privileged) {
         ?>
           <li class="sub-menu <?= (isset($activeTab) && $activeTab == 'shop_registers') ? 'active' : ''; ?>">
@@ -2626,7 +2668,7 @@ if ($this->session->userdata('logged_as') == 'user') {
             </ul>
           </li>
         <?php
-        } 
+        } */
         ?>
       </ul>
       <!-- sidebar menu end-->

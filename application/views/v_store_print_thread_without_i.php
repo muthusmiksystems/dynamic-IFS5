@@ -115,7 +115,7 @@
 		</tr>
 		<tr class="border-top">
 			<td colspan="4" class="ps-footer">
-				Note : Pls do not mix Yarns of two different lots<br> Customer Care:  93453 40123, 93441 40123, 91509 30760, 93452 40123
+				Note : Pls do not mix Yarns of two different lots<br> Customer Care:  93453 40123, 93441 40123, 93452 40123
 			</td>
 		</tr>
 	</table>
