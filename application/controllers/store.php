@@ -825,7 +825,7 @@ class Store extends CI_Controller
 	{
 		//echo "<pre>".print_r($_POST)."</pre>";
 		$action = $this->input->post('action');
-		echo $id = $this->input->post('id');
+		//echo $id = $this->input->post('id');
 		$data = array(
 			'box_prefix' => 'D',
 			'item_id' => $this->input->post('item_id'),

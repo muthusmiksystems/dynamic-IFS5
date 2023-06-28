@@ -695,7 +695,7 @@ class M_masters extends CI_Model
         $lot_month = $this->getmasterIDvalue(' bud_lots', 'lot_id', $lot_no, 'lot_month'); ///tot direct lot qty correction
         $this->db->select('SUM(net_weight) as tot_packed_qty');
         if (!empty($lot_no)) {
-            $this->db->where('lot_month', $lot_month); ///tot direct lot qty correction
+           // $this->db->where('lot_month', $lot_month); ///tot direct lot qty correction
             $this->db->where('lot_no', $lot_no);
         }
         $this->db->where('is_deleted', 0);

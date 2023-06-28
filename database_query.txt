@@ -311,6 +311,67 @@ ALTER TABLE `bud_yt_poy_issue` CHANGE `wate_date` `wate_date` DATE NULL DEFAULT 
 delete  FROM `dost_customers_po_enquiry` where poeno=27;
 
 
+ALTER TABLE `user`
+MODIFY COLUMN `del_id` INT AUTO_INCREMENT = 200;
+ALTER TABLE `bud_jwi_mst` CHANGE `tax_desc` `tax_desc` TEXT CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+delete FROM `bud_yt_packing_boxes` WHERE box_id<=93500;
+delete FROM `bud_yt_packing_boxes_bucket` WHERE box_id>93500;
+
+ALTER TABLE `bud_yt_packing_boxes` CHANGE `no_boxes` `no_boxes` INT(11) NULL DEFAULT NULL;
+ALTER TABLE `bud_yt_packing_boxes_bucket` CHANGE `no_boxes` `no_boxes` INT(11) NULL DEFAULT NULL;
+
+
+ALTER TABLE `bud_yt_packing_boxes` CHANGE `remarks` `remarks` TEXT CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+ALTER TABLE `bud_yt_packing_boxes_bucket` CHANGE `remarks` `remarks` TEXT CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL
+
+
+
+delete FROM `bud_tax` WHERE `tax_id`=3 or `tax_id`=2 or `tax_id`=15 or `tax_id`=14;
+
+DELETE FROM `bud_tax` WHERE `tax_id`>=5 and `tax_id`<=9;
+
+
+UPDATE `bud_othercharges` SET `othercharge_name` = 'Dyeing Charges' WHERE `bud_othercharges`.`othercharge_id` = 4;
+
+ delete  FROM `bud_yt_invoices` WHERE  
+ `bud_yt_invoices`.`invoice_id` <=2730;
+ 
+ delete FROM `bud_yt_invoices_bucket` WHERE `bud_yt_invoices_bucket`.`invoice_id` >2730;
+
+
+ UPDATE `bud_privileges` set `upriv_description`="R.Mat Quality." where upriv_id=235;
+
+ UPDATE `bud_othercharges` SET `othercharge_type` = '+' WHERE `bud_othercharges`.`othercharge_id` = 4;
+
+
+ ALTER TABLE `bud_lots`
+ADD COLUMN `lot_quality` varchar(100),
+ADD COLUMN `lot_remark` varchar(500);
+
+UPDATE `bud_lots` SET `lot_quality` = '1st', `lot_remark` = 'test' WHERE `bud_lots`.`lot_id` = 37;
+
+DELETE FROM `bud_dlc_packing_items`
+WHERE lot_id NOT IN (
+    SELECT lot_id FROM `bud_lots`
+);
+
+
+DELETE FROM `bud_dlc_packing_items` WHERE lot_id >=45;
+alter table bud_lots add column lot_rate float;
+
+alter table bud_lots add column lot_invoice_no varchar(100)
+
+
+alter table `bud_lots` add column inward_date datetime;
+alter table `bud_lots` modify column inward_date date;
+
+
+ALTER TABLE `bud_lots` DROP PRIMARY KEY;
+
+ALTER TABLE bud_lots MODIFY lot_id bigint;
+
+
+
 
 
 

@@ -516,9 +516,11 @@ class ak extends CI_Model
         $this->db->join('bud_shades', 'ak_po_dyed_thread_inner.shade_id = bud_shades.shade_id', 'left');
         $this->db->join('bud_lots', 'ak_po_dyed_thread_inner.lot_id = bud_lots.lot_id', 'left');
         $this->db->join('bud_items', 'ak_po_dyed_thread_inner.item_id = bud_items.item_id', 'left');
+        $this->db->group_by('ak_po_dyed_thread_inner.inner_box_id');
         if (!empty($inner_box_id)) {
             $this->db->where('inner_box_id', $inner_box_id);
         }
+
         $this->db->where('outerbox_packed', $outerbox_packed);
         $this->db->order_by('inner_box_id', 'desc');
         return $this->db->get('ak_po_dyed_thread_inner')->result();
