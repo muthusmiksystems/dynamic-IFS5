@@ -80,8 +80,9 @@ class Users extends CI_Controller
 		if ($username != '' && $password != '') {
 			$login = $this->m_users->check_secure_login($username, $this->encrypt->encode($password));
 			$cdata = @explode('-', $username);
+			
+			
 			$cust_login = $this->m_users->check_cust_login(@$cdata[1], $password, @$cdata[0]);
-
 			if ($login && $this->encrypt->decode($login['user_pass']) == $password) {
 				$this->session->set_userdata('user_id', $login['ID']);
 				$this->session->set_userdata('user_login', $login['user_login']);

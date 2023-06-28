@@ -626,6 +626,7 @@ class M_masters extends CI_Model
                 $this->db->where('bud_lots.direct_entry', 0);
             }
         }
+        $this->db->group_by('bud_lots.lot_id');
         $this->db->order_by('lot_id', 'desc');
         return $this->db->get('bud_lots')->result();
     }
@@ -676,7 +677,7 @@ class M_masters extends CI_Model
         $this->db->join('ak_po_from_customers', 'bud_lots.po_no = ak_po_from_customers.R_po_no', 'left');
         $this->db->join('bud_customers', 'ak_po_from_customers.bud_customers = bud_customers.cust_id', 'left');
         $this->db->where('bud_lots.lot_id', $lot_id);
-        $this->db->where('bud_lots.lot_id', $lot_id);
+        //$this->db->where('bud_lots.lot_id', $lot_id);
         return $this->db->get('bud_lots')->row();
     }
 
@@ -1022,5 +1023,21 @@ class M_masters extends CI_Model
             ->where("find_in_set('" . $user_id . "', cust_agent) <> 0");
         $query = $this->db->get();
         return $query->result_array();
+    }
+
+    function get_uom($table_name, $uom_id, $field)
+    {
+        $this->db->select($field)
+            ->from($table_name)
+            ->where('uom_id', $uom_id);
+        
+        $query = $this->db->get();
+        $result = $query->row(); // Fetch a single row
+        
+        if ($result) {
+            return $result->$field; // Return the value of the specified field
+        }
+        
+        return null; // Return null if no result is found
     }
 }

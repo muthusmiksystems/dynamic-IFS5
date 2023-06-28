@@ -150,6 +150,7 @@
                                         <th></th>
                                         <th></th>
                                         <th></th>
+                                        <th></th>
                                         <th><?php echo $total_cones; ?></th>
                                         <th><?php echo $total_gr_wt; ?></th>
                                         <th><?php echo $total_nt_wt; ?></th>
@@ -195,6 +196,7 @@
                 </div>
             </div>
 		</section>
+        
 	</section>
 <?php include APPPATH.'views/html/footer.php'; ?>
 <script type="text/javascript">

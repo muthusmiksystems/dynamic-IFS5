@@ -723,14 +723,16 @@
             }
             ?>
           </table>
+          
         </section>
       </section>
 
     </section>
-
+    <p style="text-align:right;font-size:4px;margin-right:20px">application\views\v_store_gray_yarn_soft.php</p> 
+    <p style="text-align:right;font-size:4px;margin-right:20px">application\views\v_store_print_gray_yarn_soft.php</p> 
     <!--main content end-->
   </section>
-  <p style="text-align:right;font-size:4px;margin-right:10px">application\views\v_store_gray_yarn_soft.php</p>         
+        
 
 
   <!-- js placed at the end of the document so the pages load faster -->
@@ -762,6 +764,7 @@
 
   <script>
     //owl carousel
+    var userLogin = <?= json_encode($user_login) ?>;
 
     function printTab() {
       var form = document.createElement("form");
@@ -862,7 +865,8 @@
               $("#nt_wt").val(grant - $("#t_wt").val());
             } else {
               $("#ot_wt").val("");
-              alert("tare wt is greater than grant");
+              // alert("tare wt is greater than grant");
+              alert(`Dear ${userLogin}, Dynamic Dost can not save this record, Because Tare weight is MORE than Gross Weight, Correct it and save again.`);
             }
 
           } else {
@@ -1045,9 +1049,11 @@
       var poy_inward_no_2 = $(this).val();
       var url = "<?= base_url() ?>store/get_poy_po_no/" + poy_inward_no_2;
       var postData = 'id=' + poy_inward_no_2;
+      
       $.ajax({
         type: "POST",
         url: url,
+        dataType:"html",
         // data: postData,
         success: function(result) {
           $("#poy_inward_no").select2('destroy');
@@ -1057,6 +1063,7 @@
         }
       });
       return false;
+    
     });
   </script>
 

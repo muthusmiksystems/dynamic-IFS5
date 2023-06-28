@@ -222,7 +222,8 @@
 													<tr>
 														<th>Sno</th>
 														<th>Customer</th>
-														<th>Tax</th>
+														<!-- <th>Tax</th> -->
+                            	<th></th>
 														<th>Particular</th>
 														<th>Qty</th>
 														<th>Rate</th>
@@ -282,7 +283,8 @@
                                 <th>Sno</th>
 								<th>Invoice</th>
 								<th>Customer</th>
-								<th>Tax</th>
+								<!-- <th>Tax</th> -->
+                <th>Rate</th>
 								<th>Qty</th>
 								<th>Amount</th>
 								<th>Date</th>
@@ -342,6 +344,7 @@
             </section>
       </section>
       <!--main content end-->
+      <h5 style="text-align:right;font-size:8px">application\views\v_1_create_job_work_invoice.php</h6>
   </section>
 
     <!-- js placed at the end of the document so the pages load faster -->
@@ -474,7 +477,8 @@
 				var row = "<tr id='"+n_id+"'>"+
 							"<td>"+n_id+"</td>"+
 							"<td>"+customer+"</td><input type='hidden' name='a_customers[]' value='"+customer_id+"'>"+
-							"<td>"+tax+"</td><input type='hidden' name='a_tax[]' value='"+tax+"'>"+
+							// "<td>"+tax+"</td><input type='hidden' name='a_tax[]' value='"+tax+"'>"+
+              "<td></td><input type='hidden' name='a_tax[]' value='"+tax+"'>"+
 							"<td>"+particular+"</td><input type='hidden' name='a_particular[]' value='"+particular+"'>"+
 							"<td>"+qty+"</td><input type='hidden' name='a_qty[]' value='"+qty+"'>"+
               "<td>"+rate+"</td><input type='hidden' name='a_rate[]' value='"+rate+"'>"+

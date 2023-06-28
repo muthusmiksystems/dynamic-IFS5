@@ -115,6 +115,7 @@
                 </div>
             </div>
 		</section>
+        <h5 style="text-align:right;font-size:5px;margin-right:20px">application\modules\shop\views\print-shop-dc.php</h5>
 	</section>
 <?php include APPPATH.'views/html/footer.php'; ?>
 <script type="text/javascript">

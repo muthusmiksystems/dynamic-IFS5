@@ -60,6 +60,15 @@ class Directpack_model extends CI_Model {
         }
     }
 
+    public function save_lot_for_new_feature($save)
+    {
+        
+       
+            $this->db->insert('bud_lots', $save);
+            return $this->db->insert_id();
+        
+    }
+
     public function save_dlc_packing_items($save)
     {
         if($save['id'])
@@ -74,6 +83,15 @@ class Directpack_model extends CI_Model {
             return $this->db->insert_id();
         }
     }
+    public function save_dlc_packing_items_for_new_feature($save)
+    {
+        
+           
+        
+            $this->db->insert('bud_dlc_packing_items', $save);
+            return $this->db->insert_id();
+        
+    }
 
     function get_lots($filter = array())
     {
@@ -82,6 +100,7 @@ class Directpack_model extends CI_Model {
         $this->db->select('bud_shades.shade_name,bud_shades.shade_code');
         $this->db->join('bud_shades','bud_lots.lot_shade_no = bud_shades.shade_id', 'left');
         $this->db->join('bud_items','bud_lots.lot_item_id = bud_items.item_id', 'left');
+        $this->db->group_by('bud_lots.lot_id');
         $this->db->where('bud_lots.direct_entry', 1);
         if(count($filter))
         {
@@ -98,6 +117,39 @@ class Directpack_model extends CI_Model {
         return $this->db->get('bud_lots')->result();
     }
 
+    function get_lots_by_qty($filter = array())
+    {
+        $this->db->select('bud_lots.*,SUM(bud_lots.lot_qty) as total_lot_qty,SUM(bud_lots.no_springs) as total_no_springs,SUM(bud_lots.lot_oil_required) as total_lot_oil_required,MAX(bud_lots.lot_id) as latest_lot_id');
+        $this->db->select('bud_items.item_name');
+        $this->db->select('bud_shades.shade_name,bud_shades.shade_code');
+        $this->db->join('bud_shades','bud_lots.lot_shade_no = bud_shades.shade_id', 'left');
+        $this->db->join('bud_items','bud_lots.lot_item_id = bud_items.item_id', 'left');
+        $this->db->group_by('bud_lots.lot_no');
+        $this->db->where('bud_lots.direct_entry', 1);
+        if(count($filter))
+        {
+            if(isset($filter['shade_id']))
+            {
+                $this->db->where('bud_lots.lot_shade_no', $filter['shade_id']);
+            }
+            if(isset($filter['item_id']))
+            {
+                $this->db->where('bud_lots.lot_item_id', $filter['item_id']);
+            }
+        }
+        $this->db->order_by('lot_id', 'desc');
+        return $this->db->get('bud_lots')->result();
+    }
+
+
+    function get_latest_lots($latest_lot_id)
+    {
+        $this->db->select('bud_lots.*');
+       
+        $this->db->where('bud_lots.direct_entry', 1);
+        $this->db->where('bud_lots.lot_id',$latest_lot_id);
+        return $this->db->get('bud_lots')->result(0);
+    }
     public function save_packing($save)
     {
         if($save['box_id'])
@@ -146,6 +198,7 @@ class Directpack_model extends CI_Model {
         $this->db->join('bud_shades', 'bud_yt_packing_boxes.shade_no=bud_shades.shade_id', 'left');
         $this->db->join('bud_users', 'bud_yt_packing_boxes.packed_by=bud_users.ID', 'left');
         $this->db->join('bud_stock_rooms', 'bud_yt_packing_boxes.stock_room_id=bud_stock_rooms.stock_room_id', 'left');
+        $this->db->group_by('bud_yt_packing_boxes.box_id');  //new
         if(!empty($is_deleted))
         {
             $this->db->where('bud_yt_packing_boxes.is_deleted', $is_deleted);
@@ -188,5 +241,23 @@ class Directpack_model extends CI_Model {
         }
         $result = $this->db->get('bud_stock_rooms');
         return $result->result();
+    }
+
+    function get_lot_details($lot_no,$lot_id='')
+    {
+        
+        $this->db->select('bud_lots.*');
+        $this->db->select('bud_items.item_name');
+        $this->db->select('bud_shades.shade_name,bud_shades.shade_code');
+        $this->db->join('bud_shades','bud_lots.lot_shade_no = bud_shades.shade_id', 'left');
+        $this->db->join('bud_items','bud_lots.lot_item_id = bud_items.item_id', 'left');
+        $this->db->where('bud_lots.direct_entry', 1);
+        $this->db->where('bud_lots.lot_no',$lot_no);
+        if($lot_id!='')
+        {
+            $this->db->where('bud_lots.lot_id',$lot_id);   
+        }
+        $this->db->order_by('lot_id', 'desc');
+        return $this->db->get('bud_lots')->result();
     }
 }

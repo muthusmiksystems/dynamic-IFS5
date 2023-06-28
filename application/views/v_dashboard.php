@@ -45,7 +45,7 @@
                 margin-top: 60px;
                 padding: 15px;
                 width: 100%;
-                background: #4df324 !important;
+                /* background: #4df324 !important; */
             }
         </style>
         <!--sidebar end-->

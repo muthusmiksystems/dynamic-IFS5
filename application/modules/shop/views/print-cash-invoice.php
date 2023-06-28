@@ -68,14 +68,15 @@
                                     </tr>
                                     <tr>
                                         <th>#</th>
-                                        <th># Boxes</th>
+                                        <th style="text-align:center"># Boxes</th>
                                         <th>Item Name/Code</th>
                                         <th>HSN Code</th>
                                         <th>Shade Name/No</th>
                                         <th># Lots</th>
-                                        <th>#Cones</th>
-                                        <th>Gr.Wt</th>
-                                        <th>Del.Nt.Wt / #Cones</th><!--ER-07-18#-9-->
+                                        <th># of Units</th>
+                                        <!-- <th>Gr.Wt</th> -->
+                                        <th>Uom</th>
+                                        <th>Del.Nt.Wt / # Units</th><!--ER-07-18#-9-->
                                         <th>Rate</th>
                                         <th class="text-right">Amount</th>
                                     </tr>
@@ -133,15 +134,16 @@
                                                 ?>
                                                 <tr>
                                                     <td><?php echo $sno++; ?></td>
-                                                    <td><?php echo sizeof($boxes); ?></td>
+                                                    <td align="center"><?php echo sizeof($boxes); ?></td>
                                                     <td><?php echo $item_name; ?></td>
                                                     <td><?php echo $hsn_code; ?></td>
                                                     <td><?php echo $shade_name; ?></td>
                                                     <td><?php echo count($no_lots); ?></td>
                                                     <td><?php echo $no_cones; ?></td>
                                                     <!-- <td><?php echo $gr_weight; ?> <?php echo $uom_name; ?></td> -->
-                                                    <td></td>
-                                                    <td><?php echo $delivery_qty; ?> <?php echo $uom_name; ?></td>
+                                                    <td> <?php echo $uom_name; ?></td>
+                                                    <!-- <td><?php echo $delivery_qty; ?> <?php echo $uom_name; ?></td> -->
+                                                    <td><?php echo $delivery_qty; ?></td>
                                                     <td><?php echo $item_rate; ?></td>
                                                     <td align="right"><?php echo $item_amt; ?></td>
                                                 </tr>
@@ -158,7 +160,8 @@
                                         <td><strong><?php echo $tot_no_cones; ?></strong></td>
                                         <!-- <td><strong><?php echo $tot_gr_weight; ?> <?php echo $uom_name; ?></strong></td> -->
                                         <td></td>
-                                        <td><strong><?php echo $tot_nt_weight; ?> <?php echo $uom_name; ?></strong></td>
+                                        <!-- <td><strong><?php echo $tot_nt_weight; ?> <?php echo $uom_name; ?></strong></td> -->
+                                        <td><strong><?php echo $tot_nt_weight; ?></strong></td>
                                         <td></td>
                                         <td align="right"><strong><?php echo number_format($tot_amount, 2, '.', ''); ?></strong></td>
                                     </tr>
@@ -255,6 +258,7 @@
                                     // $rowspan = count($others);
                                     ?>
                                     <?php if(count($others) > 0): ?>
+                                       <?php $colspan_tax=3; ?>
                                         <?php foreach($others as $key => $data): ?>
                                             <?php if($data['amount'] > 0): ?>
                                                 <tr>
@@ -273,13 +277,14 @@
                                                             <?php echo $invoice->remarks; ?>
                                                         </td>
                                                     <?php endif; ?>
-                                                    <td align="right" colspan="3">
+                                                    <td align="right" colspan="<?php echo $colspan_tax; ?>">
                                                         <strong>
                                                             <?php echo ($data['desc'] != '')?'('.$data['desc'].')':$data['names']; ?>
                                                         </strong>
                                                                                                     </td>
                                                     <td align="right"><strong><?php echo $data['amount']; ?></strong></td>
                                                 </tr>
+                                                <?php $colspan_tax=10; ?>
                                             <?php endif; ?>
                                         <?php endforeach; ?>
                                     <?php else: ?>
@@ -341,6 +346,23 @@
                                             <td></td>
                                         </tr>
                                     <?php endif; ?>
+                                    <tr class="tax-row">
+                                            <td colspan="10" align="right"><strong>+ (or) -</strong></td>
+                                         <td  align="right" style="font-size:15px" class="last-col"><strong>
+                                            <?php
+                                                     $difference = $net_amount - $tot_amount;
+                                                     $formatted_difference = number_format($difference, 2, '.', '');
+    
+                                                if ($difference > 0) {
+                                                    echo '+' . $formatted_difference;
+                                                         } elseif ($difference < 0) {
+                                                     echo '' . $formatted_difference;
+                                                    } else {
+                                                    echo $formatted_difference;
+                                                    }
+                                                ?>
+                                        </strong></td>
+                            </tr>
 
                                     <?php
                                     $upate_inv['invoice_id'] = $invoice->invoice_id;
@@ -353,9 +375,9 @@
                                             <strong>Rupees:</strong>
                                             <?php echo $this->Sales_model->amount_words($net_amount); ?>
                                         </td>
-                                        <td align="right" colspan="3">
+                                        <td align="right" colspan="3" style="font-size:15px">
                                             <strong>Net Amount (Round off):</strong>                                                                            </td>
-                                        <td align="right"><strong><?php echo number_format($net_amount, 2, '.', ''); ?></strong></td>
+                                        <td align="right" style="font-size:15px"><strong><?php echo number_format($net_amount, 2, '.', ''); ?></strong></td>
                                     </tr>
                                     <tr>
                                         <td colspan="12">

@@ -452,10 +452,18 @@ class POY extends CI_Controller
 	function poy_inward()
 	{
 		//$next = $this->db->query("SHOW TABLE STATUS LIKE 'bud_yt_poy_inward'");
-		$next = $this->db->query("SELECT po_no FROM bud_yt_poy_inward WHERE module = ".$this->session->userdata('user_viewed'));
-		$next = $next->num_rows();
+		// $next = $this->db->query("SELECT po_no FROM bud_yt_poy_inward WHERE module = ".$this->session->userdata('user_viewed'));
+		// $next = $next->num_rows();
+
+		$next = $this->db->query("SELECT max(po_no) FROM bud_yt_poy_inward WHERE module = ".$this->session->userdata('user_viewed'));
+		if ($next->num_rows() > 0) {
+            $row = $next->row();
+		}
+	
+		//$next = $next->num_rows();
 		//echo '<pre>'; print_r($next); die;
-		$data['inward_no'] = $next+1;
+		//$data['inward_no'] = $next+1;
+		$data['inward_no'] = $row->{"max(po_no)"} + 1;
 		$data['activeTab'] = 'poy';
 		$data['activeItem'] = 'poy_inward';
 		$data['page_title'] = 'POY Inward Entry';

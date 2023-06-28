@@ -231,10 +231,10 @@
                                              ?>
                                           </td>
                                           <td><?= $cust_name; ?>/<?= $delivery_customer; ?></td>
-                                          <td><?= $item_name; ?></td>
-                                          <td><?= $item_id; ?></td>
-                                          <td><?php echo $shade_name; ?></td>
-                                          <td><?php echo $shade_code; ?></td>
+                                          <td><?= isset($item_name)?$item_name:''; ?></td>
+                                          <td><?= isset($item_id)?$item_id:''; ?></td>
+                                          <td><?php if(isset($shade_name)) echo $shade_name; else echo '';?></td>
+                                          <td><?php if(isset($shade_code))echo $shade_code; else echo ''; ?></td>
                                           <td>
                                              <?php
                                              if ($dc_ckeckbox == false) {
@@ -274,6 +274,8 @@
          </section>
       </section>
       <!--main content end-->
+      <h5 style="text-align:right;font-size:5px;margin-right:20px;">application\views\v_1_create_invoice.php</h5>
+      <h5 style="text-align:right;font-size:5px;margin-right:20px;">application\views\v_1_invoice_generate.php</h5>
    </section>
 
    <!-- js placed at the end of the document so the pages load faster -->

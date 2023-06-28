@@ -200,6 +200,7 @@
 		$concern_tin = $row['concern_tin'];
 		$concern_cst = $row['concern_cst'];
 	}
+	$amount_total=0;
 
 	foreach ($boxes_array as $key => $box_no) {
 		// $outerboxes = $this->m_delivery->getPreDelItemsDetails($box_no);
@@ -215,7 +216,15 @@
 			$item_names_arr[$outerbox['box_id']] = $item_name . '/' . $item_id;
 			$item_id_arr[$outerbox['box_id']] = $item_id;
 			$gr_weights_arr[$outerbox['box_id']] = $packing_gr_weight;
-			$nt_weights_arr[$outerbox['box_id']] = $packing_net_weight;
+			
+			// $nt_weights_arr[$outerbox['box_id']] = $packing_net_weight;
+			if ($outerbox['box_prefix'] == 'TH' || $outerbox['box_prefix'] == 'TI') {
+				$nt_weights_arr[$outerbox['box_id']] = $no_of_cones;
+			}
+			else {
+				$nt_weights_arr[$outerbox['box_id']] = $packing_net_weight;
+			}
+
 			$no_cones_arr[$outerbox['box_id']] = $no_of_cones;
 			$total_cones += $no_of_cones;
 			$total_gr_wt += $packing_gr_weight;
@@ -262,6 +271,17 @@
 								$lotwise_gr_weight += $gr_weights_arr[$key_1];
 								$lotwise_amount += $nt_weights_arr[$key_1] * $rates_arr[$key_1];
 							}
+							$item_id = explode('/', $item_names_arr[$key_1]);
+
+							if (!empty($item_id)) {
+								$item_uom = $this->m_masters->getmasterIDvalue('bud_items', 'item_id', $item_id[1], 'item_uom');
+								$uom_name = $this->m_masters->get_uom('bud_uoms', $item_uom, 'uom_name');
+								
+								
+							} else {
+							   $item_uom='';
+							   $uom_name='';
+							}
 						?>
 							<tr>
 								<td style="width:1cm;"><?= $sno; ?></td>
@@ -275,13 +295,15 @@
 									}
 									?>
 								</td>
-								<td style="width:1cm;"><?= $key; ?></td>
-								<td style="width:2cm;"><?= $lotwise_gr_weight; ?></td>
-								<td style="width:2cm;"><?= $lotwise_nt_weight; ?></td>
-								<td><?= $rates_arr[$key_1]; ?></td>
-								<td style="float:right;"><?= $lotwise_amount; ?></td>
+								<td style="width:1cm;margin-left:-3px"><?= $key; ?></td>
+								<td style="width:2cm;margin-left:-3px"><?= $lotwise_gr_weight; ?></td>
+								<td style="width:2cm;margin-left:-3px"><?= $lotwise_gr_weight; ?></td>
+								<td style="width:2cm;margin-left:-3px"><?= $uom_name; ?></td>
+								<td style="width:2cm;margin-left:-4px"><?= $rates_arr[$key_1]; ?></td>
+								<td style=""><?= number_format($lotwise_amount,2,'.',''); ?></td>
 							</tr>
 						<?php
+						    $amount_total+= $lotwise_amount;
 							$sno++;
 							$total_items++;
 						}
@@ -298,11 +320,15 @@
 						</tr>
 						<tr>
 							<td align="right" colspan="7">Subtotal before Tax</td>
-							<td style="float:right;"><strong><?= number_format($sub_total, 2, '.', ''); ?></strong></td>
+							<!-- <td style="float:right;"><strong><?= number_format($sub_total, 2, '.', ''); ?></strong></td> -->
+							<td style="float:right;"><strong><?= number_format($amount_total, 2, '.', ''); ?></strong></td>
+						
 						</tr>
 						<?php
+						$sub=0;
 						foreach ($deduction_amounts as $key => $value) {
 							if ($value > 0) {
+								$sub=$sub+$value;
 								$deduction_description = $deduction_desc[$key];
 						?>
 								<tr>
@@ -312,9 +338,10 @@
 							<?php
 							}
 						}
-
+						$add=0;
 						foreach ($addtions_amounts as $key => $value) {
 							if ($value > 0) {
+								$add=$add+$value;
 								$addtions_description = $addtions_desc[$key];
 							?>
 								<tr>
@@ -324,9 +351,11 @@
 							<?php
 							}
 						}
+						$total_tax=0;
 						foreach ($tax_amounts as $key => $value) {
 							if ($value > 0) {
 								$tax_description = $this->m_masters->getTaxDesc($tax_names[$key], $tax_values[$key]);
+								$total_tax+=number_format($value,2,'.','');
 							?>
 								<tr>
 									<td align="right" colspan="7"><strong><?= $tax_names[$key]; ?> @ <?= $tax_values[$key]; ?> % </strong><?= ($tax_description != '') ? '(' . $tax_description . ')' : ''; ?></td>
@@ -335,7 +364,31 @@
 						<?php
 							}
 						}
+						$org_net_amount=$total_tax+$amount_total-$sub+$add;
+						
+					
 						?>
+						 <tr>
+                                 <!-- <td colspan="4"></td> -->
+                                 <td align="right" colspan="7">+ (or) -</td>
+                                 <!-- <td  align="right"><strong><?= number_format($net_amount-$org_net_amount, 2, '.', ''); ?></strong></td> -->
+								
+                                 <td colspan="1" align="right" style="font-size:15px"><strong>
+                                 <?php
+                                  $difference = $net_amount - $org_net_amount;
+                                   $formatted_difference = number_format($difference, 2, '.', '');
+    
+                              if ($difference > 0) {
+                              echo '+' . $formatted_difference;
+                              } elseif ($difference < 0) {
+                              echo '' . $formatted_difference;
+                              } else {
+                              echo $formatted_difference;
+                              }
+                           ?>
+                        </strong></td>
+								
+                              </tr>
 						<tr>
 							<td align="right" colspan="7">Net Amount</td>
 							<td align="right"><strong><?= number_format($net_amount, 2, '.', ''); ?></strong></td>

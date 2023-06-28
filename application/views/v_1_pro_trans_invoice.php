@@ -161,7 +161,7 @@
                $concern_tin = $row['concern_tin'];
                $concern_cst = $row['concern_cst'];
             }
-
+            $amount_total=0;
             /*print_r($item_rate);
                   print_r($boxes_array);*/
 
@@ -229,31 +229,33 @@
                                  <td width="10%" style="padding:0px;"></td>
                                  <td width="15%" style="padding:0px;"></td>
                                  <td width="5%" style="padding:0px;"></td>
+                                 <td width="5%" style="padding:0px;"></td>
                               </tr>
                               <tr class="first-row">
-                                 <td colspan="10" align="center" style="text-align:center;">
+                                 <td colspan="11" align="center" style="text-align:center;">
                                     <h3 style="margin:0px;">Transport Invoice</h3>
                                  </td>
                               </tr>
                               <tr>
                                  <td colspan="2">Gate Pass No</td>
                                  <td colspan="3"><strong><?= $invoice_no; ?> / <?= date("d-m-Y"); ?> / <?= date("H:i:s"); ?></strong></td>
-                                 <td colspan="2">Invoice No</td>
-                                 <td colspan="3"><?= $invoice_no; ?></td>
+                                 <td colspan="1">Invoice No</td>
+                                 <td colspan="5"><?= $invoice_no; ?></td>
                               </tr>
                               <tr>
                                  <td colspan="2">Customer Code</td>
                                  <td colspan="3"><?= $customer; ?></td>
-                                 <td colspan="2">DC No</td>
-                                 <td colspan="3"><?= implode(", ", $invoice_dc); ?></td>
+                                 <td colspan="1">DC No</td>
+                                 <td colspan="5"><?= implode(", ", $invoice_dc); ?></td>
                               </tr>
                               <tr>
                                  <th>#</th>
-                                 <th># of Box</th>
+                                 <th style="text-align:center;"># of Box</th>
                                  <th>Item Name/Code</th>
                                  <th>HSN Code</th>
                                  <th style="text-align:right;">Lot No</th>
-                                 <th style="text-align:right;"># of Cones</th>
+                                 <th style="text-align:right;"># of Units</th>
+                                 <th style="text-align:right;">Uom</th>
                                  <th style="text-align:right;">Gr. Weight</th>
                                  <th style="text-align:right;">Lotwise Nt.Weight</th>
                                  <td align="right">Rate</td>
@@ -274,10 +276,21 @@
                                     $lotwise_gr_weight += $gr_weights_arr[$key_1];
                                     $lotwise_amount += $nt_weights_arr[$key_1] * $rates_arr[$key_1];
                                  }
+                                 $item_id = explode('/', $item_names_arr[$key_1]);
+
+                                 if (!empty($item_id)) {
+                                     $item_uom = $this->m_masters->getmasterIDvalue('bud_items', 'item_id', $item_id[1], 'item_uom');
+                                     $uom_name = $this->m_masters->get_uom('bud_uoms', $item_uom, 'uom_name');
+                                     
+                                     
+                                 } else {
+                                    $item_uom='';
+                                    $uom_name='';
+                                 }
                               ?>
                                  <tr>
                                     <td><?= $sno; ?></td>
-                                    <td><?= $lotwise_no_boxes; ?></td>
+                                    <td align="center"><?= $lotwise_no_boxes; ?></td>
                                     <td><?= $item_names_arr[$key_1]; ?></td>
                                     <td>
                                        <?php
@@ -289,28 +302,33 @@
                                     </td>
                                     <td align="right"><?= $key; ?></td>
                                     <td align="right"><?= $no_cones_arr[$key_1]; ?></td>
+                                    <td align="right"><?= $uom_name; ?></td>
                                     <td align="right"><?= $lotwise_gr_weight; ?></td>
                                     <td><?= $lotwise_nt_weight; ?></td>
                                     <td>
                                        <?= $rates_arr[$key_1]; ?>
                                     </td>
-                                    <td><?= $lotwise_amount; ?></td>
+                                    <td align="right"><?= $lotwise_amount; ?></td>
                                  </tr>
                               <?php
+                                 $amount_total+= $lotwise_amount;
                                  $sno++;
                                  $total_items++;
                               }
                               ?>
                               <tr>
-                                 <td colspan="2" align="center"><strong>Grand Total &emsp; :</strong></td>
+                                 <td colspan="3" align="center"><strong>Grand Total &emsp; :</strong></td>
                                  <td><strong><?= count($boxes_array); ?> Boxes</strong></td>
+                                 <td></td>
+                                 <td></td>
                                  <td></td>
                                  <td align="right"><strong><?= $total_gr_wt; ?></strong></td>
                                  <td align="right"><strong><?= $total_net_wt; ?></strong></td>
                                  <td></td>
-                                 <td></td>
-                                 <td></td>
-                                 <td align="right"><strong><?= number_format($sub_total, 2, '.', ''); ?></strong></td>
+                                 
+                                
+                                 <!-- <td align="right"><strong><?= number_format($sub_total, 2, '.', ''); ?></strong></td> -->
+                                 <td align="right"><strong><?= number_format($amount_total, 2, '.', ''); ?></strong></td>
                               </tr>
 
                               <?php
@@ -332,7 +350,7 @@
                               }
                               ?>
                               <tr>
-                                 <td colspan="6" rowspan="<?= $rowspan + 1; ?>">
+                                 <td colspan="7" rowspan="<?= $rowspan + 2; ?>">
                                     <strong><u>Spl. Instruction</u></strong><br /></strong> <br />
                                     <!--Inclusion of Remarks in invoices yt-->
                                     <p>
@@ -345,8 +363,10 @@
                                  </td>
                               </tr>
                               <?php
+                              $sub=0;
                               foreach ($deduction_amounts as $key => $value) {
                                  if ($value > 0) {
+                                    $sub=$sub+$value;
                                     $deduction_description = $deduction_desc[$key];
                               ?>
                                     <tr>
@@ -356,9 +376,10 @@
                                  <?php
                                  }
                               }
-
+                              $add=0;
                               foreach ($addtions_amounts as $key => $value) {
                                  if ($value > 0) {
+                                    $add=$add+$value;
                                     $addtions_description = $addtions_desc[$key];
                                  ?>
                                     <tr>
@@ -368,9 +389,11 @@
                                  <?php
                                  }
                               }
+                              $total_tax=0;
                               foreach ($tax_amounts as $key => $value) {
                                  if ($value > 0) {
                                     $tax_description = $this->m_masters->getTaxDesc($tax_names[$key], $tax_values[$key]);
+                                    $total_tax+=number_format($value,2,'.','');
                                  ?>
                                     <tr>
                                        <td colspan="3"><strong><?= $tax_names[$key]; ?> @ <?= $tax_values[$key]; ?> % </strong><?= ($tax_description != '') ? '(' . $tax_description . ')' : ''; ?></td>
@@ -379,30 +402,36 @@
                               <?php
                                  }
                               }
+                              $org_net_amount=$total_tax+$amount_total-$sub+$add;
                               ?>
-                              <tr>
+                               <tr>
                                  <!-- <td colspan="4"></td> -->
-                                 <td colspan="3"><strong>Net Amount</strong></td>
-                                 <td colspan="1" align="right"><strong><?= number_format($net_amount, 2, '.', ''); ?></strong></td>
+                                 <td colspan="3"><strong>+ (or) -</strong></td>
+                                 <td colspan="1" align="right" style="font-size:15px"><strong><?= number_format($net_amount-$org_net_amount, 2, '.', ''); ?></strong></td>
                               </tr>
                               <tr>
-                                 <td colspan="10">
+                                 <!-- <td colspan="4"></td> -->
+                                 <td colspan="3" style="font-size:15px"><strong>Net Amount</strong></td>
+                                 <td colspan="1" align="right" style="font-size:16.5px"><strong><?= number_format($net_amount, 2, '.', ''); ?></strong></td>
+                              </tr>
+                              <tr>
+                                 <td colspan="11">
                                     <strong style="text-transform:capitalize;">Rupees : <?= no_to_words($net_amount); ?> Only.</strong>
                                  </td>
                               </tr>
                               <tr>
-                                 <td colspan="10">
+                                 <td colspan="11">
                                     <?php
                                     $invoice_dc = array();
                                     foreach ($selected_dc as $key => $value) {
                                        $invoice_dc[] = $this->m_masters->getmasterIDvalue('bud_yt_delivery', 'delivery_id', $value, 'dc_no');
                                     }
                                     ?>
-                                    <strong>OUR DC NO: <?= implode(",", $invoice_dc); ?></strong>
+                                    <strong>DC NO: <?= implode(",", $invoice_dc); ?></strong>
                                  </td>
                               </tr>
                               <tr>
-                                 <td colspan="10">
+                                 <td colspan="11">
                                     <div class="col-lg-12">
                                        <div class="print-div col-lg-3">
                                           <strong>Received By</strong>

@@ -261,7 +261,7 @@ class M_purchase extends CI_Model
 
     function get_dlc_lot_qty($lot_id)
     {
-        $this->db->join('bud_lots', 'bud_dlc_packing_items.lot_id = bud_lots.lot_id');
+        //$this->db->join('bud_lots', 'bud_dlc_packing_items.lot_id = bud_lots.lot_id');
         $this->db->where('bud_dlc_packing_items.lot_id', $lot_id);
         return $this->db->get('bud_dlc_packing_items')->result();
     }

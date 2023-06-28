@@ -61,17 +61,17 @@
                                         <th width="20%"></th>
                                     </tr>
                                     <tr>
-                                        <th colspan="6" class="text-center hidden-print" align="center">
+                                        <th colspan="7" class="text-center hidden-print" align="center">
                                             QUOTATION
                                         </th>
                                     </tr>
                                     <tr>
-                                        <th colspan="6" valign="top" style="vertical-align:top;">
+                                        <th colspan="7" valign="top" style="vertical-align:top;">
                                             <strong>To:&emsp;<?php echo $quotation->name; ?></strong>
                                         </th>
                                     </tr>
                                     <tr>
-                                        <th colspan="4">
+                                        <th colspan="5">
                                             QUOT NO: <?php echo $quotation->quotation_no; ?>
                                         </th>
                                         <th colspan="2" class="text-right" align="right">
@@ -121,12 +121,25 @@
                                                 <?php
                                                 $item_amt = number_format($delivery_qty * $item_rate, 2, '.', '');
                                                 $tot_amount += $item_amt;
+                                                
+
+                                                if (!empty($box->item_id)) {
+                                                    $item_uom = $this->m_masters->getmasterIDvalue('bud_items', 'item_id', $box->item_id, 'item_uom');
+                                                    $uom_name_new = $this->m_masters->get_uom('bud_uoms', $item_uom, 'uom_name');
+                                                    $hsn_code = $this->m_masters->getmasterIDvalue('bud_items', 'item_id', $box->item_id, 'hsn_code');
+                                        
+                                        
+                                                } else {
+                                                    $item_uom='';
+                                                     $uom_name_new='';
+                                                 }
                                                 ?>
                                                 <tr>
                                                     <td><?php echo $sno++; ?></td>
                                                     <td><?php echo $item_name; ?></td>
+                                                    <td><?php echo substr($hsn_code, 0, 8); ?></td>
                                                     <td><?php echo $shade_name; ?></td>
-                                                    <td><?php echo $delivery_qty; ?> <?php echo $uom_name; ?></td>
+                                                    <td><?php echo $delivery_qty; ?> <?php echo $uom_name_new; ?></td>
                                                     <td><?php echo $item_rate; ?></td>
                                                     <td align="right"><?php echo $item_amt; ?></td>
                                                 </tr>
@@ -141,7 +154,9 @@
                                         <td align="right"><strong>Total</strong></td>
                                         <td></td>
                                         <td></td>
-                                        <td align="right"><strong><?php echo number_format($tot_amount, 2, '.', ''); ?></strong></td>
+                                        <td></td>
+                                        <!-- <td align="right"><strong><?php echo number_format($tot_amount, 2, '.', ''); ?></strong></td> -->
+                                        <td align="right"><strong><?php echo $tot_amount; ?></strong></td>
                                     </tr>
                                     <?php
                                     $others = array();
@@ -176,11 +191,12 @@
                                     }
 
                                     $taxes = array();
+                                    $tmp = $tot_amount;
                                     if(sizeof($tax_data) > 0)
                                     {
                                         foreach ($tax_data as $key => $data) {
                                             $tax = 0.00;
-                                            $tax = ($tot_amount * $data['value']) / 100;
+                                            $tax = ($tmp * $data['value']) / 100;
                                             $tax = number_format($tax, 2, '.', '');
                                             $tax_data[$key]['amount'] = $tax;
                                             $tot_amount += $tax;
@@ -244,7 +260,7 @@
                                         <?php foreach($others as $key => $data): ?>
                                             <tr>
                                                 <?php if($key == 0): ?>
-                                                    <td colspan="3">
+                                                    <td colspan="4">
                                                         Rupees: 
                                                         <?php echo $this->Sales_model->amount_words($net_amount); ?>
                                                     </td>
@@ -258,7 +274,7 @@
                                         <?php endforeach; ?>
                                     <?php else: ?>
                                         <tr>
-                                            <td colspan="6">
+                                            <td colspan="7">
                                                 Rupees: 
                                                 <?php echo $this->Sales_model->amount_words($net_amount); ?>
                                             </td>
@@ -279,35 +295,57 @@
                                     }
                                     ?>
                                     <?php if(count($taxes) > 0): ?>
+                                        <?php $colspan_tax=2; ?>
                                         <?php foreach($taxes as $key => $data): ?>
                                             <tr>
                                                 <?php if($key == 0): ?>
-                                                    <td colspan="3">
+                                                    <td colspan="4">
                                                         Note: "Taxes as applicable."
                                                     </td>
-                                                    <td align="right" colspan="2">
+                                                 <?php endif; ?>
+                                                    <td align="right" colspan="<?php echo $colspan_tax;?>">
                                                         <strong><?php echo $data['name']; ?></strong>
                                                         <?php echo ($data['value'] != '')?'('.$data['value'].'%)':''; ?>
                                                     </td>
                                                     <td align="right"><strong><?php echo $data['amount']; ?></strong></td>
-                                                <?php endif; ?>
+                                                
+                                                
                                             </tr>
+                                            <?php $colspan_tax=6; ?>
                                         <?php endforeach; ?>
                                     <?php else: ?>
                                         <tr>
-                                            <td colspan="6">
+                                            <td colspan="7">
                                                 Note: "Taxes as applicable."
                                             </td>
                                         </tr>
                                     <?php endif; ?>
+
+                                    <tr class="tax-row">
+                                            <td colspan="6" align="right"><strong>+ (or) -</strong></td>
+                                         <td  align="right" style="font-size:15px" class="last-col"><strong>
+                                            <?php
+                                                     $difference = $net_amount - $tot_amount;
+                                                     $formatted_difference = number_format($difference, 2, '.', '');
+    
+                                                if ($difference > 0) {
+                                                    echo '+' . $formatted_difference;
+                                                         } elseif ($difference < 0) {
+                                                     echo '' . $formatted_difference;
+                                                    } else {
+                                                    echo $formatted_difference;
+                                                    }
+                                                ?>
+                                        </strong></td>
+                                        </tr>
                                     <tr>
                                         <!-- <td colspan="3">
                                             REMARKS: <?php echo $quotation->remarks; ?>
                                         </td> -->
-                                        <td align="right" colspan="5">
+                                        <td align="right" colspan="6" style="font-size: 15px;">
                                             <strong>Net Amount:</strong>                                            
                                         </td>
-                                        <td align="right"><strong style="font-size: 16px;"><?php echo number_format($net_amount, 2, '.', ''); ?></strong></td>
+                                        <td align="right"><strong style="font-size: 15px;"><?php echo number_format($net_amount, 2, '.', ''); ?></strong></td>
                                     </tr>                                
                                 </tfoot>
                             </table>

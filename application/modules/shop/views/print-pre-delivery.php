@@ -32,12 +32,12 @@
                             <table class="table table-bordered invoice-table" style="width:100%;">
                                 <thead>
                                     <tr>
-                                        <th colspan="11" class="text-center" align="center">
+                                        <th colspan="13" class="text-center" align="center">
                                             SHOP STOCK CHECKLIST
                                         </th>
                                     </tr>                                    
                                     <tr>
-                                        <th colspan="6">
+                                        <th colspan="8">
                                             SPDC NO: Shop/<?php echo $predc->p_dc_no; ?>
                                         </th>
                                         <th colspan="5" class="text-right" align="right">
@@ -49,10 +49,12 @@
                                         <th>Box No</th>
                                         <th>Stock Room</th>
                                         <th>Item name/code</th>
+                                        <th>HSN Code</th>
                                         <th>Shade name/code</th>
                                         <th>Shade No</th>
                                         <th>Lot No</th>
-                                        <th>#Cones</th>
+                                        <th># of Units</th>
+                                        <th>Uom</th>
                                         <th>Gr.Wt</th>
                                         <th>Nt.Wt</th>
                                         <th>Lot Nt.Wt</th>
@@ -80,16 +82,27 @@
                                                     $tot_gr_weight += $box->gr_weight;
                                                     $tot_nt_weight += $box->delivery_qty;
                                                     $tot_boxes++;
+                                                    if (!empty($box->item_id)) {
+                                                        $item_uom = $this->m_masters->getmasterIDvalue('bud_items', 'item_id', $box->item_id, 'item_uom');
+                                                        $uom_name = $this->m_masters->get_uom('bud_uoms', $item_uom, 'uom_name');
+                                                        $hsn_code = $this->m_masters->getmasterIDvalue('bud_items', 'item_id', $box->item_id, 'hsn_code');
+                                                        
+                                                    } else {
+                                                       $item_uom='';
+                                                       $uom_name='';
+                                                    }
                                                     ?>
                                                     <tr>
                                                         <td><?php echo $sno++; ?></td>
                                                         <td><?php echo $box->box_prefix; ?><?php echo $box->box_no; ?></td>
                                                         <td><?php echo $box->stock_room_name; ?></td>
                                                         <td><?php echo $box->item_name; ?>/<?php echo $box->item_id; ?></td>
+                                                        <td><?php echo substr($hsn_code, 0, 8); ?></td>
                                                         <td><?php echo $box->shade_name; ?>/<?php echo $box->shade_id; ?></td>
                                                         <td><?php echo $box->shade_code; ?></td>
                                                         <td><?php echo $box->lot_no; ?></td>
                                                         <td><?php echo $box->no_cones; ?></td>
+                                                        <td><?php echo $uom_name; ?></td>
                                                         <td><?php echo $box->gr_weight; ?></td>
                                                         <td><?php echo $box->delivery_qty; ?></td>
                                                         <?php if($row_key++ == sizeof($boxes)): ?>
@@ -112,18 +125,20 @@
                                         <td></td>
                                         <td><strong>Total</strong></td>
                                         <td></td>
+                                        <td></td>
                                         <td><strong><?php echo $tot_no_cones; ?></strong></td>
+                                        <td></td>
                                         <td><strong><?php echo number_format($tot_gr_weight, 3, '.', ''); ?></strong></td>
                                         <td><strong><?php echo number_format($tot_nt_weight, 3, '.', ''); ?></strong></td>
                                         <td><strong><?php echo number_format($tot_nt_weight, 3, '.', ''); ?></strong></td>
                                     </tr>
                                     <tr>
-                                        <td colspan="11">
+                                        <td colspan="13">
                                             REMARKS: <?php echo $predc->remarks; ?>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th colspan="4" valign="top" style="vertical-align:top;">
+                                        <th colspan="5" valign="top" style="vertical-align:top;">
                                             <strong>From:&emsp;</strong>
                                             <strong style="text-transform:uppercase;font-size:14px;"><?php echo $predc->concern_name; ?></strong><br>
                                             <?php echo $predc->concern_address; ?><br>
@@ -138,7 +153,7 @@
                                             <!-- TIN: <?php echo $predc->cust_tinno; ?>, -->
                                             CST: <?php echo $predc->cust_gst; ?>
                                         </th>
-                                        <th colspan="4" valign="top" style="vertical-align:top;">
+                                        <th colspan="5" valign="top" style="vertical-align:top;">
                                             <strong>Delivery Address:&emsp;</strong>
                                             <strong style="text-transform:uppercase;font-size:14px;"><?php echo $predc->del_cust_name; ?></strong><br>
                                             <?php echo $predc->del_cust_address; ?>

@@ -75,12 +75,12 @@
                             <table class="table table-bordered invoice-table" style="width:100%;">
                                 <thead>
                                     <tr>
-                                        <th colspan="11" class="text-center" align="center">
+                                        <th colspan="13" class="text-center" align="center">
                                             <h3 style="margin:0px;">Credit Invoice</h3>
                                         </th>
                                     </tr>
                                     <tr>
-                                        <th colspan="4" valign="top" style="vertical-align:top;">
+                                        <th colspan="6" valign="top" style="vertical-align:top;">
                                             <strong>From:&emsp;</strong>
                                             <?php if($concern): ?>
                                                 <strong style="text-transform:uppercase;font-size:14px;"><?php echo $concern->concern_name; ?></strong><br>
@@ -88,7 +88,7 @@
                                                 GST: <?php echo $concern->concern_gst; ?>
                                             <?php endif; ?>
                                         </th>
-                                        <th colspan="5" valign="top" style="vertical-align:top;">
+                                        <th colspan="6" valign="top" style="vertical-align:top;">
                                             <strong>To:&emsp;</strong>
                                             <?php if($customer): ?>
                                                 <strong style="text-transform:uppercase;font-size:14px;"><?php echo $customer->cust_name; ?></strong><br>
@@ -114,7 +114,7 @@
 
                                     </tr>
                                     <tr>
-                                        <th colspan="6">
+                                        <th colspan="8">
                                             CREDIT INV NO: <span style="font-size:18px;">SH/CR-<?php echo $credit_inv_no; ?></span>
                                         </th>
                                         <th colspan="5" class="text-right" align="right">
@@ -125,14 +125,16 @@
                                         <th>#</th>
                                         <th>Box No</th>
                                         <th>Item Name/Code</th>
+                                        <th>HSN Code</th>
                                         <th>Shade Name/No</th>
                                         <th>Shade Code</th>
                                         <th>Lot No</th>
-                                        <th>#Cones</th>
+                                        <th># of Units</th>
+                                        <th>Uom</th>
                                         <th>Gr.Wt</th>
                                         <th>Nt.Wt</th>
                                         <th>Rate</th>
-                                        <th>Amount</th>
+                                        <th style="text-align:right">Amount</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -182,19 +184,33 @@
                                                     }
                                                     $item_amount = number_format($box->delivery_qty * $item_rate, 2, '.', '');
                                                     $tot_item_amount += $item_amount;
+                                                    //$item_id = explode('/', $item_names_arr[$key_1]);
+
+                                                    if (!empty($box->item_id)) {
+                                                        $item_uom = $this->m_masters->getmasterIDvalue('bud_items', 'item_id', $box->item_id, 'item_uom');
+                                                        $hsn_code = $this->m_masters->getmasterIDvalue('bud_items', 'item_id', $box->item_id, 'hsn_code');
+                                                        $uom_name = $this->m_masters->get_uom('bud_uoms', $item_uom, 'uom_name');
+                                                        
+                                                        
+                                                    } else {
+                                                       $item_uom='';
+                                                       $uom_name='';
+                                                    }
                                                     ?>
                                                     <tr>
                                                         <td><?php echo $sno++; ?></td>
                                                         <td><?php echo $box->box_prefix; ?><?php echo $box->box_no; ?></td>
                                                         <td><?php echo $box->item_name; ?>/<?php echo $box->item_id; ?></td>
+                                                        <td><?php echo substr($hsn_code, 0, 8); ?></td>
                                                         <td><?php echo $box->shade_name; ?>/<?php echo $box->shade_id; ?></td>
                                                         <td><?php echo $box->shade_code; ?></td>
                                                         <td><?php echo $box->lot_no; ?></td>
                                                         <td><?php echo $box->no_cones; ?></td>
+                                                        <td><?php echo $uom_name; ?></td>
                                                         <td><?php echo $box->gr_weight; ?></td>
                                                         <td><?php echo $box->delivery_qty; ?></td>
                                                         <td><?php echo $item_rate; ?></td>
-                                                        <td><?php echo $item_amount; ?></td>
+                                                        <td align="right"><?php echo $item_amount; ?></td>
                                                     </tr>
                                                 <?php endforeach; ?>
                                             <?php endif; ?>
@@ -203,7 +219,7 @@
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <td colspan="6">
+                                        <td colspan="8">
                                             <label>Transport Mode</label>
                                             <textarea class="form-control" name="transport_mode" id="transport_mode"></textarea>
                                         </td>
@@ -230,7 +246,7 @@
                                                 ?>
                                                 <li>
                                                     <strong>Tax :</strong>
-                                                    <?php
+                                                    <!-- <?php
                                                     $taxs = $this->m_masters->getactivemaster('bud_tax','tax_status');
                                                     foreach ($taxs as $tax) {
                                                         ?>
@@ -240,6 +256,32 @@
                                                             <?=$tax['tax_name']; ?> (<?=$tax['tax_value']; ?> %)
                                                         </label>
                                                         <?php
+                                                    }
+                                                    ?> -->
+
+<?php
+                                                    //echo $customer->cust_gst;
+                                                    $checked = false;
+                                                    if (substr($customer->cust_gst, 0, 2) == 33) {
+                                                        $checked = true;
+                                                    }
+                                                    $taxs = $this->m_masters->getactivemaster('bud_tax', 'tax_status');
+                                                    foreach ($taxs as $tax) {
+                                                        $taxClick = '';
+                                                        if ($tax['tax_name'] == 'IGST(Other State)' && $checked == false) {
+                                                            $taxClick = ' checked="true" ';
+                                                        }  if ($tax['tax_name'] == 'CGST' && $tax['tax_value'] == '6.00' && $checked == true) {
+                                                            $taxClick = ' checked="true" ';
+                                                        }  if ($tax['tax_name'] == 'SGST' && $tax['tax_value'] == '6.00' && $checked == true) {
+                                                            $taxClick = ' checked="true" ';
+                                                        }
+                                                    ?>
+                                                        <input type="hidden" name="order_tax_names[<?= $tax['tax_id']; ?>]" value="<?= $tax['tax_name']; ?>">
+                                                        <label class="checkbox-inline">
+                                                            <input type="checkbox" name="taxs[<?= $tax['tax_id']; ?>]" value="<?= $tax['tax_value']; ?>" <?= $taxClick; ?>>
+                                                            <?= $tax['tax_name']; ?> (<?= $tax['tax_value']; ?> %)
+                                                        </label>
+                                                    <?php
                                                     }
                                                     ?>
                                                 </li>
@@ -293,6 +335,8 @@
         </div>
 
     </section>
+    <h5 style="text-align:right;font-size:5px;margin-right:20px">application\modules\shop\views\credit-invoice-form.php</h5>
+    <h5 style="text-align:right;font-size:5px;margin-right:20px">application\modules\shop\controllers\sales.php</h5>
 </section>
 <?php include APPPATH.'views/html/footer.php'; ?>
 <script type="text/javascript" language="javascript" src="<?=base_url('themes/default'); ?>/tabletools/js/dataTables.tableTools.js"></script>

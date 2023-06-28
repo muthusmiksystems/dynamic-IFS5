@@ -540,6 +540,7 @@ class Production extends CI_Controller
 		);
 		$data['js_common'] = array('js/common-scripts.js');
 		$data['js_thispage'] = array('js/form-validation-script.js', 'js/form-component.js', 'js/dynamic-table.js');
+		var_dump($data['boxes']);
 		if ($this->uri->segment(3) === FALSE) {
 			$this->load->view('v_packingitems.php', $data);
 		} else {

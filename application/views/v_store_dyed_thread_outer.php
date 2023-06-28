@@ -60,7 +60,7 @@
                         </form>
                     </div>
                 </section>
-                <form class="cmxform form-horizontal tasi-form" role="form" id="commentForm" method="post" action="<?=base_url('store/dyed_yarn_outer_save'); ?>">
+                <!-- <form class="cmxform form-horizontal tasi-form" role="form" id="commentForm" method="post" action="<?=base_url('store/dyed_yarn_outer_save'); ?>">
                     <section class="panel">
                         <header class="panel-heading">
                             <div class="form-group col-lg-12">
@@ -112,7 +112,7 @@
                             <button class="btn btn-danger" type="submit" name="save" value="save">Save</button>
                         </header>
                     </section>
-                </form>
+                </form> -->
 
                 <section class="panel">
                     <header class="panel-heading">
@@ -171,6 +171,8 @@
         </div>
     </section>
 </section>
+<h5 style="text-align:right;font-size:5px">application\views\v_store_dyed_thread_outer.php</h6>
+<h5 style="text-align:right;font-size:5px">application\views\v_store_print_thread_with_i.php</h6>
 </section>
 
 <?php include APPPATH.'views/html/footer.php'; ?>

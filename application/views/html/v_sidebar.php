@@ -45,7 +45,7 @@ if ($this->session->userdata('logged_as') == 'user') {
           $at = $privilege['upriv_controller'] . $privilege['upriv_function'];
           $link = $privilege['upriv_controller'] . '/' . $privilege['upriv_function'];
           if ($start == true) {
-            echo '<li class="sub-menu ' . ((isset($activeTab) && $activeTab == $privilege['upriv_controller']) ? 'active' : '') . '">
+            echo '<li class="sub-menu ' . ((isset($activeTab) && $activeTab == $at) ? 'active' : '') . '">
               <a href="javascript:void(0);" class="">
                 <i class="icon-' . $privilege['upriv_group_icon'] . '"></i>
                 <span>' . $privilege['upriv_group'] . '</span>
@@ -56,7 +56,7 @@ if ($this->session->userdata('logged_as') == 'user') {
             $end = false;
           }
           //.$privilege['upriv_menu_order']
-          echo '<li class="' . (($activeItem == $privilege['upriv_function']) ? 'active' : '') . '"><a class="" href="' . base_url($link) . '">' . $privilege['upriv_description'] . '</a></li>';
+          echo '<li class="' . (($activeItem == $at) ? 'active' : '') . '"><a class="" href="' . base_url($link) . '">' . $privilege['upriv_description'] . '</a></li>';
 
           $i++;
         }

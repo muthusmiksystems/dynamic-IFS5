@@ -81,8 +81,7 @@ class Sales extends CI_Controller
 		$filter = array();
 		$filter['invoice_status'] = 1;
 		$data['deliveries'] = $this->m_delivery->get_yt_predelivery_list($filter);
-		
-		//print_r($data['deliveries']);
+		// print_r($data['deliveries']);
 		$data['css'] = array(
 			'css/bootstrap.min.css',
 			'css/bootstrap-reset.css',
@@ -113,7 +112,7 @@ class Sales extends CI_Controller
 			'assets/bootstrap-daterangepicker/daterangepicker.js',
 			'assets/bootstrap-colorpicker/js/bootstrap-colorpicker.js',
 			'js/jquery.validate.min.js',
-			'assets/data-tables/jquery.dataTables.js',
+			'assets/data-tables/jquery.dataTables.min.js',
 			'assets/data-tables/DT_bootstrap.js'
 		);
 		$data['js_common'] = array('js/common-scripts.js');
@@ -3898,7 +3897,7 @@ class Sales extends CI_Controller
 			$grand_total += $tax_value;
 		}
 
-		$save['jwi_id'] = '';
+		$save['jwi_id'] = 0;
 		$save['jwi_created_on'] = date("Y-m-d", strtotime($_POST['jwi_date']));
 		$save['jwi_invoice_no'] = $_POST['invoice_no'];
 		$save['jwi_customer_id'] = $_POST['customer'];
@@ -3914,13 +3913,15 @@ class Sales extends CI_Controller
 		$jwi_id = $this->jwi_model->save_jwi($save);
 
 		for ($a = 0; $a < count($_POST['a_particular']); $a++) {
+			
 			$itms = array(
 				'jwi_mst_id' => $jwi_id,
 				'jwi_detail_particular' => $_POST['a_particular'][$a],
 				'jwi_detail_quantity' => $_POST['a_qty'][$a],
 				'jwi_detail_amount' => $_POST['a_amount'][$a],
 				'jwi_detail_rate' => $_POST['a_rate'][$a],
-				'jwi_detail_tax' => $_POST['a_tax'][$a],
+				// 'jwi_detail_tax' => $_POST['a_tax'][$a],
+				'jwi_detail_tax' => 0,
 				'jwi_detail_note' => $_POST['a_note'][$a]
 			);
 			$this->ak->insert_new('bud_jwi_details', $itms);

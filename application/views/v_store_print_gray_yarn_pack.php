@@ -28,7 +28,7 @@
 		}
 
 		span.ps-time {
-			font-size: 5pt;
+			font-size: 6pt;
 			text-align: center;
 		}
 
@@ -53,6 +53,18 @@
 		table .ps-footer {
 			text-align: center;
 		}
+
+		table tr td.ps-wight {
+			font-weight: bold;
+			font-size: 13px;
+		}
+		.table_border{
+			margin:0 auto; 
+			margin-left:20px !important;
+			margin-right:30px !important;
+			
+		}
+
 	</style>
 	<?php
 	foreach ($js as $path) {
@@ -64,7 +76,7 @@
 </head>
 
 <body onload="window.print();">
-	<table style="width:100%;margin:0 auto;">
+	<table style="width:90%;" class="table_border">
 		<tr>
 			<td width="15%"></td>
 			<td width="35%"></td>
@@ -72,13 +84,13 @@
 			<td width="35%"></td>
 		</tr>
 		<tr>
-			<td colspan="4" class="ps-title">INDOFILA PACKING SLIP</td>
+			<td colspan="4" class="ps-title">DYNAMIC DOST PACKING SLIP</td>
 		</tr>
 		<tr>
 			<td>Box No</td>
 			<td class="ps-boxno">: <?= $box->box_prefix; ?><?= $box->box_no; ?></td>
 			<td># Cones</td>
-			<td>: <?php echo $box->no_of_cones + $box->no_of_cones_2; ?></td>
+			<td class="ps-boxno">: <?php echo $box->no_of_cones + $box->no_of_cones_2; ?></td>
 		</tr>
 		<tr>
 			<td>Item Name</td>
@@ -93,7 +105,7 @@
 			<td>Shade</td>
 			<td>: <?= $box->shade_name; ?></td>
 			<td>N.Wt</td>
-			<td>: <?= number_format($box->net_weight, 3, '.', ''); ?></td>
+			<td class="ps-wight">: <?= number_format($box->net_weight, 3, '.', ''); ?></td>
 		</tr>
 		<tr>
 			<td>Shade No</td>
@@ -117,7 +129,8 @@
 			</td>
 			<td>Remarks</td>
 			<!--remarks needed in packing slip-->
-			<td>: <?= $box->remarks; ?></td>
+			<!-- <td>: <?= $box->remarks; ?></td> -->
+			<td>: <?= substr($box->box_remarks,0,14); ?></td>
 			<!--remarks needed in packing slip-->
 		</tr>
 		<tr>

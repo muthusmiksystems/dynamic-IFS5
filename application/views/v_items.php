@@ -375,7 +375,6 @@
                   <?php
                   $sno = 1;
                   foreach ($items as $item) {
-                   
                     $vi = @$item['denier_name'];
                     $current = @current(array_filter($deniers, function ($e) use ($vi) {
                       return $e['denier_id'] == $vi;

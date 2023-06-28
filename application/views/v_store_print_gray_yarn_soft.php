@@ -28,7 +28,7 @@
 		}
 
 		span.ps-time {
-			font-size: 5pt;
+			font-size: 6pt;
 			text-align: center;
 		}
 
@@ -53,6 +53,18 @@
 		table .ps-footer {
 			text-align: center;
 		}
+
+		table tr td.ps-wight {
+			font-weight: bold;
+			font-size: 13px;
+		}
+		.table_border{
+			margin:0 auto; 
+			margin-left:20px !important;
+			margin-right:30px !important;
+			
+		}
+
 	</style>
 	<?php
 	foreach ($js as $path) {
@@ -66,7 +78,7 @@
 <body onload="window.print();">
 	<?php //var_dump($box); 
 	?>
-	<table style="width:100%;margin:0 auto;">
+	<table style="width:93%;" class="table_border">
 		<tr>
 			<td width="15%"></td>
 			<td width="35%"></td>
@@ -74,13 +86,13 @@
 			<td width="35%"></td>
 		</tr>
 		<tr>
-			<td colspan="4" class="ps-title">SOFT PACKAGE SLIP</td>
+			<td colspan="4" class="ps-title">DYNAMIC DOST SOFT PACKAGE SLIP</td>
 		</tr>
 		<tr>
 			<td>Box No</td>
 			<td class="ps-boxno">: <?= $box->box_prefix; ?><?= $box->box_no; ?></td>
 			<td>Springs</td>
-			<td>: <?php echo $box->no_cones + $box->no_of_cones_2; ?></td>
+			<td class="ps-boxno">: <?php echo $box->no_cones + $box->no_of_cones_2; ?></td>
 		</tr>
 		<tr>
 			<td>Y.Quality</td>
@@ -106,7 +118,7 @@
 				</strong>
 			</td>			
 			<td>N.Wt</td>
-			<td>: <?= number_format($box->net_weight, 3, '.', ''); ?></td>
+			<td class="ps-wight">: <?= number_format($box->net_weight, 3, '.', ''); ?></td>
 		</tr>
 		<tr>
 			<td>Shade</td>
@@ -115,9 +127,10 @@
 			<td>: <?= $box->packed_by; ?></td>
 		</tr>
 		<tr>
-			<td>Note to HOD</td>
+			<!-- <td>Note to HOD</td> -->
+			<td>Remarks</td>
 			<!--Inclusion remarks packing slip-->
-			<td colspan="3">: <?= $box->remarks; ?></td>
+			<td colspan="3">: <?= substr($box->box_remarks,0,100); ?></td>
 			<!--Inclusion remarks needed in packing slip-->
 		</tr>
 		<tr>

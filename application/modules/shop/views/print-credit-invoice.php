@@ -111,6 +111,7 @@
                                     <th>Lot No</th>
                                     <th>#<br>Boxes</th>
                                     <th>#<br>Pkg</th>
+                                    <th>Uom</th>
                                     <th width="135">Gr.Wt</th>
                                     <th width="135">Net.Wt</th>
                                     <!--ER-07-18#-9-->
@@ -155,6 +156,16 @@
                                                         $tot_boxes += count($values['gr_weight']);
                                                         $item_amt = number_format($delivery_qty * $item_rate, 2, '.', '');
                                                         $tot_amount += $item_amt;
+                                                        $item_id = explode('/', $item_name);
+                                                        if (!empty($item_id)) {
+                                                            $item_uom = $this->m_masters->getmasterIDvalue('bud_items', 'item_id',$item_id[1], 'item_uom');
+                                                            $uom_item_name = $this->m_masters->get_uom('bud_uoms', $item_uom, 'uom_name');
+                                                            
+                                                            
+                                                        } else {
+                                                           $item_uom='';
+                                                           $uom_item_name='';
+                                                        }
                                                         ?>
                                                         <tr class="information">
                                                             <td><?php echo $sno++; ?></td>
@@ -164,8 +175,12 @@
                                                             <td><?php echo $lot_no; ?></td>
                                                             <td><?php echo count($values['gr_weight']); ?></td>
                                                             <td><?php echo $no_cones; ?></td>
-                                                            <td><?php echo $gr_weight; ?> <small><?php echo $uom_name; ?></small></td>
-                                                            <td><?php echo $delivery_qty; ?> <small><?php echo $uom_name; ?></small></td>
+                                                            <td><?php echo $uom_item_name; ?></td>
+
+                                                            <!-- <td><?php echo $gr_weight; ?> <small><?php echo $uom_name; ?></small></td>
+                                                            <td><?php echo $delivery_qty; ?> <small><?php echo $uom_name; ?></small></td> -->
+                                                            <td><?php echo $gr_weight; ?> </td>
+                                                            <td><?php echo $delivery_qty; ?></small></td>
                                                             <!-- <?php if ($row_key++ == sizeof($boxes)) : ?>
                                                             <td><?php echo number_format($lot_net_weight, 3, '.', ''); ?> <?php echo $uom_name; ?></td>
                                                         <?php else : ?>
@@ -186,8 +201,11 @@
                                     <td colspan="6" align="right"><strong>Sub-Total</strong></td>
                                     <td><strong><?php echo $tot_boxes; ?> Boxes</strong></td>
                                     <td><strong><?php echo $tot_no_cones; ?></strong></td>
-                                    <td><strong><?php echo number_format($tot_gr_weight, 3, '.', ''); ?> <?php echo $uom_name; ?></strong></td>
-                                    <td><strong><?php echo number_format($tot_nt_weight, 3, '.', ''); ?> <?php echo $uom_name; ?></strong></td>
+                                    <td></td>
+                                    <!-- <td><strong><?php echo number_format($tot_gr_weight, 3, '.', ''); ?> <?php echo $uom_name; ?></strong></td>
+                                    <td><strong><?php echo number_format($tot_nt_weight, 3, '.', ''); ?> <?php echo $uom_name; ?></strong></td> -->
+                                    <td><strong><?php echo number_format($tot_gr_weight, 3, '.', ''); ?></strong></td>
+                                    <td><strong><?php echo number_format($tot_nt_weight, 3, '.', ''); ?> </strong></td>
                                     <!-- <td><strong><?php echo number_format($tot_nt_weight, 3, '.', ''); ?> <?php echo $uom_name; ?></strong></td> -->
                                     <td></td>
                                     <td align="right" class="sub-total"><strong><?php echo number_format($tot_amount, 2, '.', ''); ?></strong></td>
@@ -264,7 +282,7 @@
                                     }
                                 }
                                 ?>
-                                <?php if (count($others) > 0) : ?>
+                                <!-- <?php if (count($others) > 0) : ?>
                                     <?php $row_no = 0; ?>
                                     <?php foreach ($others as $key => $data) : ?>
                                         <?php if ($data['amount'] > 0) : ?>
@@ -277,9 +295,11 @@
                                                     <td colspan="3">
                                                         <strong>Customer PO No.:</strong>
                                                         <?php echo $invoice->remarks; ?>
-                                                    </td>
+                                                </td>
+                                                </tr>   
                                                 <?php endif; ?>
-                                                <td align="right" colspan="5">
+                                              <tr>  
+                                                <td align="right" colspan="12">
                                                     <strong>
                                                         <?php echo ($data['desc'] != '') ? '(' . $data['desc'] . ')' : $data['names']; ?>
                                                     </strong> </td>
@@ -293,14 +313,44 @@
                                             <strong>DCs :</strong>
                                             <?= implode(',', $dc); ?>
                                         </td>
-                                        <td colspan="3">
+                                        <td colspan="4">
                                             <strong>Customer PO No.:</strong>
                                             <?php echo @$invoice->cust_pono; ?>
                                         </td>
                                         <td align="right" class="last-col" colspan="5"></td>
                                         <td class="last-col"></td>
                                     </tr>
-                                <?php endif; ?>
+                                <?php endif; ?> -->
+
+
+                                <tr class="other-row">
+                                        <td class="del-address" colspan='3' rowspan='<?php echo $rowspan+1; ?>'>
+                                            <strong>DCs :</strong>
+                                            <?= implode(',', $dc); ?>
+                                        </td>
+                                        <td colspan="9">
+                                            <strong>Customer PO No.:</strong>
+                                            <?php echo @$invoice->cust_pono; ?>
+                                        </td>
+                                        <!-- <td align="right" class="last-col" colspan="1"></td>
+                                        <td class="last-col"></td> -->
+                                        <td class="last-col"></td>
+                                    </tr>
+
+                                <?php if (count($others) > 0) : ?>
+                                    <?php $row_no = 0; ?>
+                                    <?php foreach ($others as $key => $data) : ?>
+                                       <tr>  
+                                                <td align="right" colspan="9">
+                                                    <strong>
+                                                        <?php echo ($data['desc'] != '') ? '(' . $data['desc'] . ')' : $data['names']; ?>
+                                                    </strong> </td>
+                                                <td align="right" class="last-col"><strong><?php echo $data['amount']; ?></strong></td>
+                                            </tr>
+                                        
+                                    <?php endforeach; ?>
+                                    <?php endif; ?>
+                              
 
                                 <?php
                                 $rowspan = 0;
@@ -317,7 +367,7 @@
                                         <?php if ($data['amount'] > 0) : ?>
                                             <tr class="tax-row">
                                                 <?php if ($key == 0) : ?>
-                                                    <td colspan="6" rowspan="<?php echo $rowspan; ?>">
+                                                    <td colspan="7" rowspan="<?php echo $rowspan; ?>">
                                                         <strong>Transport Mode:</strong>
                                                         <?php echo $invoice->transport_mode; ?><br>
                                                         <strong>Remarks:</strong>
@@ -334,7 +384,7 @@
                                     <?php endforeach; ?>
                                 <?php else : ?>
                                     <tr class="tax-row">
-                                        <td colspan="6" rowspan="<?php echo $rowspan; ?>">
+                                        <td colspan="7" rowspan="<?php echo $rowspan; ?>">
                                             <strong>Transport Mode:</strong>
                                             <?php echo $invoice->transport_mode; ?><br>
                                             <strong>Remarks:</strong>
@@ -343,7 +393,25 @@
                                         <td align="right" colspan="5"></td>
                                         <td class="last-col"></td>
                                     </tr>
+                                   
                                 <?php endif; ?>
+                                <tr class="tax-row">
+                                            <td colspan="12" align="right"><strong>+ (or) -</strong></td>
+                                         <td  align="right" style="font-size:15px" class="last-col"><strong>
+                                            <?php
+                                                     $difference = $net_amount - $tot_amount;
+                                                     $formatted_difference = number_format($difference, 2, '.', '');
+    
+                                                if ($difference > 0) {
+                                                    echo '+' . $formatted_difference;
+                                                         } elseif ($difference < 0) {
+                                                     echo '' . $formatted_difference;
+                                                    } else {
+                                                    echo $formatted_difference;
+                                                    }
+                                                ?>
+                                        </strong></td>
+                            </tr>
 
                                 <?php
                                 $upate_inv['invoice_id'] = $invoice->invoice_id;
@@ -352,16 +420,19 @@
                                 ?>
 
                                 <tr class="grand-total">
-                                    <td colspan="6">
+                                    <td colspan="7">
                                         <strong>Rupees:</strong>
                                         <?php echo $this->Sales_model->amount_words($net_amount); ?>
                                     </td>
-                                    <td align="right" colspan="5">
+
+                                    
+
+                                    <td align="right" colspan="5" style="font-size:15px">
                                         <strong>Net Amount (Round off)</strong> </td>
-                                    <td align="right" class="last-col"><strong><?php echo number_format($net_amount, 2, '.', ''); ?></strong></td>
+                                    <td align="right" class="last-col" style="font-size:15px"><strong><?php echo number_format($net_amount, 2, '.', ''); ?></strong></td>
                                 </tr>
                                 <tr class="invoice-foot">
-                                    <td colspan="12">
+                                    <td colspan="13">
                                         <div class="col-lg-12">
                                             <div class="print-div col-lg-3">
                                                 <strong>Received By</strong>

@@ -3141,6 +3141,7 @@ class Masters extends CI_Controller
 				'item_sample' => implode(', ', $this->session->userdata('simages')),
 				'module' => $this->session->userdata('user_viewed')
 			);
+			
 			$result = $this->m_masters->savemaster('bud_items', $formData);
 			if ($result) {
 				$this->session->set_flashdata('success', 'Successfully Saved!!!');

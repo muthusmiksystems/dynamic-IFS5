@@ -53,6 +53,13 @@
 		table .ps-footer {
 			text-align: center;
 		}
+
+		.table_border{
+			margin:0 auto; 
+			margin-left:20px !important;
+			margin-right:30px !important;
+			
+		}
 	</style>
 	<?php
 	foreach ($js as $path) {
@@ -74,7 +81,7 @@
 		}
 	}
 	?>
-	<table style="width:100%;margin:0 auto;">
+	<table style="width:90%;" class="table_border">
 		<tr>
 			<td width="15%"></td>
 			<td width="35%"></td>
@@ -82,7 +89,7 @@
 			<td width="35%"></td>
 		</tr>
 		<tr>
-			<td colspan="4" class="ps-title">INDOFILA THREAD PACKING SLIP</td>
+			<td colspan="4" class="ps-title">DYNAMIC DOST THREAD PACKING SLIP</td>
 		</tr>
 		<tr>
 			<td>Box No</td>
@@ -107,15 +114,15 @@
 		</tr>
 		<tr>
 			<td colspan="4">
-				<table width="100%">
+				<table width="99%">
 					<thead>
 						<tr>
-							<th>Box No</th>
+							<th>Inner Box No</th>
 							<th>Lot No</th>
-							<th>Item/No</th>
-							<th>Shade/No</th>
-							<th>Code</th>
-							<th>#Cones</th>
+							<th>Item Name</th>
+							<th>Color Name</th>
+							<th>Color Code</th>
+							<th># Units</th>
 						</tr>
 					</thead>
 					<tbody>

@@ -393,7 +393,7 @@ class Store extends CI_Controller
 		);
 		$data['js_common'] = array('js/common-scripts.js');
 		$data['js_thispage'] = array('js/form-validation-script.js', 'js/form-component.js', 'js/dynamic-table.js');
-
+		$data['user_login']=$this->session->userdata('user_login');
 		$this->load->view('v_store_gray_yarn_soft', $data);
 	}
 	//poy denier before poy inward
@@ -403,9 +403,11 @@ class Store extends CI_Controller
 		$this->db->group_by('po_no');
 		$data = $this->db->get('bud_yt_poyinw_items')->result_array();
 		echo '<option value=""> Choose </option>';
+		
 		foreach ($data as $row) {
 			echo '<option value="' . $row['po_no'] . '">' . $row['po_no'] . '</option>';
 		}
+		
 	}
 	//poy denier before poy inward
 	function gray_yarn_soft_save()
@@ -418,11 +420,11 @@ class Store extends CI_Controller
 		$data = array(
 			'box_prefix' => 'S',
 			'item_id' => $this->input->post('item_id')==''?0:$this->input->post('item_id'),
-			'poy_denier' => $this->input->post('poy_denier'),
-			'poy_inward_no' => $this->input->post('poy_inward_no'),
+			'poy_denier' => $this->input->post('poy_denier')==''?0:$this->input->post('poy_denier'),
+			'poy_inward_no' => $this->input->post('poy_inward_no')==''?0:$this->input->post('poy_inward_no'),
 			'poy_inward_prefix' => $poy_inward_prefix, //tot pkd qty correction
 			'remarks' => $this->input->post('remark'),
-			'poy_lot_id' => $this->input->post('poy_lot_id'),
+			'poy_lot_id' => $this->input->post('poy_lot_id')==''?0:$this->input->post('poy_lot_id'),
 			'yarn_denier' => $this->input->post('yarn_denier'),
 			'shade_no' => $this->input->post('colour'),
 			'gross_weight' => $this->input->post('g_wt'),
@@ -606,7 +608,7 @@ class Store extends CI_Controller
 		);
 		$data['js_common'] = array('js/common-scripts.js');
 		$data['js_thispage'] = array('js/form-validation-script.js', 'js/form-component.js', 'js/dynamic-table.js');
-		
+		$data['user_login']=$this->session->userdata('user_login');
 		$this->load->view('v_store_gray_yarn_packing', $data);
 	}
 
@@ -623,7 +625,7 @@ class Store extends CI_Controller
 			'item_id' => $this->input->post('item_id')==''?0:$this->input->post('item_id'),
 			'poy_denier' => $this->input->post('poy_denier')==''?0:$this->input->post('poy_denier'),
 			'poy_inward_prefix' => $poy_inward_prefix, //tot pkd qty correction
-			'poy_inward_no' => $this->input->post('poy_inward_no'),
+			'poy_inward_no' => $this->input->post('poy_inward_no')==''?0:$this->input->post('poy_inward_no'),
 			'yarn_denier' => $this->input->post('yarn_denier'),
 			'shade_no' => $this->input->post('colour'),
 			'gross_weight' => $this->input->post('g_wt'),
@@ -816,7 +818,7 @@ class Store extends CI_Controller
 		);
 		$data['js_common'] = array('js/common-scripts.js');
 		$data['js_thispage'] = array('js/form-validation-script.js', 'js/form-component.js', 'js/dynamic-table.js');
-
+		$data['user_login']=$this->session->userdata('user_login');
 		$this->load->view('v_store_dyed_yarn_packing', $data);
 	}
 	function dyed_yarn_packing_save()
@@ -1076,7 +1078,7 @@ class Store extends CI_Controller
 			if ($action == 'save') {
 				$save['inner_box_id'] = $inner_box_id;
 			} else {
-				$save['inner_box_id'] = '';
+				$save['inner_box_id'] = 0;
 			}
 
 			$save['lot_id'] = $this->input->post('lot_id');
@@ -1455,6 +1457,7 @@ class Store extends CI_Controller
 				$data['print'] = base_url() . 'store/print_thread_without_i/' . $this->uri->segment(3);
 			}
 		}
+		$data['user_login']=$this->session->userdata('user_login');
 		$this->load->view('v_store_dyed_thread_packing', $data);
 	}
 	function dyed_thread_packing_save()
@@ -1644,7 +1647,7 @@ class Store extends CI_Controller
 		}
 		$this->session->set_flashdata('success', 'Successfully Saved!!!');
 		redirect(base_url() . "store/sales_return_box", 'refresh');
-		//var_dump($data);
+		
 	}
 	function sales_return_item()
 	{

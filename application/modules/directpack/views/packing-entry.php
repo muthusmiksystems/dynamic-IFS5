@@ -183,6 +183,7 @@
             </div>
 
 		</section>
+        <h5 style="text-align:right;font-size:5px;margin-right:20px">application\modules\directpack\views\packing-entry.php</h5>
 	</section>
 
     <!-- (Ajax Modal)-->
@@ -284,6 +285,7 @@ $(".ajax-submit").click(function(e) {
 function load_packing_list() {
     $.ajax({
         url: "<?php echo base_url('directpack/packing_list_data'); ?>",
+        dataType:"html",
         success: function(response)
         {
             jQuery('#tableItems').html(response);
@@ -308,6 +310,7 @@ function load_packing_list() {
 function get_next_box_no() {
     $.ajax({
         url: "<?php echo base_url('directpack/get_next_box_no'); ?>",
+        dataType:"html",
         success: function(response)
         {
             $("#box_no").val(response);

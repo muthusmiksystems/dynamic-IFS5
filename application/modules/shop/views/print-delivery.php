@@ -33,18 +33,18 @@
                             <table class="table table-bordered invoice-table" style="width:100%;">
                                 <thead>
                                     <tr>
-                                        <th colspan="11" class="text-center" align="center">
+                                        <th colspan="12" class="text-center" align="center">
                                             SHOP DELIVERY
                                         </th>
                                     </tr>
                                     <tr>
-                                        <th colspan="4" valign="top" style="vertical-align:top;">
+                                        <th colspan="5" valign="top" style="vertical-align:top;">
                                             <strong>From:&emsp;</strong>
                                             <strong style="text-transform:uppercase;font-size:14px;"><?=$delivery->concern_name; ?></strong><br>
                                             <?=$delivery->concern_address; ?><br>
                                             GST: <?=$delivery->concern_gst; ?>
                                                                            </th>
-                                        <th colspan="3" valign="top" style="vertical-align:top;">
+                                        <th colspan="4" valign="top" style="vertical-align:top;">
                                             <strong>To:&emsp;</strong>
                                             <strong style="text-transform:uppercase;font-size:14px;"><?=$delivery->cust_name; ?></strong><br>
                                             <?=$delivery->cust_address; ?>
@@ -61,8 +61,8 @@
                                         </th>
                                     </tr>
                                     <tr>
-                                        <th colspan="5">
-                                            SDC NO: Shop/<?=$delivery->dc_no; ?>
+                                        <th colspan="6">
+                                            SDC NO: Branch1 / <span style="font-size:17px"><?=$delivery->dc_no; ?></span>
                                         </th>
                                         <th colspan="6" class="text-right" align="right">
                                             <?=date("d-m-Y g:i a", strtotime($delivery->delivery_date)); ?>
@@ -70,15 +70,16 @@
                                     </tr>
                                     <tr>
                                         <th>#</th>
-                                        <th>Box No</th>
+                                        <th style="text-align:center">Box No</th>
                                         <th>Item name/code</th>
                                         <th>HSN Code</th>
                                         <th>Shade name/code</th>                                                    <th>Shade No</th>
                                         <th>Lot No</th>
-                                        <th>#Cones</th>
+                                        <th># Units</th>
+                                        <th>Uom</th>
                                         <th>Gr.Wt</th>
                                         <th>Nt.Wt</th>
-                                        <th>Del.Nt.Wt / #Cones</th><!--ER-07-18#-9-->
+                                        <th>Del.Nt.Wt / # Units</th><!--ER-07-18#-9-->
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -105,16 +106,26 @@
                                                     $tot_nt_weight += $box->nt_weight;
                                                     $tot_delv_net_weight += $box->delivery_qty;
                                                     $tot_boxes++;
+                                                    if (!empty($box->item_id)) {
+                                                        $item_uom = $this->m_masters->getmasterIDvalue('bud_items', 'item_id', $box->item_id, 'item_uom');
+                                                        $uom_name = $this->m_masters->get_uom('bud_uoms', $item_uom, 'uom_name');
+                                                        
+                                                        
+                                                    } else {
+                                                       $item_uom='';
+                                                       $uom_name='';
+                                                    }
                                                     ?>
                                                     <tr>
                                                         <td><?=$sno++; ?></td>
-                                                        <td><?=$box->box_prefix; ?><?=$box->box_no; ?></td>
+                                                        <td align="center"><?=$box->box_prefix; ?><?=$box->box_no; ?></td>
                                                         <td><?=$box->item_name; ?>/<?=$box->item_id; ?></td>
-                                                        <td><?=$box->hsn_code; ?></td>
+                                                        <td><?=substr($box->hsn_code,0,8); ?></td>
                                                         <td><?=$box->shade_name; ?>/<?=$box->shade_id; ?></td>
                                                         <td><?=$box->shade_code; ?></td>
                                                         <td><?=$box->lot_no; ?></td>
                                                         <td><?=$box->no_cones; ?></td>
+                                                        <td><?=$uom_name;?></td>
                                                         <td><?=$box->gr_weight; ?></td>
                                                         <td><?=$box->nt_weight; ?></td>
                                                         <?php //if($row_key++ == sizeof($boxes)): ?>
@@ -135,7 +146,9 @@
                                         <td><strong>Total</strong></td>
                                         <td></td>
                                         <td><strong><?=$tot_no_cones; ?></strong></td>
+                                        <td></td>
                                         <td><strong><?=number_format($tot_gr_weight, 3, '.', ''); ?></strong></td>
+                                        
                                         <td><strong><?=number_format($tot_nt_weight, 3, '.', ''); ?></strong></td>
                                         <td><strong><?=number_format($tot_delv_net_weight, 3, '.', ''); ?></strong></td>
                                     </tr>
@@ -145,7 +158,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td colspan="11">
+                                        <td colspan="12">
                                             <div class="col-lg-12">
                                                 <div class="print-div col-lg-3">
                                                     <strong>Received By</strong>

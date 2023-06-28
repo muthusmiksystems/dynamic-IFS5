@@ -235,6 +235,11 @@
             ?>
             <div class="pageloader"></div> <!-- page end-->
          </section>
+         <h5 style="text-align:right;font-size:5px;margin-right:20px">application\views\v_1_invoice_view.php &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+	application\views\v_1_invoice_viewt.php &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+	application\views\v_1_print_gatepass.php &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+	application\views\v_1_pro_trans_invoice.php &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+	application\views\v_1_invoice-pre-printed.php &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</h5>
       </section>
       <!--main content end-->
    </section>

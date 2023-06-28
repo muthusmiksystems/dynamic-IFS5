@@ -240,11 +240,12 @@
                               </tr>
                               <tr>
                                  <th>#</th>
-                                 <th>Box No</th>
+                                 <th style="text-align:center;">Box No</th>
                                  <th>Item Name/Code</th>
                                  <th>HSN code</th>
                                  <th style="text-align:right;">Lot No</th>
-                                 <th style="text-align:right;"># of Cones</th>
+                                 <th style="text-align:right;"># of Units</th>
+                                 <th style="text-align:right;">Uom</th>
                                  <th style="text-align:right;" colspan="2">Gr. Weight</th>
                                  <th style="text-align:right;" colspan="2">Lotwise Nt.Weight</th>
                               </tr>
@@ -280,10 +281,22 @@
                                        $s_key++;
                                        continue;
                                     }
+
+                                    $item_id = explode('/', $item_names_arr[$key_1]);
+
+                                    if (!empty($item_id)) {
+                                        $item_uom = $this->m_masters->getmasterIDvalue('bud_items', 'item_id', $item_id[1], 'item_uom');
+                                        $uom_name = $this->m_masters->get_uom('bud_uoms', $item_uom, 'uom_name');
+                                        
+                                        
+                                    } else {
+                                       $item_uom='';
+                                       $uom_name='';
+                                    }
                               ?>
                                     <tr>
                                        <td><?= $sno; ?></td>
-                                       <td><?= $tkey; ?></td>
+                                       <td align="center"><?= $tkey; ?></td>
                                        <td><?= $item_names_arr[$key_1]; ?></td>
                                        <td style="width:2cm;">
                                           <?php
@@ -295,6 +308,7 @@
                                        </td>
                                        <td align="right"><?= $key; ?></td>
                                        <td align="right"><?= $tcon; ?></td>
+                                       <td align="right"><?= $uom_name; ?></td>
                                        <td align="right" colspan="2"><?= $tlgw; ?></td>
                                        <td align="right" colspan="2"><?= $tlw; ?></td>
                                     </tr>

@@ -178,8 +178,8 @@
                 </div>
             </div>
             <div class="third-row">
-                <div class="invoice-no left-align">
-                    SH/CR-<?php echo $invoice->invoice_no; ?>
+                <div class="invoice-no left-align" style="font-size:14px">
+                    SH/CR- <span style="font-size:18px"><?php echo $invoice->invoice_no; ?></span>
                 </div>
                 <div class="invoice-date left-align">
                     <?php echo date("d-m-Y", strtotime($invoice->invoice_date)); ?>
@@ -254,7 +254,8 @@
                         </tr>
                         <tr>
                             <td align="right" colspan="7">Subtotal before Tax</td>
-                            <td style="float:right;"><strong><?php echo number_format($tot_amount, 2, '.', ''); ?></strong></td>
+                            <!-- <td style="float:right;"><strong><?php echo number_format($tot_amount, 2, '.', ''); ?></strong></td> -->
+                            <td style="float:right;"><strong><?php echo $tot_amount; ?></strong></td>
                         </tr>
 
                         <?php
@@ -399,6 +400,23 @@
                             }
                         }*/
                         ?>
+                         <tr>
+                                            <td colspan="7" align="right"><strong>+ (or) -</strong></td>
+                                         <td  align="right" style="font-size:15px" class="last-col"><strong>
+                                            <?php
+                                                     $difference = $net_amount - $tot_amount;
+                                                     $formatted_difference = number_format($difference, 2, '.', '');
+    
+                                                if ($difference > 0) {
+                                                    echo '+' . $formatted_difference;
+                                                         } elseif ($difference < 0) {
+                                                     echo '' . $formatted_difference;
+                                                    } else {
+                                                    echo $formatted_difference;
+                                                    }
+                                                ?>
+                                        </strong></td>
+                            </tr>
                         <tr>
                             <td align="right" colspan="7">Net Amount</td>
                             <td align="right"><strong><?= number_format($net_amount, 2, '.', ''); ?></strong></td>

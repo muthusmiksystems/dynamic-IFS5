@@ -213,6 +213,7 @@ class Customer_purchase_order extends CI_Controller
             if (!empty($this->input->post('company_stock_active'))) {
                 $data['company_stock_active'] = $this->input->post('company_stock_active');
             }
+           
             $this->ak->insert_new('dost_customers_po_enquiry', $data);
 
             $this->session->set_flashdata('success', 'Dear Customer, Greetings from Dynamic Dost. Thanks for giving us this purchase order enquiry. Our marketting staff will be in contact with you soon.');

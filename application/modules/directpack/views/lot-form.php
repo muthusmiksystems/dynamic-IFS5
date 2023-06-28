@@ -12,7 +12,7 @@
             <div class="col-lg-12">
                 <section class="panel">
                     <header class="panel-heading">
-                        Direct Lot Entry
+                       <h3 style="font-size:24px"> Create New Lot of Raw Material Inward Entry </h3>
                     </header>
                     <div class="panel-body">
                         <div id="formResponse"></div>
@@ -81,17 +81,21 @@
                                     </select>
                                 </div>
                                 <div class="form-group col-md-3">
-                                    <label>Oil Required</label>
+                                    <label>Oil Gain %</label>
                                     <input type="text" name="oil_required" class="form-control">
                                 </div>
                                 <div class="form-group col-md-3">
-                                    <label># Springs</label>
+                                    <label># Units</label>
                                     <input type="text" name="no_springs" class="form-control">
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label>Lot Qty</label>
                                     <input type="text" name="lot_qty" class="form-control">
-                                </div>                                
+                                </div> 
+                                <div class="form-group col-md-3">
+                                    <label>Lot Rate</label>
+                                    <input type="text" name="lot_rate" class="form-control">
+                                </div>                                  
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-3">
@@ -118,6 +122,7 @@
         </div>
 
     </section>
+    <h5 style="text-align:right;font-size:5px;margin-right:20px">application\modules\directpack\views\lot-form.php</h5>
 </section>
 <?php include APPPATH.'views/html/footer.php'; ?>
 <script type="text/javascript">   

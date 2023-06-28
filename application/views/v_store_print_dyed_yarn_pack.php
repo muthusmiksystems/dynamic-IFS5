@@ -28,7 +28,7 @@
 		}
 
 		span.ps-time {
-			font-size: 5pt;
+			font-size: 6pt;
 			text-align: center;
 		}
 
@@ -53,6 +53,18 @@
 		table .ps-footer {
 			text-align: center;
 		}
+
+		table tr td.ps-wight {
+			font-weight: bold;
+			font-size: 13px;
+		}
+		.table_border{
+			margin:0 auto; 
+			margin-left:20px !important;
+			margin-right:30px !important;
+			
+		}
+
 	</style>
 	<?php
 	foreach ($js as $path) {
@@ -64,7 +76,7 @@
 </head>
 
 <body onload="window.print();">
-	<table style="width:100%;margin:0 auto;">
+	<table style="width:90%;" class="table_border">
 		<tr>
 			<td width="15%"></td>
 			<td width="35%"></td>
@@ -72,17 +84,19 @@
 			<td width="35%"></td>
 		</tr>
 		<tr>
-			<td colspan="4" class="ps-title">INDOFILA PACKING SLIP</td>
+			<td colspan="4" class="ps-title">DYNAMIC DOST PACKING SLIP</td>
 		</tr>
 		<tr>
 			<td>Box No</td>
 			<td class="ps-boxno">: <?= $box->box_prefix; ?><?= $box->box_no; ?></td>
 			<td># Cones</td>
-			<td>: <?php echo $box->no_cones + $box->no_of_cones_2; ?></td>
+			<td class="ps-boxno">: <?php echo $box->no_cones + $box->no_of_cones_2; ?></td>
 		</tr>
 		<tr>
-			<td>Denier</td>
-			<td>: <?= $box->denier_tech; ?></td>
+			<!-- <td>Denier</td>
+			<td>: <?= $box->denier_tech; ?></td> -->
+			<td>Item Name</td>
+			<td>: <?= $box->item_name; ?></td>
 			<td>Gr.Wt</td>
 			<td>: <?= number_format($box->gross_weight, 3, '.', ''); ?></td>
 		</tr>
@@ -99,7 +113,7 @@
 			<td>Sh. No</td>
 			<td>: <?= $box->shade_code; ?></td>
 			<td>N.Wt</td>
-			<td>: <?= number_format($box->net_weight, 3, '.', ''); ?></td>
+			<td class="ps-wight">: <?= number_format($box->net_weight, 3, '.', ''); ?></td>
 		</tr>
 		<tr>
 			<td>Lot No</td>
@@ -107,7 +121,13 @@
 			<td>PKD by</td>
 			<td>: <?= $box->packed_by; ?></td>
 		</tr>
-
+		<tr>
+			<!-- <td>Note to HOD</td> -->
+			<td>Remarks</td>
+			<!--Inclusion remarks packing slip-->
+			<td colspan="3">: <?= substr($box->box_remarks,0,100); ?></td>
+			<!--Inclusion remarks needed in packing slip-->
+		</tr>
 		<tr>
 			<td colspan="4" class="ps-barcode">
 				<span class="ps-time"><?= date("d-m-Y H:i:s", strtotime($box->packed_date)); ?></span><br>

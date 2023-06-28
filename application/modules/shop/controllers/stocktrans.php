@@ -192,6 +192,7 @@ class Stocktrans extends CI_Controller {
 				foreach($selected_boxes as $box_id)
 				{
 					$box = $this->Stocktrans_model->getPackingBox($box_id);
+				 if(!is_array($box)){
 					$inner_boxes = json_decode($box->inner_boxes);
 					if(count($inner_boxes))
 					{
@@ -247,6 +248,7 @@ class Stocktrans extends CI_Controller {
 					$this->Packing_model->update_yt_packing($box_id);
 					//End of Dynamic Dost 3.0- stock deletion from indofila unit when transfered
 				}
+				}
 			}
 
 			$save['id'] = $this->input->post('id');
@@ -261,7 +263,7 @@ class Stocktrans extends CI_Controller {
 		{
 			$response['error'] = 'Record not found';			
 		}
-		json_encode($response);			
+		return json_encode($response);			
 
 	}
 

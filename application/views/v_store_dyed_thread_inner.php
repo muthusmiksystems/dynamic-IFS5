@@ -399,7 +399,7 @@
             </section>
 
 			</section>
-	  
+      <h5 style="text-align:right;font-size:8px">application\views\v_store_dyed_thread_inner.php</h6>
       <!--main content end-->
   </section>
 
@@ -526,6 +526,7 @@
         $.ajax({
             type: "POST",
             url: "<?php echo base_url('store/get_lot_list'); ?>",
+            dataType:"html",
             data: { 
               customer_id: customer_id,
               shade_id: $("#shade_id").val(),

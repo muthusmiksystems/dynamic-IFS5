@@ -21,16 +21,10 @@
   ?>
 
 
-  <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
-  <!--[if lt IE 9]>
-      <?php
-      foreach ($css_IE as $path) {
-      ?>
-        <link href="<?= base_url() . 'themes/default/' . $path; ?>" rel="stylesheet">
-        <?php
-      }
-        ?>
-    <![endif]-->
+  
+  
+      
+    
   <style type="text/css">
     .gross-weight {
       height: 100px;
@@ -497,7 +491,7 @@
                   }
                   ?>
                   <script>
-                    data.push(['<?= $sno; ?>', '<?= date('d-m-Y h:i:s', strtotime($row['packed_date'])); ?>', '<?= $row['box_prefix']; ?><?= $row['box_no']; ?>', '<?= $row['lot_no']; ?>', '<?= $row['item_name'] . "/" . $row['item_id']; ?>', '<?= $row['shade_name'] . "/" . $row['shade_code']; ?>', '<?= $row['gross_weight']; ?>', '<?= $row['net_weight']; ?>', '<? $stock_room_name; ?>', '<?= $row['remarks']; ?>', '<?= $row['packed_by']; ?>', '<a href="<?= base_url(); ?>store/print_thread_without_i/<?= $row['box_id']; ?>" class="btn btn-xs btn-warning" title="Print" target="_blank">Print</a><a href="<?= base_url(); ?>store/dyed_thread_packing/<?= $row['box_id']; ?>" class="btn btn-xs btn-primary" title="Edit">Edit</a><a href="<?= base_url(); ?>store/dyed_thread_packing/<?= $row['box_id']; ?>" class="btn btn-xs btn-success" title="Duplicate">Duplicate</a><a href="#<?= $row['box_id']; ?>" data-toggle="modal" class="btn btn-xs btn-danger" title="Delete">Delete</a><div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="<?= $row['box_id']; ?>" class="modal fade"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button><h4 class="modal-title">Remarks</h4></div><div class="modal-body"><form role="form" method="post" action="<?= base_url(); ?>store/delete_packing_box/<?= $row['box_id']; ?>/dyed_thread_packing"><input type="hidden" name="box_id" value="<?= $row['box_id']; ?>"><input type="hidden" name="function_name" value="dyed_thread_packing"><div class="form-group col-lg-12" style="margin-bottom: 15px;"><textarea class="form-control" name="remarks" required style="width:100%;"></textarea></div><div style="clear:both;"></div><?= $delBtn; ?></form></div></div></div></div>']);
+                    data.push(['<?= $sno; ?>', '<?= date('d-m-Y h:i:s', strtotime($row['packed_date'])); ?>', '<?= $row['box_prefix']; ?><?= $row['box_no']; ?>', '<?= $row['lot_no']; ?>', '<?= $row['item_name'] . "/" . $row['item_id']; ?>', '<?= $row['shade_name'] . "/" . $row['shade_code']; ?>', '<?= $row['gross_weight']; ?>', '<?= $row['net_weight']; ?>', '<? $stock_room_name; ?>', '<?= $row['bud_remarks']; ?>', '<?= $row['packed_by']; ?>', '<a href="<?= base_url(); ?>store/print_thread_without_i/<?= $row['box_id']; ?>" class="btn btn-xs btn-warning" title="Print" target="_blank">Print</a><a href="<?= base_url(); ?>store/dyed_thread_packing/<?= $row['box_id']; ?>" class="btn btn-xs btn-primary" title="Edit">Edit</a><a href="<?= base_url(); ?>store/dyed_thread_packing/<?= $row['box_id']; ?>" class="btn btn-xs btn-success" title="Duplicate">Duplicate</a><a href="#<?= $row['box_id']; ?>" data-toggle="modal" class="btn btn-xs btn-danger" title="Delete">Delete</a><div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="<?= $row['box_id']; ?>" class="modal fade"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button><h4 class="modal-title">Remarks</h4></div><div class="modal-body"><form role="form" method="post" action="<?= base_url(); ?>store/delete_packing_box/<?= $row['box_id']; ?>/dyed_thread_packing"><input type="hidden" name="box_id" value="<?= $row['box_id']; ?>"><input type="hidden" name="function_name" value="dyed_thread_packing"><div class="form-group col-lg-12" style="margin-bottom: 15px;"><textarea class="form-control" name="remarks" required style="width:100%;"></textarea></div><div style="clear:both;"></div><?= $delBtn; ?></form></div></div></div></div>']);
                   </script>
                 <?php
                   $sno++;
@@ -514,7 +508,8 @@
       </section>
 
     </section>
-
+    <h5 style="text-align:right;font-size:5px;margin-right:20px;">application\views\v_store_dyed_thread_packing.php</h5>
+    <h5 style="text-align:right;font-size:5px;margin-right:20px;">application\views\v_store_print_thread_without_i.php</h5>
     <!--main content end-->
   </section>
 
@@ -549,7 +544,7 @@
 
   <script>
     //owl carousel
-
+    var userLogin = <?= json_encode($user_login) ?>;
     function printTab() {
       var form = document.createElement("form");
       form.method = "GET";
@@ -629,7 +624,8 @@
               $("#nt_wt").val(grant - $("#t_wt").val());
             } else {
               $("#ot_wt").val("");
-              alert("tare wt is greater than gross wt");
+              //alert("tare wt is greater than gross wt");
+              alert(`Dear ${userLogin}, Dynamic Dost can not save this record, Because Tare weight is MORE than Gross Weight, Correct it and save again.`);
             }
 
           } else {
@@ -693,6 +689,7 @@
       $.ajax({
         type: "POST",
         url: "<?php echo base_url('store/get_lot_list'); ?>",
+        dataType:"html",
         data: {
           customer_id: customer_id,
           shade_id: $("#shade_no").val(),

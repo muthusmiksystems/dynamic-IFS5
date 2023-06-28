@@ -1,0 +1,30 @@
+<?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed'); ?>
+
+ERROR - 2023-05-28 09:12:56 --> Severity: Notice  --> Undefined property: my404::$db /var/www/html/dynamic/ifs5/system/libraries/Session.php 201
+ERROR - 2023-05-28 09:13:23 --> Severity: Notice  --> Undefined variable: branch /var/www/html/dynamic/ifs5/application/views/quote/sperate_quote.php 164
+ERROR - 2023-05-28 09:13:23 --> Severity: Notice  --> Undefined variable: branch /var/www/html/dynamic/ifs5/application/views/quote/sperate_quote.php 164
+ERROR - 2023-05-28 09:13:23 --> Severity: Notice  --> Undefined variable: branch /var/www/html/dynamic/ifs5/application/views/quote/sperate_quote.php 164
+ERROR - 2023-05-28 09:13:23 --> Severity: Notice  --> Undefined variable: branch /var/www/html/dynamic/ifs5/application/views/quote/sperate_quote.php 164
+ERROR - 2023-05-28 09:13:23 --> Severity: Notice  --> Undefined variable: branch /var/www/html/dynamic/ifs5/application/views/quote/sperate_quote.php 164
+ERROR - 2023-05-28 09:13:23 --> Severity: Notice  --> Undefined variable: branch /var/www/html/dynamic/ifs5/application/views/quote/sperate_quote.php 164
+ERROR - 2023-05-28 09:13:23 --> Severity: Notice  --> Undefined variable: bill_no /var/www/html/dynamic/ifs5/application/views/quote/sperate_quote.php 174
+ERROR - 2023-05-28 09:13:23 --> Severity: Notice  --> Undefined variable: cust_type /var/www/html/dynamic/ifs5/application/views/quote/sperate_quote.php 178
+ERROR - 2023-05-28 09:13:23 --> Severity: Notice  --> Undefined variable: cust_type /var/www/html/dynamic/ifs5/application/views/quote/sperate_quote.php 179
+ERROR - 2023-05-28 09:13:23 --> Severity: Notice  --> Undefined variable: cust_id /var/www/html/dynamic/ifs5/application/views/quote/sperate_quote.php 186
+ERROR - 2023-05-28 09:13:23 --> Severity: Notice  --> Undefined variable: cash_mode /var/www/html/dynamic/ifs5/application/views/quote/sperate_quote.php 215
+ERROR - 2023-05-28 09:13:23 --> Severity: Notice  --> Undefined variable: request_by /var/www/html/dynamic/ifs5/application/views/quote/sperate_quote.php 218
+ERROR - 2023-05-28 09:13:23 --> Severity: Notice  --> Undefined variable: deliver_date /var/www/html/dynamic/ifs5/application/views/quote/sperate_quote.php 222
+ERROR - 2023-05-28 09:13:23 --> Severity: Notice  --> Undefined variable: remarks /var/www/html/dynamic/ifs5/application/views/quote/sperate_quote.php 359
+ERROR - 2023-05-28 09:13:23 --> Severity: Notice  --> Undefined variable: general /var/www/html/dynamic/ifs5/application/views/quote/sperate_quote.php 365
+ERROR - 2023-05-28 09:13:23 --> Severity: Notice  --> Undefined variable: payment /var/www/html/dynamic/ifs5/application/views/quote/sperate_quote.php 372
+ERROR - 2023-05-28 09:13:23 --> Severity: Notice  --> Undefined variable: delivery /var/www/html/dynamic/ifs5/application/views/quote/sperate_quote.php 380
+ERROR - 2023-05-28 09:13:23 --> Severity: Notice  --> Undefined variable: total_qty /var/www/html/dynamic/ifs5/application/views/quote/sperate_quote.php 396
+ERROR - 2023-05-28 09:13:23 --> Severity: Notice  --> Undefined variable: cname /var/www/html/dynamic/ifs5/application/views/quote/sperate_quote.php 822
+ERROR - 2023-05-28 09:13:23 --> Severity: Notice  --> Undefined variable: cname /var/www/html/dynamic/ifs5/application/views/quote/sperate_quote.php 835
+ERROR - 2023-05-28 09:13:39 --> Severity: Notice  --> Undefined property: my404::$db /var/www/html/dynamic/ifs5/system/libraries/Session.php 201
+ERROR - 2023-05-28 09:13:58 --> Severity: Notice  --> Undefined property: my404::$db /var/www/html/dynamic/ifs5/system/libraries/Session.php 201
+ERROR - 2023-05-28 09:21:53 --> Severity: Notice  --> Undefined property: my404::$db /var/www/html/dynamic/ifs5/system/libraries/Session.php 201
+ERROR - 2023-05-28 09:23:04 --> Severity: Notice  --> Undefined property: my404::$db /var/www/html/dynamic/ifs5/system/libraries/Session.php 201
+ERROR - 2023-05-28 09:23:18 --> Severity: Notice  --> Undefined property: my404::$db /var/www/html/dynamic/ifs5/system/libraries/Session.php 201
+ERROR - 2023-05-28 09:23:19 --> Severity: Notice  --> Undefined property: my404::$db /var/www/html/dynamic/ifs5/system/libraries/Session.php 201
+ERROR - 2023-05-28 09:23:29 --> Severity: Notice  --> Undefined property: my404::$db /var/www/html/dynamic/ifs5/system/libraries/Session.php 201

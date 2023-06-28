@@ -23,6 +23,14 @@
 
 
 </head>
+<style>
+   .tax_style{
+      margin-right:10px;
+      margin-top:-3.5px !important;
+      font-size:13px;
+
+   }
+</style>
 
 <body>
 
@@ -234,7 +242,7 @@
                            </thead>
                            <tbody>
                               <tr>
-                                 <td colspan="5" rowspan="3">
+                                 <td colspan="6" rowspan="3">
                                     <strong><?= $concern_title; ?></strong><br />
                                     <?= $concern_address; ?><br>
                                     TIN: <?= $concern_tin; ?><br>
@@ -271,7 +279,8 @@
                                  <th>Box No</th>
                                  <th>Item Name/Code</th>
                                  <th style="text-align:right;">Lot No</th>
-                                 <th style="text-align:right;"># of Cones</th>
+                                 <th style="text-align:right;"># of Units</th>
+                                 <th style="text-align:right;">Uom</th>
                                  <th style="text-align:right;">Gr. Weight</th>
                                  <th style="text-align:right;">Net Weight</th>
                                  <th style="text-align:right;">Lotwise Nt.Weight</th>
@@ -288,6 +297,17 @@
                                     $total_gr_wt += $gr_weights_arr[$key_1];
                                     $total_net_wt += $nt_weights_arr[$key_1];
                                     $lotwise_nt_weight += $nt_weights_arr[$key_1];
+                                    $item_id = explode('/', $item_names_arr[$key_1]);
+
+                                    if (!empty($item_id)) {
+                                        $item_uom = $this->m_masters->getmasterIDvalue('bud_items', 'item_id', $item_id[1], 'item_uom');
+                                        $uom_name = $this->m_masters->get_uom('bud_uoms', $item_uom, 'uom_name');
+                                        
+                                        
+                                    } else {
+                                       $item_uom='';
+                                       $uom_name='';
+                                    }
                               ?>
                                     <tr>
                                        <td><?= $sno; ?></td>
@@ -295,8 +315,9 @@
                                        <td><?= $item_names_arr[$key_1]; ?></td>
                                        <td align="right"><?= $key; ?></td>
                                        <td align="right"><?= $no_cones_arr[$key_1]; ?></td>
+                                       <td align="right"><?= $uom_name; ?></td>
                                        <td align="right"><?= $gr_weights_arr[$key_1]; ?></td>
-                                       <td align="right"><?= $nt_weights_arr[$key_1]; ?></td>
+                                       <td align="right"><?= number_format($nt_weights_arr[$key_1],2,'.',''); ?></td>
                                        <td></td>
                                        <td>
                                           <?= $rates_arr[$key_1]; ?>
@@ -327,7 +348,7 @@
                                  <input type="hidden" name="concern_name" value="<?= $concern_name; ?>">
                                  <input type="hidden" name="invoice_items" value="<?= implode(",", $invoice_items); ?>">
                                  <input type="hidden" name="boxes_array" value="<?= implode(",", $boxes_array); ?>">
-                                 <td colspan="10" align="right">
+                                 <td colspan="11" align="right">
                                     <ul class="unstyled amounts">
                                        <li><strong>Other Charges :</strong></li>
                                        <?php
@@ -352,8 +373,9 @@
                                        <li><strong>Remarks :</strong></li>
                                        <textarea name="remarks" style="width:300px;" maxlength="100" placeholder="Enter Remarks here">remarks</textarea>
                                        <!--end of Inclusion of Remarks in invoices-->
+                                       <div>
                                        <li>
-                                          <strong>Tax :</strong>
+                                          <strong><span style="font-size:15px;">Tax :</span></strong>
                                           <?php
 
                                           $cust_gst = $this->m_masters->getmasterIDvalue('bud_customers', 'cust_id', $customer, 'cust_gst');
@@ -362,10 +384,11 @@
                                           if (substr($cust_gst, 0, 2) == 33 || substr($cust_gst, 0, 2) == 'AW') {
                                              $checked = true;
                                           }
+                                       
 
                                           $taxs = $this->m_masters->getactivemaster('bud_tax', 'tax_status');
                                           foreach ($taxs as $tax) {
-
+                                             
                                              $taxClick = '';
                                              if ($tax['tax_name'] == 'IGST(Other State)' && $checked == false) {
                                                 $taxClick = ' checked="true" ';
@@ -378,7 +401,7 @@
                                              }
                                           ?>
                                              <input type="hidden" name="order_tax_names[<?= $tax['tax_id']; ?>]" value="<?= $tax['tax_name']; ?>">
-                                             <label class="checkbox-inline">
+                                             <label class="checkbox-inline tax_style">
                                                 <input type="checkbox" name="taxs[<?= $tax['tax_id']; ?>]" value="<?= $tax['tax_value']; ?>" <?= $taxClick; ?>>
                                                 <?= $tax['tax_name']; ?> (<?= $tax['tax_value']; ?> %)
                                              </label>
@@ -386,6 +409,7 @@
                                           }
                                           ?>
                                        </li>
+                                       </div>
                                     </ul>
                                  </td>
                               </tr>

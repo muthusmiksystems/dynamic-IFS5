@@ -675,6 +675,7 @@ class Purchase_order extends CI_Controller
 				$items[$key]['net_weight_hold'] = $net_weight_hold;
 			}
 			$result = $this->m_purchase->save_dlc_packing($save, $items);
+			
 			$this->session->set_flashdata('success', 'Successfully Saved');
 			redirect(base_url('purchase_order/po_DLCPacking'));
 		}

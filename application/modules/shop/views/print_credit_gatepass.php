@@ -163,8 +163,8 @@
                                 <td><strong><?php echo number_format($tot_nt_weight, 3, '.', ''); ?> <?php echo $uom_name; ?></strong></td>
                             </tr>
                             <tr>
-                                <td colspan="1">Boxes Allowed <span style="font-size: 24px; font-weight: bold;">[<?= count($allowed_boxes); ?>]</span></td>
-                                <td colspan="7"><strong style="font-size:24px;"><?= implode(", ", $allowed_boxes); ?></strong></td>
+                                <td colspan="1">Boxes Allowed <span style="font-size: 18px; font-weight: bold;">[<?= count($allowed_boxes); ?>]</span></td>
+                                <td colspan="7"><strong style="font-size:18px;"><?= implode(", ", $allowed_boxes); ?></strong></td>
                             </tr>
                             <tr class="invoice-foot">
                                 <td colspan="12">
@@ -212,10 +212,10 @@
                         <table style="border:none;" class="table table-bordered table-striped table-condensed">
                             <tr>
                                 <td width="25%">
-                                    <h2>Boxes Allowed <span>[<?= count($allowed_boxes); ?>]</h2>
+                                    <h2 style="font-size:18px;">Boxes Allowed <span>[<?= count($allowed_boxes); ?>]</h2>
                                 </td>
                                 <td width="75%">
-                                    <h2><?= implode(", ", $allowed_boxes); ?></h2>
+                                    <h2 style="font-size: 18px;"><?= implode(", ", $allowed_boxes); ?></h2>
                                 </td>
                             </tr>
                             <tr>

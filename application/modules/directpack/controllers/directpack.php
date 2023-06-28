@@ -21,10 +21,43 @@ class Directpack extends CI_Controller
 			}
 		}
 	}
+	// public function lot_list_data()
+	// {
+	// 	$data['lot_list'] = $this->Directpack_model->get_lots();
+	// 	$this->load->view('includes/lot-list-data', $data);
+	// }
+
 	public function lot_list_data()
 	{
-		$data['lot_list'] = $this->Directpack_model->get_lots();
+		$data['lot_list'] = $this->Directpack_model->get_lots_by_qty();
 		$this->load->view('includes/lot-list-data', $data);
+	}
+	public function lot_list_details()
+	{
+		$lot_no = $this->input->post('lot_no');
+		if(empty($lot_no))
+		{
+			$lot_no =  $this->input->get('lot_no');
+		}
+		
+
+		$data['activeTab'] = 'packing';
+		$data['activeItem'] = 'lot_form';
+		$data['page_title'] = 'Direct Lot Add Qty';
+		$data['lot_list_details'] = $this->Directpack_model->get_lot_details($lot_no);
+		$this->load->view('lot-form-details', $data);
+	}
+	public function direct_lot_inwd_addqty()
+	{
+		$lot_no =  $this->input->get('lot_no');
+		$lot_id = $this->input->get('lot_id');
+		$this->load->helper('form');
+		$this->load->library('form_validation');
+		$data['page_title'] = 'Update Qty';
+		$data['inward_date'] = date("d-m-Y");
+		$data['qty'] = '';
+		$data['item'] =  $this->Directpack_model->get_lot_details($lot_no,$lot_id);
+		$this->load->view('direct-lot-inward-update-qty', $data);
 	}
 	public function lot_form($lot_id = '')
 	{
@@ -38,8 +71,10 @@ class Directpack extends CI_Controller
 		$data['shades'] = $this->Directpack_model->get_shades(true);
 		$this->load->view('lot-form', $data);
 	}
-	public function lot_save($lot_id = '')
+	public function lot_save($lot_id = '',$update_lot_no='')
 	{
+		//$update_lot_no=$this->input->get('lot_no');
+		$update_lot_no=$this->input->post('upd_lot_no');
 		$response = array();
 		$this->load->helper('form');
 		$this->load->library('form_validation');
@@ -49,6 +84,7 @@ class Directpack extends CI_Controller
 		$this->form_validation->set_rules('oil_required', 'Oil Required', 'required|numeric');
 		$this->form_validation->set_rules('no_springs', 'No Springs', 'required|numeric');
 		$this->form_validation->set_rules('lot_qty', 'Lot Qty', 'required|numeric');
+		$this->form_validation->set_rules('lot_rate', 'Lot Rate', 'required|numeric');
 		if ($this->form_validation->run() == FALSE) {
 			$response['error'] = validation_errors();
 		} else {
@@ -61,16 +97,34 @@ class Directpack extends CI_Controller
 				$machine_prefix = $machine->machine_prefix;
 			}
 
-			if ($lot_id) {
-				$next_lot_id = $lot_id;
-			} else {
-				$next = $this->db->query("SHOW TABLE STATUS LIKE 'bud_lots'");
-				$next = $next->row(0);
-				$next_lot_id = $next->Auto_increment;
-			}
+			// if ($lot_id) {
+			// 	$next_lot_id = $lot_id;
+			// } else {
+			// 	$next = $this->db->query("SHOW TABLE STATUS LIKE 'bud_lots'");
+			// 	$next = $next->row(0);
+			// 	$next_lot_id = $next->Auto_increment;
+			// }
+			$next = $this->db->query("SELECT MAX(lot_id) AS max_lot_id FROM `bud_lots`");
+				$row = $next->row(); // Retrieve the result as an object
+				$next_lot_id = $row->max_lot_id+1;
+			
 			$lot_no = $machine_prefix . $next_lot_id;
+			
 
-			$save['lot_id'] = $lot_id==''?0:$lot_id;
+			//$save['lot_id'] = $lot_id==''?0:$lot_id;
+			if($update_lot_no!='')
+			{
+				$lot_no = $update_lot_no;
+				$next_lot_id=$this->input->post('upd_lot_id');
+				$save['lot_quality'] =  $this->input->post('lot_quality');
+				$save['lot_remark'] =  $this->input->post('lot_remark');
+				$save['lot_invoice_no'] =  $this->input->post('lot_invoice_no');
+				$dateStr = $this->input->post('inward_date');
+				$formattedDate = date('Y-m-d', strtotime($dateStr));
+				$save['inward_date'] =  $formattedDate;
+				//$save['lot_id'] =0;
+			}
+			$save['lot_id'] = $next_lot_id;
 			$save['lot_prefix'] = $this->input->post('machine_id');
 			$save['lot_no'] = $lot_no;
 			$save['lot_shade_no'] = $this->input->post('shade_id');
@@ -83,19 +137,36 @@ class Directpack extends CI_Controller
 			$save['lot_created_date'] = date("Y-m-d H:i:s");
 			$save['lot_month'] = date("m-y H:i:s"); //tot direct lot qty correction
 			$save['direct_entry'] = 1;
-
-			$new_lot_id = $this->Directpack_model->save_lot($save);
-			if ($new_lot_id) {
-				$dlc_packing_items['id'] = 0;
-				$dlc_packing_items['lot_id'] = $new_lot_id==''?0:$new_lot_id;
+			$save['lot_rate'] = $this->input->post('lot_rate');
+			
+			$new_lot_id = $this->Directpack_model->save_lot_for_new_feature($save);
+			$result='';
+			// if ($new_lot_id) {
+				if ($next_lot_id) {
+				$next = $this->db->query("SELECT MAX(id) AS max_id FROM `bud_dlc_packing_items`");
+				$row = $next->row(); // Retrieve the result as an object
+				$next_id = $row->max_id+1;
+				$dlc_packing_items['id'] = $next_id;
+				// $dlc_packing_items['lot_id'] = $new_lot_id==''?0:$new_lot_id;
+				$dlc_packing_items['lot_id'] = $next_lot_id==''?0:$next_lot_id;
 				$dlc_packing_items['no_springs'] = $this->input->post('no_springs');
 				$dlc_packing_items['no_springs_hold'] = 0;
 				$dlc_packing_items['net_weight'] = $this->input->post('lot_qty');
 				$dlc_packing_items['net_weight_hold'] = 0;
-				$this->Directpack_model->save_dlc_packing_items($dlc_packing_items);
+				$result=$this->Directpack_model->save_dlc_packing_items_for_new_feature($dlc_packing_items);
 			}
+			
+			// if($update_lot_no!='')
+			// {
+			// 	//redirect(base_url('directpack/directpack/lot_list_details/' . $update_lot_no), 'refresh');
+			// 	redirect(base_url('directpack/lot_list_details?lot_no=' . urlencode($update_lot_no)), 'refresh');
+			// }
 
 			$response['success'] = 'Succcessfully Saved';
+			$response['data'] = $result;
+			$response['new_lot_id'] = $next_lot_id;
+			
+			
 		}
 		echo json_encode($response);
 	}
@@ -134,6 +205,7 @@ class Directpack extends CI_Controller
 		if (!empty($lot_id)) {
 			// $lot = $this->m_masters->get_lot($lot_id);
 			$lot = $this->m_masters->get_lot_details($lot_id);
+			
 			// print_r($lot);
 			if ($lot) {
 				$items = $this->m_purchase->get_dlc_lot_qty($lot_id);
@@ -159,6 +231,7 @@ class Directpack extends CI_Controller
 				}
 			}
 		}
+
 		$tot_balancd_qty = $lot_qty - $tot_packed_qty;
 
 		$return['lot_qty'] = number_format($lot_qty, 3, '.', '');
@@ -199,7 +272,6 @@ class Directpack extends CI_Controller
 	{
 		/*$next = $this->db->query("SHOW TABLE STATUS LIKE 'bud_sh_packing'");
 		$next = $next->row(0);*/
-		
 		$box_no = $this->Directpack_model->getNextBoxNo('DIR');
 		$data['new_box_no'] = $box_no;
 		$data['box_no'] = $box_no;
@@ -220,7 +292,6 @@ class Directpack extends CI_Controller
 		$data['stock_rooms'] = array();
 		// $data['stock_rooms'] = $this->Packing_model->get_stock_rooms();
 		// echo "string";
-		
 		$this->load->view('packing-entry', $data);
 	}
 	public function packing_save()

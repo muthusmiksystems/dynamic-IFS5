@@ -584,12 +584,13 @@
           </table>
         </section>
       </section>
-
+      
     </section>
-
+    <h5 style="text-align:right;font-size:5px;margin-right:20px;">application\views\v_store_dyed_yarn_packing.php</h5>
+    <h5 style="text-align:right;font-size:5px;margin-right:20px;">application\views\v_store_dyed_yarn_packing.php</h5>
     <!--main content end-->
   </section>
-  <p style="text-align:right;font-size:4px;margin-right:10px">application\views\v_store_dyed_yarn_packing.php</p> 
+  
 
   <!-- js placed at the end of the document so the pages load faster -->
   <?php
@@ -620,6 +621,7 @@
 
   <script>
     //owl carousel
+    var userLogin = <?= json_encode($user_login) ?>;
 
     function printTab() {
       var form = document.createElement("form");
@@ -718,7 +720,8 @@
               $("#nt_wt").val(grant - $("#t_wt").val());
             } else {
               $("#ot_wt").val("");
-              alert("tare wt is greater than grant");
+              //alert("tare wt is greater than grant");
+              alert(`Dear ${userLogin}, Dynamic Dost can not save this record, Because Tare weight is MORE than Gross Weight, Correct it and save again.`);
             }
 
           } else {
@@ -786,6 +789,7 @@
       $.ajax({
         type: "POST",
         url: "<?php echo base_url('store/get_lot_list'); ?>",
+        dataType:"html",
         data: {
           customer_id: customer_id,
           shade_id: $("#colour_code").val(),

@@ -41,7 +41,7 @@
                     <div class="col-lg-12">
                         <section class="panel">
                             <header class="panel-heading">
-                                <h3><i class="icon-user"></i> Yarn Quality Master</h3>
+                                <h3><i class="icon-user"></i> Raw Material Quality Master</h3>
                             </header>
                         </section>
                     </div>
@@ -186,6 +186,7 @@
             </section>
       </section>
       <!--main content end-->
+      <h5 style="text-align:right;font-size:5px;margin-right:20px">application\views\v_1_yarn-denier.php</h5>
   </section>
 
     <!-- js placed at the end of the document so the pages load faster -->

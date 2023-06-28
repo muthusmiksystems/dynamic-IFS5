@@ -280,6 +280,7 @@
                   <div class="form-group col-lg-2">
                     <label>POY Denier</label>
                     <select class="form-control select2" name="poy_denier" id="poy_denierr">
+                    <!-- <option value="">Select</option> -->
                       <option value="">Select</option>
                       <?php
                       foreach ($poydeniers as $row) {
@@ -361,6 +362,7 @@
                   <div class="form-group col-lg-2">
                     <label>Denier</label>
                     <select class="form-control select2" name="" id="poy_denier_2">
+                      <!-- <option value="">Select</option> -->
                       <option value="">Select</option>
                       <?php
                       foreach ($denier as $row) {
@@ -817,6 +819,8 @@
     </section>
 
     <!--main content end-->
+      <h5 style="text-align:right;font-size:8px;margin-right:20px">application\views\v_store_gray_yarn_packing.php</h5>
+      <h5 style="text-align:right;font-size:8px;margin-right:20px">application\views\v_store_print_gray_yarn_pack.php</h5>
   </section>
 
 
@@ -850,7 +854,8 @@
 
   <script>
     //owl carousel
-
+    var userLogin = <?= json_encode($user_login) ?>;
+    
     function printTab() {
       var form = document.createElement("form");
       form.method = "GET";
@@ -953,7 +958,7 @@
               $("#nt_wt").val(grant - $("#t_wt").val());
             } else {
               $("#ot_wt").val("");
-              alert("tare wt is greater than grant");
+              alert(`Dear ${userLogin}, Dynamic Dost can not save this record, Because Tare weight is MORE than Gross Weight, Correct it and save again.`);
             }
 
           } else {
@@ -1120,10 +1125,13 @@
       var poy_inward_no_2 = $(this).val();
       var url = "<?= base_url() ?>store/get_poy_po_no/" + poy_inward_no_2;
       var postData = 'id=' + poy_inward_no_2;
+      if(poy_inward_no_2!='')
+      {
       $.ajax({
         type: "POST",
         url: url,
         // data: postData,
+        dataType: "html",
         success: function(result) {
           $("#poy_inward_no").select2('destroy');
           $("#poy_inward_no").html(result);
@@ -1132,15 +1140,19 @@
         }
       });
       return false;
+    }
     });
     $("#poy_denier_2").change(function() {
       var poy_inward_no_2 = $(this).val();
       var url = "<?= base_url() ?>store/get_poy_po_no/" + poy_inward_no_2;
       var postData = 'id=' + poy_inward_no_2;
+      if(poy_inward_no_2!='')
+      {
       $.ajax({
         type: "POST",
         url: url,
         // data: postData,
+        dataType:'html',
         success: function(result) {
           $("#poy_inward_no_2").select2('destroy');
           $("#poy_inward_no_2").html(result);
@@ -1148,6 +1160,7 @@
         }
       });
       return false;
+    }
     });
 
     $(".search-term").change(function() {
