@@ -34,7 +34,7 @@
                                 </div>
 
                                 <div class="form-group col-lg-4">
-                                    <label for="stock_room_id" class="gross-weight-lbl">Stock Room</label>
+                                    <label for="stock_room_id" class="gross-weight-lbl">Branch Name</label>
                                     <select class="form-control select2" id="stock_room_id" name="stock_room_id" required>
                                         <option value="">Select</option>
                                         <?php
@@ -45,6 +45,11 @@
                                         }
                                         ?>
                                     </select>
+                                </div>
+
+                                <div class="form-group col-lg-4">
+                                    <label for="sub_branch_description" class="gross-weight-lbl">description(Sub branch) :</label>
+                                    <input class="gross-weight form-control" id="sub_branch_description" name="sub_branch_description" type="text" required autofocus="">
                                 </div>
                             </div>
 
@@ -128,6 +133,8 @@
                                 <th>Item name/code</th>
                                 <th>Colour name/code</th>                                                        <th>Gross Weight</th>
                                 <th>Net Weight</th>
+                                <th>Branch Name</th>
+                                <th>description<br>(Sub branch)</th>
                                 <th>Packed By</th>
                                 <th>Action</th>
                             </tr>
@@ -154,9 +161,18 @@
                                     $shade = $pack_i_box['shade_name'];
                                 }
                                 $lots = array_unique($lots);
+                                $stock_room_name = '';
+                                $this->db->select('*');
+                                $this->db->from('bud_stock_rooms');
+                                $this->db->where('stock_room_id', $row['stock_room_id']);
+                                $q = $this->db->get();
+                                $a = $q->result_array();
+                                foreach ($a as $b) {
+                                $stock_room_name = $b['stock_room_name'];
+                                }
                                 ?>
                                 <tr class="odd gradeX">                                           <td><?=$sno; ?></td>
-                                     <td><?=date('d-m-Y h:i:s', strtotime($row['packed_date'])); ?></td>                                                 <td><?=$row['box_prefix']; ?><?=$row['box_no']; ?></td>                                                             <td><?php echo implode(",", $lots); ?></td>                                          <td><?=$item; ?></td>                                    <td><?=$shade; ?></td>                                                         <td><?=$row['gross_weight']; ?></td>                                      <td><?=$row['net_weight']; ?></td>                                        <td><?=$row['packed_by']; ?></td>
+                                     <td><?=date('d-m-Y h:i:s', strtotime($row['packed_date'])); ?></td>                                                 <td><?=$row['box_prefix']; ?><?=$row['box_no']; ?></td>                                                             <td><?php echo implode(",", $lots); ?></td>                                          <td><?=$item; ?></td>                                    <td><?=$shade; ?></td>                                                         <td><?=$row['gross_weight']; ?></td>                                      <td><?=$row['net_weight']; ?></td>     <td>  <?=$stock_room_name; ?>  </td><td> <?=$row['sub_branch_description']; ?>  </td>                                   <td><?=$row['packed_by']; ?></td>
                                     <td>
                                         <a href="<?=base_url(); ?>store/print_thread_with_i/<?=$row['box_id']; ?>" class="btn btn-xs btn-warning" title="Print" target="_blank">Print</a>
                                     </td>

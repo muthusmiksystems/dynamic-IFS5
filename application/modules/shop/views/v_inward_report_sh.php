@@ -13,7 +13,7 @@
                  <div class="col-lg-12">
                     <section class="panel">                            
                        <header class="panel-heading">
-                          <?=$page_title; ?>
+                       <h3 style="font-size:20px"><?=$page_title; ?></h3>
                        </header>
                        <div class="panel-body">
                           <div class="form-group col-lg-3 date">
@@ -78,7 +78,7 @@
                              </select>
                           </div>
                           <div class="form-group col-lg-3">
-                             <label for="stock_room">Stoock Room</label>
+                             <label for="stock_room">Stock Room</label>
                              <select class="get_stock_detail form-control select2" id="stock_room" name="stock_room_id">
                                 <option value="0">Select</option>
                                 <?php
@@ -217,8 +217,8 @@
                                     <th width="10%">Supplier ID</th>
                                     <th width="5%">Packed By</th>
                                     <th width="10%">Packed On</th>
-                                    <th width="10%">Stock Room</th>
-                                    <th width="3%"># Cones</th>
+                                    <th width="10%">Branch Name</th>
+                                    <th width="3%"># Units</th>
                                     <th width="2%">Gr wt</th>
                                     <th width="5%">Net Wt</th>
                                     <th width="5%">Status</th><!--ER-07-18#-25-->

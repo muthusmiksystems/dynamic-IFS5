@@ -617,6 +617,16 @@ class M_masters extends CI_Model
             return $this->db->insert_id();
         }
     }
+
+    function save_lot_for_add_qty($lot)
+    {
+       
+            $this->db->insert('bud_lots', $lot);
+            return $this->db->insert_id();
+        
+    }
+
+
     function get_lots($filter = array())
     {
         $this->db->select('bud_lots.*, bud_shades.shade_name,bud_shades.shade_code');

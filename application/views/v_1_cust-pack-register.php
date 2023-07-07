@@ -71,7 +71,7 @@
                   <div class="col-lg-12">
                      <section class="panel">
                         <header class="panel-heading">
-                           <h3><i class=" icon-file"></i>  Item wise Packing Register</h3>
+                           <h3><i class=" icon-file"></i>  Item wise-Lot wise Packing Register</h3>
                         </header>
                      </section>
                   </div>
@@ -388,6 +388,7 @@
                <div class="pageloader"></div>                   
                <!-- page end-->
             </section>
+            <h5 style="text-align:right;font-size:5px;margin-right:20px">application\views\v_1_cust-pack-register.php</h5>
          </section>
          <!--main content end-->
       </section>

@@ -5,6 +5,12 @@
             margin: 3mm;
         }
     }
+
+    .button-group {
+    display: flex;
+    gap: 10px; /* Adjust the gap between buttons as desired */
+    }
+
 </style>
 <section id="main-content">
     <section class="wrapper">
@@ -57,7 +63,7 @@
                                     </select>
                                 </div>
                                 <div class="form-group col-md-3">
-                                    <label>Shade Name</label>
+                                    <label>Color Name</label>
                                     <select class="select2 shade-select form-control" name="shade_id">
                                         <option value="">Select</option>
                                         <?php if(sizeof($shades) > 0): ?>
@@ -70,7 +76,7 @@
                             </div>
                             <div class="row">
                                 <div class="form-group col-md-3">
-                                    <label>Shade Code</label>
+                                    <label>Color Code</label>
                                     <select class="select2 shade-select form-control">
                                         <option value="">Select</option>
                                         <?php if(sizeof($shades) > 0): ?>
@@ -122,6 +128,26 @@
         </div>
 
     </section>
+    <div class="modal fade" id="modal_ajax">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title"> Raw Material Update Item & Color</h4>
+        </div>
+
+        <div class="modal-body" style="height:250px; overflow:auto;">
+
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
     <h5 style="text-align:right;font-size:5px;margin-right:20px">application\modules\directpack\views\lot-form.php</h5>
 </section>
 <?php include APPPATH.'views/html/footer.php'; ?>
@@ -188,6 +214,35 @@
                 jQuery('.dataTables_length select').addClass("form-control");
             }
         });
+    }
+
+    function showAjaxModal(url) {
+      // SHOWING AJAX PRELOADER IMAGE
+      jQuery('#modal_ajax .modal-body').html('<div style="text-align:center;margin-top:200px;"><img src="<?php echo base_url('themes/admin/img/preloader.gif') ?>" /></div>');
+
+      // LOADING THE AJAX MODAL
+      jQuery('#modal_ajax').modal('show', {
+        backdrop: 'true'
+      });
+
+      // SHOW AJAX RESPONSE ON REQUEST SUCCESS
+      $.ajax({
+        url: url,
+        success: function(response) {
+          jQuery('#modal_ajax .modal-body').html(response);
+
+          /*$(function(){
+              $('.dateplugin').datepicker({
+                  format: 'dd-mm-yyyy',
+                  autoclose: true
+              });
+          });*/
+          $('.dateplugin').datepicker({
+            format: 'dd-mm-yyyy',
+            autoclose: true
+          });
+        }
+      });
     }
 </script>
 </body>

@@ -304,6 +304,7 @@
         <!-- page end-->
       </section>
     </section>
+    <h5 style="text-align:right;font-size:5px;margin-right:20px">application\views\v_1_yarn-delivery.php</h5>
     <!--main content end-->
   </section>
 
@@ -466,6 +467,7 @@
       $.ajax({
         type: "POST",
         url: "<?= base_url(); ?>poy/yarn_detail/" + po_no,
+        dataType:"html",
         success: function(e) {
           $("#Detail_table").html(e);
         }

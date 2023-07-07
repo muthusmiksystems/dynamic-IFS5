@@ -371,6 +371,27 @@ ALTER TABLE `bud_lots` DROP PRIMARY KEY;
 ALTER TABLE bud_lots MODIFY lot_id bigint;
 
 
+update `bud_privileges` set upriv_description="Branch Master" WHERE upriv_id=68;
+
+
+
+
+UPDATE `bud_privileges` set upriv_group="Lot & Production" WHERE `upriv_group`="Pck. & Prod. Entry";
+
+alter table `bud_yt_packing_boxes` add sub_branch_description varchar(500);
+
+alter table `bud_lots` add id bigint UNIQUE;
+
+ALTER TABLE bud_lots MODIFY COLUMN id bigint AUTO_INCREMENT, ADD PRIMARY KEY (id);
+
+alter table  `bud_lots` add md_cmt varchar(500);
+ALTER TABLE `bud_yt_yarndelivery` CHANGE `accepted_date_time` `accepted_date_time` DATETIME NULL DEFAULT NULL;
+
+ALTER TABLE `bud_yt_salesentry` CHANGE `invoice_no` `invoice_no` BIGINT(11) NULL DEFAULT NULL;
+	
+ALTER TABLE `bud_yt_salesentry` CHANGE `invoice_prefix` `invoice_prefix` VARCHAR(20) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL;
+
+
 
 
 

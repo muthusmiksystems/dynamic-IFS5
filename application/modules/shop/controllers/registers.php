@@ -260,7 +260,7 @@ class Registers extends CI_Controller {
 	{
 		$data['activeTab'] = 'shop_registers';
 		$data['activeItem'] = 'inward_report_sh';
-		$data['page_title'] = 'Inward Report Shop';
+		$data['page_title'] = 'Stock Report- Branch wise-stock Room Wise';
 		$data['catagory']='sh';
 		$data['item_id'] = 0;
 		$data['f_date'] = date('Y-m-d',strtotime("-1 month"));//ER-07-18#-25

@@ -35,6 +35,9 @@ class Directpack extends CI_Controller
 	public function lot_list_details()
 	{
 		$lot_no = $this->input->post('lot_no');
+
+		$action = $this->input->post('action');
+		
 		if(empty($lot_no))
 		{
 			$lot_no =  $this->input->get('lot_no');
@@ -49,14 +52,18 @@ class Directpack extends CI_Controller
 	}
 	public function direct_lot_inwd_addqty()
 	{
+
 		$lot_no =  $this->input->get('lot_no');
-		$lot_id = $this->input->get('lot_id');
+		$id = $this->input->get('id');
 		$this->load->helper('form');
 		$this->load->library('form_validation');
 		$data['page_title'] = 'Update Qty';
 		$data['inward_date'] = date("d-m-Y");
 		$data['qty'] = '';
-		$data['item'] =  $this->Directpack_model->get_lot_details($lot_no,$lot_id);
+		$data['action'] = $this->input->get('action');
+		$data['items'] = $this->Directpack_model->get_items(true);
+		$data['shades'] = $this->Directpack_model->get_shades(true);
+		$data['item'] =  $this->Directpack_model->get_lot_details($lot_no,$id);
 		$this->load->view('direct-lot-inward-update-qty', $data);
 	}
 	public function lot_form($lot_id = '')
@@ -163,11 +170,40 @@ class Directpack extends CI_Controller
 			// }
 
 			$response['success'] = 'Succcessfully Saved';
-			$response['data'] = $result;
-			$response['new_lot_id'] = $next_lot_id;
 			
 			
 		}
+		echo json_encode($response);
+	}
+
+
+	public function lot_save_comment()
+	{		
+		$save['md_cmt'] = $this->input->post('md_cmt');
+		$id=$this->input->post('id');
+			
+		
+		$result=$this->Directpack_model->lot_update($id,$save);
+	
+
+		$response['success'] = 'Succcessfully Saved';
+			
+		echo json_encode($response);
+	}
+
+	public function lot_save_update()
+	{		
+		$lot_no=$this->input->post('rowid');
+		$save['lot_item_id'] = $this->input->post('item_id');
+		$save['lot_shade_no'] = $this->input->post('shade_id');
+		$id=$this->input->post('id');
+			
+		
+		$result=$this->Directpack_model->lot_update('',$save,$lot_no);
+	
+
+		$response['success'] = 'Succcessfully Saved';
+			
 		echo json_encode($response);
 	}
 

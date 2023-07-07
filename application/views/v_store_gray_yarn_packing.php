@@ -130,6 +130,8 @@
             $grant_wt = $row['gross_weight'];
             $net_wt = $row['net_weight'];
             $packed_by = $row['packed_by'];
+
+            $sub_branch_description = $row['sub_branch_description'];
             $remark = $row['remarks'];
             $date = $row['packed_date'];
             $box_weight = $row['box_weight'];
@@ -154,6 +156,7 @@
           $next = $id;
         } else {
           $remark = '';
+          $sub_branch_description = '';
           $id = '';
           $item_id = '';
           $poy = '';
@@ -527,7 +530,7 @@
                   </div>
 
                   <div class="form-group col-lg-2">
-                    <label for="po_category">Yarn Quality</label>
+                    <label for="po_category">Raw material Quality</label>
                     <!-- <select class="search-term form-control select2" name="yarn_denier" id="yarn_denier" required> -->
                     <select class="form-control select2" name="yarn_denier" id="yarn_denier" required>
                       <option value="">Select denier</option>
@@ -684,7 +687,7 @@
                   <!-- <div class="form-group col-lg-4">
                               </div> -->
                   <div class="form-group col-lg-4">
-                    <label for="stock_room_id">Stock Room</label>
+                    <label for="stock_room_id">Branch Name</label>
                     <select class="form-control select2" name="stock_room_id" id="stock_room_id" required>
                       <option value="">Select Box</option>
                       <?php
@@ -716,6 +719,12 @@
                     <label for="po_date">Tare Weight</label>
                     <input class="form-control" id="t_wt" name="t_wt" value="<?= $t_wt; ?>" type="text" readonly>
                   </div>
+
+                  <div class="form-group col-lg-4">
+                    <label for="sub_branch_description">description(Sub branch) : </label>
+                    <textarea name="sub_branch_description" class="form-control" style="resize: vertical;" required="required"><?= $sub_branch_description; ?></textarea>
+                  </div>
+
                   <div class="form-group col-lg-4">
                     <label for="po_date">Remarks : </label>
                     <textarea name="remark" class="form-control" style="resize: vertical;" required="required"><?= $remark; ?></textarea>
@@ -763,7 +772,9 @@
                 <th>POY Lot</th>
                 <th>Gr.Weight</th>
                 <th>Net Weight</th>
-                <th>Stock Room </th>
+                <!-- <th>Stock Room </th> -->
+                <th>Branch Name</th>
+                <th>description<br>(Sub branch)</th>
                 <th> Remarks </th>
                 <th>Packed By</th>
                 <th>
@@ -804,7 +815,7 @@
                    '<?= $row['shade_name']; ?> / <?= $row['shade_id']; ?> / <?= $row['shade_code']; ?> ', 
                    '<?= $row['poy_denier_name']; ?>', '<?= $row['poy_lot_name']; ?>',
                     '<?= $row['gross_weight']; ?>', '<?= number_format($row['net_weight'], 3, '.', ''); ?>',
-                     '<?= $stock_room_name; ?>', '<?= $row['bud_remarks']; ?>', '<?= $row['packed_by']; ?>',
+                     '<?= $stock_room_name; ?>','<?= $row['sub_branch_description']; ?>', '<?= $row['bud_remarks']; ?>', '<?= $row['packed_by']; ?>',
                      '<a href="<?= base_url('store/print_gray_yarn_pack/' . $row['box_id']); ?>" target="_blank" class="btn btn-xs btn-warning" title="Print"><i class="icon-print"></i></a><a href="<?= base_url(); ?>store/gray_yarn_packing/<?= $row['box_id']; ?>/edit" class="btn btn-xs btn-primary" title="Edit"><i class="icon-pencil"></i></a><a href="<?= base_url(); ?>store/gray_yarn_packing/<?= $row['box_id']; ?>" class="btn btn-xs btn-success" title="Duplicate"><i class="icon-copy"></i></a><a href="#<?= $row['box_id']; ?>" data-toggle="modal" class="btn btn-xs btn-danger" title="Delete"><i class="icon-trash"></i></a><div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="<?= $row['box_id']; ?>" class="modal fade"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button><h4 class="modal-title">Remarks</h4></div><div class="modal-body"><form role="form" method="post" action="<?= base_url(); ?>store/delete_packing_box/<?= $row['box_id']; ?>/gray_yarn_packing"><input type="hidden" name="box_id" value="<?= $row['box_id']; ?>"><input type="hidden" name="function_name" value="gray_yarn_packing"><div class="form-group col-lg-12" style="margin-bottom: 15px;"><textarea class="form-control" name="remarks" required style="width:100%;"></textarea></div><div style="clear:both;"></div><?= $delBtn; ?></form></div></div></div></div>']);
               </script>
 

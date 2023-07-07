@@ -119,7 +119,7 @@ class Directpack_model extends CI_Model {
 
     function get_lots_by_qty($filter = array())
     {
-        $this->db->select('bud_lots.*,SUM(bud_lots.lot_qty) as total_lot_qty,SUM(bud_lots.no_springs) as total_no_springs,SUM(bud_lots.lot_oil_required) as total_lot_oil_required,MAX(bud_lots.lot_id) as latest_lot_id');
+        $this->db->select('bud_lots.*,SUM(bud_lots.lot_qty) as total_lot_qty,SUM(bud_lots.no_springs) as total_no_springs,SUM(bud_lots.lot_oil_required) as total_lot_oil_required,MAX(bud_lots.id) as latest_id');
         $this->db->select('bud_items.item_name');
         $this->db->select('bud_shades.shade_name,bud_shades.shade_code');
         $this->db->join('bud_shades','bud_lots.lot_shade_no = bud_shades.shade_id', 'left');
@@ -142,12 +142,12 @@ class Directpack_model extends CI_Model {
     }
 
 
-    function get_latest_lots($latest_lot_id)
+    function get_latest_lots($latest_id)
     {
         $this->db->select('bud_lots.*');
        
         $this->db->where('bud_lots.direct_entry', 1);
-        $this->db->where('bud_lots.lot_id',$latest_lot_id);
+        $this->db->where('bud_lots.id',$latest_id);
         return $this->db->get('bud_lots')->result(0);
     }
     public function save_packing($save)
@@ -243,7 +243,7 @@ class Directpack_model extends CI_Model {
         return $result->result();
     }
 
-    function get_lot_details($lot_no,$lot_id='')
+    function get_lot_details($lot_no,$id='')
     {
         
         $this->db->select('bud_lots.*');
@@ -253,11 +253,25 @@ class Directpack_model extends CI_Model {
         $this->db->join('bud_items','bud_lots.lot_item_id = bud_items.item_id', 'left');
         $this->db->where('bud_lots.direct_entry', 1);
         $this->db->where('bud_lots.lot_no',$lot_no);
-        if($lot_id!='')
+        if($id!='')
         {
-            $this->db->where('bud_lots.lot_id',$lot_id);   
+            $this->db->where('bud_lots.id',$id);   
         }
-        $this->db->order_by('lot_id', 'desc');
+        $this->db->order_by('id', 'desc');
         return $this->db->get('bud_lots')->result();
+    }
+
+
+    public function lot_update($id,$save,$lot_no='')
+    {
+        if(!empty($id))
+        {
+            $this->db->where('id', $id);
+        }
+        if($lot_no!='')
+        {
+            $this->db->where('lot_no', $lot_no);
+        }
+        $this->db->update('bud_lots', $save);
     }
 }

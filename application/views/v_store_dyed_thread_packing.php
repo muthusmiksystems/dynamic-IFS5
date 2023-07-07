@@ -116,6 +116,7 @@
             $shade_no = $row['shade_no'];
             $box_weight = $row['box_weight'];
             $remark = $row['remarks'];
+            $sub_branch_description = $row['sub_branch_description'];
             $no_boxes = $row['no_boxes'];
             $poly_bag_weight = $row['poly_bag_weight'];
             $no_bags = $row['no_bags'];
@@ -164,6 +165,7 @@
           $packed_date = '';
           $stock_room_id = '';
           $remark = '';
+          $sub_branch_description = '';
         }
 
         $lot_qty = 0.000;
@@ -429,6 +431,10 @@
                       ?>
                     </select>
                   </div>
+                  <div class="form-group col-lg-4">
+                    <label for="sub_branch_description">description(Sub branch) :</label>
+                    <textarea name="sub_branch_description" class="form-control" style="resize: vertical;" required="required"><?= $sub_branch_description; ?></textarea>
+                  </div>
 
                   <div class="form-group col-lg-2">
                     <label for="po_date">Net Weight (System calculated wt) </label>
@@ -465,7 +471,8 @@
                     <th>Colour name/code</th>
                     <th>Gross Weight</th>
                     <th>Net Weight</th>
-                    <th>Stock Room </th>
+                    <th>Branch Name</th>
+                    <th>description<br>(Sub branch)</th>
                     <th> Remarks </th>
                     <th>Packed By</th>
                     <th>Action</th>
@@ -491,7 +498,7 @@
                   }
                   ?>
                   <script>
-                    data.push(['<?= $sno; ?>', '<?= date('d-m-Y h:i:s', strtotime($row['packed_date'])); ?>', '<?= $row['box_prefix']; ?><?= $row['box_no']; ?>', '<?= $row['lot_no']; ?>', '<?= $row['item_name'] . "/" . $row['item_id']; ?>', '<?= $row['shade_name'] . "/" . $row['shade_code']; ?>', '<?= $row['gross_weight']; ?>', '<?= $row['net_weight']; ?>', '<? $stock_room_name; ?>', '<?= $row['bud_remarks']; ?>', '<?= $row['packed_by']; ?>', '<a href="<?= base_url(); ?>store/print_thread_without_i/<?= $row['box_id']; ?>" class="btn btn-xs btn-warning" title="Print" target="_blank">Print</a><a href="<?= base_url(); ?>store/dyed_thread_packing/<?= $row['box_id']; ?>" class="btn btn-xs btn-primary" title="Edit">Edit</a><a href="<?= base_url(); ?>store/dyed_thread_packing/<?= $row['box_id']; ?>" class="btn btn-xs btn-success" title="Duplicate">Duplicate</a><a href="#<?= $row['box_id']; ?>" data-toggle="modal" class="btn btn-xs btn-danger" title="Delete">Delete</a><div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="<?= $row['box_id']; ?>" class="modal fade"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button><h4 class="modal-title">Remarks</h4></div><div class="modal-body"><form role="form" method="post" action="<?= base_url(); ?>store/delete_packing_box/<?= $row['box_id']; ?>/dyed_thread_packing"><input type="hidden" name="box_id" value="<?= $row['box_id']; ?>"><input type="hidden" name="function_name" value="dyed_thread_packing"><div class="form-group col-lg-12" style="margin-bottom: 15px;"><textarea class="form-control" name="remarks" required style="width:100%;"></textarea></div><div style="clear:both;"></div><?= $delBtn; ?></form></div></div></div></div>']);
+                    data.push(['<?= $sno; ?>', '<?= date('d-m-Y h:i:s', strtotime($row['packed_date'])); ?>', '<?= $row['box_prefix']; ?><?= $row['box_no']; ?>', '<?= $row['lot_no']; ?>', '<?= $row['item_name'] . "/" . $row['item_id']; ?>', '<?= $row['shade_name'] . "/" . $row['shade_code']; ?>', '<?= $row['gross_weight']; ?>', '<?= $row['net_weight']; ?>', '<?= $stock_room_name; ?>','<?= $row['sub_branch_description']; ?>', '<?= $row['bud_remarks']; ?>', '<?= $row['packed_by']; ?>', '<a href="<?= base_url(); ?>store/print_thread_without_i/<?= $row['box_id']; ?>" class="btn btn-xs btn-warning" title="Print" target="_blank">Print</a><a href="<?= base_url(); ?>store/dyed_thread_packing/<?= $row['box_id']; ?>" class="btn btn-xs btn-primary" title="Edit">Edit</a><a href="<?= base_url(); ?>store/dyed_thread_packing/<?= $row['box_id']; ?>" class="btn btn-xs btn-success" title="Duplicate">Duplicate</a><a href="#<?= $row['box_id']; ?>" data-toggle="modal" class="btn btn-xs btn-danger" title="Delete">Delete</a><div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="<?= $row['box_id']; ?>" class="modal fade"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button><h4 class="modal-title">Remarks</h4></div><div class="modal-body"><form role="form" method="post" action="<?= base_url(); ?>store/delete_packing_box/<?= $row['box_id']; ?>/dyed_thread_packing"><input type="hidden" name="box_id" value="<?= $row['box_id']; ?>"><input type="hidden" name="function_name" value="dyed_thread_packing"><div class="form-group col-lg-12" style="margin-bottom: 15px;"><textarea class="form-control" name="remarks" required style="width:100%;"></textarea></div><div style="clear:both;"></div><?= $delBtn; ?></form></div></div></div></div>']);
                   </script>
                 <?php
                   $sno++;

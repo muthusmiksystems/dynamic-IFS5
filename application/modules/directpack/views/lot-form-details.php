@@ -8,6 +8,10 @@
     .datepicker {
       z-index: 10000;
     }
+    .button-group {
+    display: flex;
+    gap: 10px; /* Adjust the gap between buttons as desired */
+    }
 </style>
 <section id="main-content">
     <section class="wrapper">
@@ -17,13 +21,15 @@
             <div class="col-lg-12">
                 <section class="panel">
                     <header class="panel-heading">
-                       <h3 style="font-size:24px"> Add Qty in Old Lot: </h3>
+                       <h3 style="font-size:24px">New Material Inward Qty in Old Lot & Bill Passing MIR Form: </h3>
                     </header>
                     <table class="table table-bordered datatables">
     <thead>
         <tr>
             <th>#</th>
+            <th>MIR No.</th>
             <th>Lot No</th>
+            
             <th>Invoice No</th>
             <th>Invoice Date</th>
             <th>Create Date</th>
@@ -35,6 +41,7 @@
             <th>Lot Qty</th>
             <th>Rate</th>
             <th>Quality</th>
+            <th>MD. Comment</th>
             <th>Remarks</th>
             <th></th>
         </tr>
@@ -42,12 +49,15 @@
     <tbody>
         <?php
         $sno = 1;
+        $mir_no=sizeof($lot_list_details);
         ?>
         <?php if(sizeof($lot_list_details) > 0): ?>
             <?php foreach($lot_list_details as $row): ?>
                 <tr>
                     <td><?php echo $sno++; ?></td>
+                    <td style="color:#41cac0"><strong><?php echo $row->lot_id ?>  -  <?php echo $mir_no--; ?></strong></td>
                     <td><?php echo $row->lot_no; ?></td>  
+                   
                     <td><?php echo $row->lot_invoice_no; ?></td>
                     <td><?php echo date('d-m-Y', strtotime($row->inward_date)); ?></td>
                     <td><?php echo date("d-m-Y g:i A", strtotime($row->lot_created_date)); ?></td>
@@ -59,6 +69,7 @@
                     <td><?php echo $row->lot_qty; ?></td>
                     <td><?php echo $row->lot_rate; ?></td>
                     <td><?php echo $row->lot_quality; ?></td>
+                    <td style="color:#41cac0"><strong><?php echo $row->md_cmt; ?></strong></td>
                     <td><?php echo $row->lot_remark; ?></td>
                     <!-- <td>
                     <a class="btn btn-xs btn-primary" onclick="get_detail(<?= $row->lot_no; ?>)">Add Lot Qty</a>
@@ -66,7 +77,12 @@
             <td>
 				
                     <!-- <button class="btn btn-xs btn-success" onclick="showAjaxModal('<?php echo base_url('directpack/direct_lot_inwd_addqty?lot_no=' . $row->lot_no . '?lot_id=' . $row->lot_id); ?>')">Add Lot Qty</button> -->
-                    <button class="btn btn-xs btn-success" onclick="showAjaxModal('<?php echo base_url('directpack/direct_lot_inwd_addqty?lot_no=' . urlencode($row->lot_no) . '&lot_id=' . $row->lot_id); ?>')">Add Lot Qty</button>
+                  
+                    <div style="display: flex; gap: 5px;">
+                        <button class="btn btn-xs btn-primary"  onclick="showAjaxModalMd('<?php echo base_url('directpack/direct_lot_inwd_addqty?lot_no=' . urlencode($row->lot_no) . '&id=' . $row->id) . '&action='.'md_cmt'; ?>')">Md cmt</button>
+                        <button class="btn btn-xs btn-success"  onclick="showAjaxModal('<?php echo base_url('directpack/direct_lot_inwd_addqty?lot_no=' . urlencode($row->lot_no) . '&id=' . $row->id) . '&action='.'add_qty'; ?>')">Add Lot Qty</button>
+                    </div>
+                   
 
                    
                     <!-- <form action="<?= base_url(); ?>directpack/lot_list_details" method="post">
@@ -113,6 +129,28 @@
       </div>
     </div>
   </div>
+
+
+
+  <div class="modal fade" id="modal_ajax_md">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">MD Comment</h4>
+        </div>
+
+        <div class="modal-body" style="height:250px; overflow:auto;">
+
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
   <!-- modal -->
 
   <!-- js placed at the end of the document so the pages load faster -->
@@ -132,6 +170,36 @@
         url: url,
         success: function(response) {
           jQuery('#modal_ajax .modal-body').html(response);
+
+          /*$(function(){
+              $('.dateplugin').datepicker({
+                  format: 'dd-mm-yyyy',
+                  autoclose: true
+              });
+          });*/
+          $('.dateplugin').datepicker({
+            format: 'dd-mm-yyyy',
+            autoclose: true
+          });
+        }
+      });
+    }
+
+
+    function showAjaxModalMd(url) {
+      // SHOWING AJAX PRELOADER IMAGE
+      jQuery('#modal_ajax_md .modal-body').html('<div style="text-align:center;margin-top:200px;"><img src="<?php echo base_url('themes/admin/img/preloader.gif') ?>" /></div>');
+
+      // LOADING THE AJAX MODAL
+      jQuery('#modal_ajax_md').modal('show', {
+        backdrop: 'true'
+      });
+
+      // SHOW AJAX RESPONSE ON REQUEST SUCCESS
+      $.ajax({
+        url: url,
+        success: function(response) {
+          jQuery('#modal_ajax_md .modal-body').html(response);
 
           /*$(function(){
               $('.dateplugin').datepicker({

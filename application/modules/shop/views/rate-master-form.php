@@ -64,7 +64,7 @@
                                 </div>
 
                                 <div class="form-group col-md-2">
-                                    <label>Shade Code</label>
+                                    <label>Color Code</label>
                                     <select class="shades select2 form-control" id="shade_code">
                                         <option value="">Select</option>
                                         <?php if(sizeof($shades) > 0): ?>
@@ -75,12 +75,12 @@
                                     </select>
                                 </div>
                                 <div class="form-group col-md-3">
-                                    <label>Shade Name</label>
+                                    <label>Color Name</label>
                                     <select class="shades select2 form-control" name="shade_id" id="shade_id">
                                         <option value="">Select</option>
                                         <?php if(sizeof($shades) > 0): ?>
                                             <?php foreach($shades as $row): ?>
-                                                <option value="<?php echo $row->shade_id; ?>"><?php echo $row->shade_name; ?></option>
+                                                <option value="<?php echo $row->shade_id; ?>"><?php echo $row->shade_name; ?>  \  <?php echo $row->shade_id; ?></option>
                                             <?php endforeach; ?>
                                         <?php endif; ?>
                                     </select>

@@ -37,7 +37,7 @@
                 <div class="col-lg-12">
                     <section class="panel">
                         <header class="panel-heading">
-                            Shop Pre Delivery test
+                            Shop Pre Delivery
                             <label class="label label-danger" style="font-size:14px;">SPDC - <span id="pre_dc_no"><?php echo $pre_dc_no; ?></span></label>
                         </header>
                         <div class="panel-body">

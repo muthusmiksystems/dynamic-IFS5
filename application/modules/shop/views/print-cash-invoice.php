@@ -153,10 +153,10 @@
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                        <td colspan="3"><strong>Total</strong></td>
+                                        <td colspan="1"><strong>Total</strong></td>
                                         <td><strong><?php echo $tot_boxes; ?> Boxes</strong></td>
-                                        <td></td>
-                                        <td><strong>Total</strong></td>
+                                        <td colspan="4"></td>
+                                        <!-- <td><strong>Total</strong></td> -->
                                         <td><strong><?php echo $tot_no_cones; ?></strong></td>
                                         <!-- <td><strong><?php echo $tot_gr_weight; ?> <?php echo $uom_name; ?></strong></td> -->
                                         <td></td>
@@ -304,6 +304,11 @@
                                             <td align="right" colspan="4"></td>
                                         </tr>
                                     <?php endif; ?>
+                                    
+                                    <td colspan="10"  align="right">
+                                        <strong> Sub-Total before GST:</strong>
+                                    </td>
+                                    <td align="right" style="font-size:15px"><strong><?php echo $temp; ?></strong></td>
 
                                     <?php
                                     $rowspan = 0;

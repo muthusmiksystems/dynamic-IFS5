@@ -441,7 +441,8 @@ class Store extends CI_Controller
 			'other_weight' => $this->input->post('other_weight'),
 			'lot_wastage' => $this->input->post('lot_wastage')==''?0:$this->input->post('lot_wastage'),
 			'stock_room_id' => $this->input->post('stock_room_id'),
-			'yarn_lot_id' => $this->input->post('yarn_lot_id')
+			'yarn_lot_id' => $this->input->post('yarn_lot_id'),
+			'sub_branch_description' => $this->input->post('sub_branch_description')
 		);
 
 		if ($this->input->post('cone_weight_2')) {
@@ -643,7 +644,8 @@ class Store extends CI_Controller
 			'other_weight' => $this->input->post('other_weight'),
 			'stock_room_id' => $this->input->post('stock_room_id'),
 			'poy_lot_id' => $this->input->post('poy_lot_id')==''?0:$this->input->post('poy_lot_id'),
-			'yarn_lot_id' => $this->input->post('yarn_lot_id')
+			'yarn_lot_id' => $this->input->post('yarn_lot_id'),
+			'sub_branch_description' => $this->input->post('sub_branch_description')
 		);
 		
 		if ($this->input->post('cone_weight_2')) {
@@ -846,7 +848,8 @@ class Store extends CI_Controller
 			'no_of_cones' => $this->input->post('no_of_cones'),
 			'spring_weight' => $this->input->post('spring_weight'),
 			'other_weight' => $this->input->post('other_weight'),
-			'stock_room_id' => $this->input->post('stock_room_id')
+			'stock_room_id' => $this->input->post('stock_room_id'),
+			'sub_branch_description' => $this->input->post('sub_branch_description')
 		);
 		if ($this->input->post('cone_weight_2')) {
 			$data['cone_weight_2'] = $this->input->post('cone_weight_2');
@@ -1288,7 +1291,8 @@ class Store extends CI_Controller
 				'packed_date' => date('Y-m-d H:i:s'),
 				'no_of_cones' => $no_of_cones,
 				'stock_room_id' => $this->input->post('stock_room_id'),
-				'inner_boxes' => json_encode($inner_boxes)
+				'inner_boxes' => json_encode($inner_boxes),
+				'sub_branch_description' => $this->input->post('sub_branch_description'),
 			);
 
 			if ($box_id == '') {
@@ -1485,6 +1489,7 @@ class Store extends CI_Controller
 		$t_wt = $this->input->post('t_wt');
 		$pack_by = $this->input->post('pack_by');
 		$stock_room_id = $this->input->post('stock_room_id');
+		$sub_branch_description = $this->input->post('sub_branch_description');
 		$formData = array(
 			'box_prefix' => 'TH',
 			'item_id' => $item_id,
@@ -1505,7 +1510,8 @@ class Store extends CI_Controller
 			'no_of_cones' => $no_of_cones,
 			'meter_per_cone' => $meter_per_cone,
 			'stock_room_id' => $stock_room_id,
-			'packed_date' => date("Y-m-d H:i:s")
+			'packed_date' => date("Y-m-d H:i:s"),
+			'sub_branch_description'=>$sub_branch_description
 		);
 		if ($action == 'duplicate') {
 			$box_no = $this->ak->getNextBoxNo('TH');

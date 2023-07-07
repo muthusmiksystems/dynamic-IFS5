@@ -416,9 +416,14 @@ class Purchase_order extends CI_Controller
 	function po_dyeing_production_form($id, $R_po_no)
 	{
 		$data['machines'] = $this->m_masters->getallmaster('bud_machines');
-		$next = $this->db->query("SHOW TABLE STATUS LIKE 'bud_lots'");
-		$next = $next->row(0);
-		$data['next'] = $next->Auto_increment;
+		// $next = $this->db->query("SHOW TABLE STATUS LIKE 'bud_lots'");
+		// $next = $next->row(0);
+		// $data['next'] = $next->Auto_increment;
+
+
+		$next = $this->db->query("SELECT MAX(lot_id) AS max_id FROM `bud_lots`");
+		$row = $next->row(); // Retrieve the result as an object
+		$data['next'] = $row->max_id+1;
 
 		$data['id'] = $id;
 		$data['R_po_no'] = $R_po_no;
@@ -471,7 +476,8 @@ class Purchase_order extends CI_Controller
 		$lot_actual_qty = $lot_qty + $percentege;
 
 		$save = array(
-			'lot_id' => '0',
+			// 'lot_id' => '0',
+			'lot_id' => $nextlot,
 			'po_no' => $po_no,
 			'lot_prefix' => $lot_prefix,
 			'lot_no' => $lot_no,
@@ -484,7 +490,7 @@ class Purchase_order extends CI_Controller
 			'lot_status' => 1,
 			'lot_created_date' => date("Y-m-d H:i:s")
 		);
-		$result = $this->m_masters->save_lot($save);
+		$result = $this->m_masters->save_lot_for_add_qty($save);
 		if ($result) {
 			echo "success";
 		}
